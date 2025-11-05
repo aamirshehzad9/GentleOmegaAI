@@ -1,7 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { SUCCESS_STORIES } from '../../constants';
-import { WHATSAPP_LINK } from '../../constants';
+import { Page } from '../../types';
+
+interface AIPicksProps {
+  navigate: (page: Page) => void;
+}
 
 const StarRating: React.FC<{ rating: number, reviewCount: number }> = ({ rating, reviewCount }) => {
     return (
@@ -36,7 +40,7 @@ const cardVariants = {
     })
 };
 
-const AIPicks: React.FC = () => {
+const AIPicks: React.FC<AIPicksProps> = ({ navigate }) => {
   return (
     <section className="bg-white text-gray-800 py-20 sm:py-28">
       <div className="container mx-auto px-4">
@@ -82,9 +86,9 @@ const AIPicks: React.FC = () => {
                     <StarRating rating={story.rating} reviewCount={story.reviews} />
                     <span className="text-2xl font-bold text-gray-900">{story.price}</span>
                 </div>
-                <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="w-full text-center mt-auto px-5 py-3 text-base font-semibold text-white rounded-lg cta-gradient cta-gradient-hover transition-all duration-300 shadow-md hover:shadow-lg hover:shadow-cyan-500/40">
+                <button onClick={() => navigate('checkout')} className="w-full text-center mt-auto px-5 py-3 text-base font-semibold text-white rounded-lg cta-gradient cta-gradient-hover transition-all duration-300 shadow-md hover:shadow-lg hover:shadow-cyan-500/40">
                   Book Your Slot Now
-                </a>
+                </button>
               </div>
             </motion.div>
           ))}

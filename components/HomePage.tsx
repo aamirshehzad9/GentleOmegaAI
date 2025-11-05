@@ -22,7 +22,7 @@ const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
       <WhyChooseUs />
       <MenuPreview navigate={navigate} />
       <Deals />
-      <AIPicks />
+      <AIPicks navigate={navigate} />
       <Gallery />
       <Testimonials />
       <Events />

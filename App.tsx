@@ -5,6 +5,9 @@ import Footer from './components/Footer';
 import HomePage from './components/HomePage';
 import MenuPage from './components/MenuPage';
 import DashboardPlaceholder from './components/DashboardPlaceholder';
+import PaymentCheckout from './components/PaymentCheckout';
+import LoginPage from './components/LoginPage';
+import SignupPage from './components/SignupPage';
 import { Page } from './types';
 
 const App: React.FC = () => {
@@ -23,6 +26,12 @@ const App: React.FC = () => {
         return <MenuPage />;
       case 'dashboard':
         return <DashboardPlaceholder />;
+      case 'checkout':
+        return <PaymentCheckout navigate={navigate} />;
+      case 'login':
+        return <LoginPage navigate={navigate} />;
+      case 'signup':
+        return <SignupPage navigate={navigate} />;
       default:
         return <HomePage navigate={navigate} />;
     }

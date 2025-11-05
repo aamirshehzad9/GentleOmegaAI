@@ -79,7 +79,7 @@ const MenuPreview: React.FC<MenuPreviewProps> = ({ navigate }) => {
                     <StarRating rating={service.rating} />
                 </div>
                 <button
-                  onClick={() => window.open(WHATSAPP_LINK, '_blank')}
+                  onClick={() => navigate('checkout')}
                   className="w-full mt-auto px-5 py-3 text-sm font-semibold text-white rounded-lg cta-gradient cta-gradient-hover transition-all duration-300 shadow-md hover:shadow-lg hover:shadow-cyan-500/40"
                 >
                   Book Your Slot Now

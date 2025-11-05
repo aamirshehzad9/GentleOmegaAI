@@ -68,9 +68,7 @@ const Header: React.FC<HeaderProps> = ({ navigate, currentPage }) => {
         <div className="flex items-center justify-between h-20">
           
           <div className="flex items-center space-x-3 cursor-pointer" onClick={() => navigate('home')}>
-             <div className="text-white relative w-10 h-10 flex items-center justify-center bg-gray-200 rounded-md" style={{filter: 'drop-shadow(0 0 5px #C0C0C0)'}}>
-                <ICONS.logo className="h-7 w-7 text-black" />
-             </div>
+             <img src="/logo.png" alt="Gentle Omega AI Logo" className="h-10 w-10 object-contain" />
             <span className="text-xl font-semibold text-white tracking-wider">Gentle <span className="text-accent-cyan">Ω</span>mega AI</span>
           </div>
 
@@ -84,10 +82,16 @@ const Header: React.FC<HeaderProps> = ({ navigate, currentPage }) => {
             <button className="hidden sm:block text-white hover:text-accent-yellow transition-colors">
               <ICONS.search className="w-5 h-5" />
             </button>
-            <button className="hidden sm:block px-6 py-2.5 text-sm font-semibold text-white rounded-md cta-gradient cta-gradient-hover transition-all duration-300 shadow-md hover:shadow-lg hover:shadow-cyan-500/30">
+            <button 
+              onClick={() => navigate('login')}
+              className="hidden sm:block px-6 py-2.5 text-sm font-semibold text-white rounded-md cta-gradient cta-gradient-hover transition-all duration-300 shadow-md hover:shadow-lg hover:shadow-cyan-500/30"
+            >
               Log In
             </button>
-            <button className="hidden sm:block px-6 py-2.5 text-sm font-semibold text-black rounded-md cta-gradient-yellow hover:opacity-90 transition-opacity duration-300 shadow-md hover:shadow-lg hover:shadow-yellow-500/30">
+            <button 
+              onClick={() => navigate('signup')}
+              className="hidden sm:block px-6 py-2.5 text-sm font-semibold text-black rounded-md cta-gradient-yellow hover:opacity-90 transition-opacity duration-300 shadow-md hover:shadow-lg hover:shadow-yellow-500/30"
+            >
               Sign Up
             </button>
              <button onClick={() => setIsDarkMode(!isDarkMode)} className="text-white hover:text-accent-yellow transition-colors">
