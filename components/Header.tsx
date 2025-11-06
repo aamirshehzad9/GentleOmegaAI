@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Page, NavItem } from '../types';
 import { NAV_LINKS, ICONS, WHATSAPP_LINK } from '../constants';
+import { useAuth } from '../contexts/AuthContext';
+import { logout } from '../firebase/auth';
 
 interface HeaderProps {
   navigate: (page: Page) => void;
@@ -61,6 +63,18 @@ const NavLink: React.FC<{ item: NavItem, navigate: (page: Page) => void }> = ({ 
 const Header: React.FC<HeaderProps> = ({ navigate, currentPage }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(true);
+  const [showUserMenu, setShowUserMenu] = useState(false);
+  const { currentUser, isAuthenticated } = useAuth();
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      setShowUserMenu(false);
+      navigate('home');
+    } catch (err) {
+      console.error('Logout failed:', err);
+    }
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full bg-[#0D0D0D]/90 backdrop-blur-md border-b border-gray-800/50 shadow-lg shadow-black/20">
@@ -82,18 +96,94 @@ const Header: React.FC<HeaderProps> = ({ navigate, currentPage }) => {
             <button className="hidden sm:block text-white hover:text-accent-yellow transition-colors">
               <ICONS.search className="w-5 h-5" />
             </button>
-            <button 
-              onClick={() => navigate('login')}
-              className="hidden sm:block px-6 py-2.5 text-sm font-semibold text-white rounded-md cta-gradient cta-gradient-hover transition-all duration-300 shadow-md hover:shadow-lg hover:shadow-cyan-500/30"
-            >
-              Log In
-            </button>
-            <button 
-              onClick={() => navigate('signup')}
-              className="hidden sm:block px-6 py-2.5 text-sm font-semibold text-black rounded-md cta-gradient-yellow hover:opacity-90 transition-opacity duration-300 shadow-md hover:shadow-lg hover:shadow-yellow-500/30"
-            >
-              Sign Up
-            </button>
+
+            {/* User Menu or Login/Signup Buttons */}
+            {isAuthenticated && currentUser ? (
+              <div className="relative">
+                <button
+                  onClick={() => setShowUserMenu(!showUserMenu)}
+                  className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-800/50 transition-colors"
+                >
+                  {currentUser.photoURL ? (
+                    <img
+                      src={currentUser.photoURL}
+                      alt="Profile"
+                      className="w-8 h-8 rounded-full border-2 border-cyan-500/30"
+                    />
+                  ) : (
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-white text-sm font-bold">
+                      {(currentUser.displayName || currentUser.email || 'U')[0].toUpperCase()}
+                    </div>
+                  )}
+                  <span className="hidden sm:inline text-white font-medium">
+                    {currentUser.displayName || 'User'}
+                  </span>
+                  <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+
+                {/* Dropdown Menu */}
+                {showUserMenu && (
+                  <div className="absolute right-0 mt-2 w-56 bg-gray-900 rounded-lg shadow-2xl border border-gray-800 py-2 z-50">
+                    <div className="px-4 py-3 border-b border-gray-800">
+                      <p className="text-sm text-gray-400">Signed in as</p>
+                      <p className="text-sm font-medium text-white truncate">{currentUser.email}</p>
+                    </div>
+                    <button
+                      onClick={() => {
+                        navigate('profile');
+                        setShowUserMenu(false);
+                      }}
+                      className="w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-gray-800 hover:text-white transition-colors flex items-center gap-2"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                      </svg>
+                      My Profile
+                    </button>
+                    <button
+                      onClick={() => {
+                        navigate('dashboard');
+                        setShowUserMenu(false);
+                      }}
+                      className="w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-gray-800 hover:text-white transition-colors flex items-center gap-2"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                      </svg>
+                      Dashboard
+                    </button>
+                    <div className="border-t border-gray-800 my-1"></div>
+                    <button
+                      onClick={handleLogout}
+                      className="w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-gray-800 hover:text-red-300 transition-colors flex items-center gap-2"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                      </svg>
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <>
+                <button 
+                  onClick={() => navigate('login')}
+                  className="hidden sm:block px-6 py-2.5 text-sm font-semibold text-white rounded-md cta-gradient cta-gradient-hover transition-all duration-300 shadow-md hover:shadow-lg hover:shadow-cyan-500/30"
+                >
+                  Log In
+                </button>
+                <button 
+                  onClick={() => navigate('signup')}
+                  className="hidden sm:block px-6 py-2.5 text-sm font-semibold text-black rounded-md cta-gradient-yellow hover:opacity-90 transition-opacity duration-300 shadow-md hover:shadow-lg hover:shadow-yellow-500/30"
+                >
+                  Sign Up
+                </button>
+              </>
+            )}
+
              <button onClick={() => setIsDarkMode(!isDarkMode)} className="text-white hover:text-accent-yellow transition-colors">
                 {isDarkMode ? <ICONS.moon className="w-6 h-6" /> : <ICONS.sun className="w-6 h-6" />}
              </button>

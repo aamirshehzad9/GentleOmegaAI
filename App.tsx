@@ -8,6 +8,7 @@ import DashboardPlaceholder from './components/DashboardPlaceholder';
 import PaymentCheckout from './components/PaymentCheckout';
 import LoginPage from './components/LoginPage';
 import SignupPage from './components/SignupPage';
+import ProfilePage from './components/ProfilePage';
 import { Page } from './types';
 
 const App: React.FC = () => {
@@ -32,6 +33,8 @@ const App: React.FC = () => {
         return <LoginPage navigate={navigate} />;
       case 'signup':
         return <SignupPage navigate={navigate} />;
+      case 'profile':
+        return <ProfilePage navigate={navigate} />;
       default:
         return <HomePage navigate={navigate} />;
     }

@@ -23,14 +23,25 @@ dist-ssr
 *.sln
 *.sw?
 
-# Environment variables
+# Environment variables (SENSITIVE - DO NOT COMMIT)
 .env
 .env.local
 .env.production
+.env.*.local
 
-# Firebase
-.firebase
+# Firebase (SENSITIVE - DO NOT COMMIT)
+.firebase/
 .firebaserc
+firebase-debug.log
+firebase-debug.*.log
+
+# Temporary files
+*.tmp
+*.temp
+*_GUIDE.md
+*_SETUP.md
+*.ps1
 
 # OS files
 Thumbs.db
+.DS_Store
