@@ -1,0 +1,114 @@
+🏗️ GentleΩ — Business Foundation (Base of Pyramid)
+Living Document — single source of truth for why we exist and how funds circulate with transparency. Designed to be updated as campaigns, policies, or laws evolve.
+________________________________________
+1) Purpose
+●	Reason for existence: Empower a visionary public–private cooperative to ignite and scale AI‑driven initiatives with absolute transparency, financial integrity, and accountable governance—serving the public good by transforming inspired ideas into sustainable opportunities. The intent is to ensure that prosperity flows with dignity and honesty, uniting tangible quality of life with thoughtful, ethical, and intelligent growth toward collective wealth and well‑being.
+
+●	Transparency principle: Every tender, share, payout, and refund must trace its lineage to a transparent framework of verifiable rules, immutable records, and openly visible dashboards. This principle embodies our ethos of dignified honesty and modern accountability — where clarity is not optional but celebrated. Every movement of capital or commitment echoes a culture of trust, precision, and professional pride, designed to inspire confidence among partners, investors, and the public alike.
+
+●	Scope of this doc: This document is a dynamic, evolving legal and operational framework designed to grow alongside the organization and remain its definitive point of reference. It articulates the company’s foundational logic, strategic intellect, and governance philosophy—serving as the master blueprint from which every policy, process, and decision draws legitimacy. As the enterprise evolves, this living instrument shall continuously integrate new insights, refined methodologies, and contextual governance improvements to ensure organizational resilience and coherence. Each revision shall represent a new stage of corporate wisdom and maturity, mirroring the company’s pursuit of dignified innovation, transparent conduct, and moral strength. Furthermore, this document functions as a gateway for developing and annexing SOPs, strategic models, and core operational frameworks, including 15‑day rolling campaigns (Tier A/B/C), formation of verified public committees, and the administration of financial operations through escrow‑based management, KYC/AML compliance, and structured auditing. It remains the supreme guiding charter of GentleΩ—legally conscious, ethically grounded, and perpetually adaptive.
+
+●	
+________________________________________
+2) Core Pillars (Everything must map to these)
+Pillar	Definition	Success Signals	Non‑Goals (Out of Scope)
+Business Concept	Public–private cooperative using tender‑based onboarding and security deposits to build initial liquidity for operations and growth.	Sustainable rolling liquidity; fair onboarding; audited transparency.	Speculative token pump, hidden fees, or non‑transparent allocations.
+Strategic Mission	Decentralize AI‑driven work, generate earnings ethically, and distribute roles transparently through graded participation and merit.	Jobs created, payouts executed on time, clear role progression, zero opaque decisions.	Exploitative labor, undisclosed conflicts of interest.
+Core Strategy	Operate 15‑day rolling campaigns (Tier A/B/C), verify participants (KYC/AML), manage escrowed deposits & refunds, and publish public dashboards.	On‑time campaign cadence, >95% KYC pass on valid docs, refunds within SLA, dashboards up‑to‑date.	Ad‑hoc fundraising without KYC, off‑ledger cash handling.
+Rule: No tender, share issuance, payment, or refund proceeds unless it can be traced to one of the pillars above.
+________________________________________
+3) Operating Model Snapshot (High‑Level)
+Cadence:
+●	Tier A Campaigns: 15 days × phases (e.g., $500 → $300 → $150). Announcement of selected members within 7 days; refunds for non‑onboarded within 21 days.
+
+●	Tier B/C Campaigns: Mirrored cadence with tier‑specific rules (TBD in separate docs).
+
+Funds Flow (baseline buckets):
+●	Escrow Pool (30%) — refundable deposits until onboarding outcome.
+
+●	Ops Pool (40%) — salaries, task payouts, marketing, infra.
+
+●	R&D/Reserve (30%) — automation, audits, runway.
+
+Controls: No movement from Escrow → Ops/Reserve without policy‑compliant triggers (selection, forfeiture, or member exit rules).
+________________________________________
+4) Governance Linkage
+●	Top Level: Board / Steering Committee — strategic oversight; approves campaign calendars and financial guardrails.
+
+●	Executive Level: CEO/CTO/Finance Head — cross‑domain orchestration, budget execution within policy limits.
+
+●	Division Heads: SaaS Tools, AI Trading Bot, Digital Society Platform (expandable).
+
+●	Functional Leaders: Engineering, Data Science, Ops, Compliance.
+
+●	Teams & ICs: Project leads and contributors.
+
+Escalation Path: IC → Team Lead → Functional Lead → Division Head → Executive → Board.
+________________________________________
+5) Financial Guardrails (Draft)
+●	KYC/AML is mandatory for any payment in/out; exceptions not allowed.
+
+●	Refund SLA: Non‑onboarded deposits refunded within 21 days of announcement; automated vouchers.
+
+●	Thresholds: User withdrawals require reaching minimum earnings (TBD per tier) to limit micro‑transaction cost.
+
+●	No guarantees: Deposits are security/escrow, not profit promises; investor tiers use separate, compliant agreements.
+
+●	Public reporting: Weekly dashboard: funds raised, KYC pass rate, payouts, refunds, and active tasks.
+
+________________________________________
+6) Risk & Compliance (Initial)
+●	Regulatory risk: Public tenders may trigger securities rules; use distinct flows for deposits vs investments.
+
+●	Operational risk: KYC failures, fraud, task quality variance — mitigated by staged access and validator reviews.
+
+●	Reputation risk: Missed refunds/payouts; mitigated by escrow segregation and SLA tracking.
+
+●	Data protection: Store PII off‑chain; publish only hashed references or aggregate stats.
+
+________________________________________
+7) KPIs & SLAs (Track on Dashboard)
+●	Liquidity: Escrow coverage ratio ≥ 1.0 at all times.
+
+●	Timeliness: Refund SLA ≤ 21 days, Payout SLA ≤ 15 days.
+
+●	Verification: KYC pass rate ≥ 95% of valid submissions.
+
+●	Transparency: Weekly dashboard update (100% of weeks in campaign).
+
+●	Growth: Applicants per campaign, conversion to onboarded roles, task completion rate.
+
+________________________________________
+8) Change Log & Versioning
+●	v0.1 — Initial foundation authored; placeholders marked [TBD].
+
+●	Proposed next updates:
+
+○	Define Tier A/B/C detailed financials [TBD‑FIN‑01]
+
+○	Write Refund/Forfeiture decision tree [TBD‑FIN‑02]
+
+○	Publish KYC/AML checklist & providers [TBD‑CMP‑01]
+
+○	Link Governance Charter (roles, voting, conflicts) [TBD‑GOV‑01]
+
+Editing Policy: Owner‑controlled updates; all edits must include a short rationale in the Change Log.
+________________________________________
+9) References & Linked Docs (to attach as created)
+●	Governance Charter [link‑TBD]
+
+●	Tender Playbook (Tier A/B/C) [link‑TBD]
+
+●	Finance Policy (Escrow/Ops/Reserve) [link‑TBD]
+
+●	KYC/AML Policy & Vendor SOP [link‑TBD]
+
+●	Public Dashboard (read‑only) [link‑TBD]
+
+________________________________________
+Notes
+●	Replace [TBD] blocks as policies are finalized.
+
+●	This foundation governs all downstream SOPs and contracts.
+
+

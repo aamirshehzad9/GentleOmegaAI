@@ -1,0 +1,510 @@
+{
+  "version": "0.1.0",
+  "lastUpdated": "2025-11-06",
+  "sourceDocuments": [
+    "Agreement (Tender).txt",
+    "GentleΩ — Business Foundation (Base of Pyramid).txt",
+    "GentleΩ Details.xlsx"
+  ],
+  "legal": {
+    "governingLaw": {
+      "jurisdiction": "Wyoming/New Mexico, USA",
+      "disputeResolution": "American Arbitration Association - Remote (online)",
+      "regulatoryFramework": "US Securities Act of 1933 - NOT a security"
+    },
+    "feeNature": {
+      "type": "Refundable Performance/Commitment Fee",
+      "notClassifiedAs": [
+        "security investment",
+        "shareholding",
+        "financial instrument",
+        "capital investment",
+        "loan",
+        "equity"
+      ],
+      "purpose": "Indication of intent, seriousness, and commitment towards participation"
+    },
+    "transparency": {
+      "principle": "Every tender, share, payout, and refund must trace to transparent framework",
+      "blockchainOptional": true,
+      "auditTrail": "Mandatory for all financial transactions"
+    }
+  },
+  "campaigns": {
+    "cadence": "15-day rolling cycles",
+    "tiers": {
+      "A": {
+        "commitmentFee": 500,
+        "currency": "USD",
+        "selectionAnnouncementSLA": 7,
+        "selectionAnnouncementUnit": "days",
+        "description": "Committee Members - Governance Board level"
+      },
+      "B": {
+        "commitmentFee": 300,
+        "currency": "USD",
+        "selectionAnnouncementSLA": 7,
+        "selectionAnnouncementUnit": "days",
+        "description": "Directors & Deputies - Operational Layer"
+      },
+      "C": {
+        "commitmentFee": 150,
+        "currency": "USD",
+        "selectionAnnouncementSLA": 7,
+        "selectionAnnouncementUnit": "days",
+        "description": "Deputy/Team Leads - Functional Leaders"
+      }
+    },
+    "phases": [
+      "Campaign Listing & Application",
+      "Deposit Collection (post soft-KYC)",
+      "Selection & Announcement",
+      "Task Assignment",
+      "Verification & Payout/Refund"
+    ]
+  },
+  "refundPolicy": {
+    "conditions": {
+      "fullRefund": {
+        "trigger": "Satisfactory completion of assigned tasks/deliverables as verified by Company",
+        "sla": 21,
+        "slaUnit": "business days",
+        "includesDeposit": true
+      },
+      "partialRefund": {
+        "trigger": "Significant portion completed but not all requirements met",
+        "calculation": "Proportional to completion percentage and contribution value",
+        "sla": 21,
+        "slaUnit": "business days"
+      },
+      "nonRefundable": {
+        "triggers": [
+          "Failed to complete assigned tasks within specified time frame",
+          "Non-cooperation, negligence, or unprofessional conduct",
+          "Violation of terms of engagement or confidentiality",
+          "NDA violation - immediate forfeiture with legal remedies"
+        ],
+        "forfeiturePercentage": "Up to 100%"
+      },
+      "voluntaryWithdrawal": {
+        "trigger": "Participant withdraws before project assignment",
+        "refundableAmount": "Full fee minus administrative charges",
+        "sla": 21,
+        "slaUnit": "business days"
+      },
+      "companyTermination": {
+        "trigger": "Company discontinues project or changes operational scope before assignment",
+        "refundableAmount": "100% full refund",
+        "sla": 30,
+        "slaUnit": "business days"
+      }
+    },
+    "slaEnforcement": {
+      "maxRefundDays": 21,
+      "maxTerminationRefundDays": 30,
+      "automatedNotifications": true,
+      "escalationIfMissed": "Automatic audit log + transparency dashboard alert"
+    }
+  },
+  "fundAllocation": {
+    "escrowPool": {
+      "percentage": 30,
+      "purpose": "Refundable deposits until onboarding outcome",
+      "restrictions": "No movement to Ops/Reserve without policy-compliant triggers"
+    },
+    "opsPool": {
+      "percentage": 40,
+      "purpose": "Salaries, task payouts, marketing, infrastructure",
+      "allowedExpenses": [
+        "Core team salaries/draw",
+        "Task-based contributor payouts",
+        "Marketing campaigns",
+        "Hosting, SaaS tools, compliance software",
+        "KYC/AML integration costs"
+      ]
+    },
+    "rdReserve": {
+      "percentage": 30,
+      "purpose": "Automation, audits, runway, R&D",
+      "allowedExpenses": [
+        "AI/tech development",
+        "Blockchain integration",
+        "Security audits",
+        "Legal consultations",
+        "Emergency reserves"
+      ]
+    },
+    "segregationRequired": true,
+    "dailyReconciliation": true
+  },
+  "kycAml": {
+    "mandatory": true,
+    "gating": {
+      "softKYC": {
+        "required": "Before deposit acceptance",
+        "documents": [
+          "Passport/ID",
+          "Liveness Check",
+          "Sanctions Screening"
+        ]
+      },
+      "fullKYC": {
+        "required": "Before task assignment",
+        "additionalDocuments": [
+          "Proof of Address",
+          "Tax documentation (if applicable)"
+        ]
+      }
+    },
+    "targets": {
+      "passRate": 95,
+      "passRateUnit": "percentage of valid submissions"
+    },
+    "dataProtection": {
+      "piiStorage": "Off-chain secure storage",
+      "publicExposure": "Only hashed references or aggregate stats",
+      "retention": "As per local data protection laws"
+    },
+    "providers": {
+      "suggested": [
+        "Sumsub",
+        "Onfido",
+        "Stripe Identity"
+      ],
+      "apiIntegration": "Required"
+    }
+  },
+  "governance": {
+    "hierarchy": [
+      {
+        "level": 1,
+        "role": "Board / Steering Committee",
+        "responsibilities": [
+          "Strategic oversight",
+          "Campaign calendar approval",
+          "Financial guardrails"
+        ],
+        "shares": 18,
+        "sharePercentage": 18
+      },
+      {
+        "level": 2,
+        "role": "Committee Members (Governance Board)",
+        "count": 6,
+        "sharesPerMember": 4,
+        "totalShares": 24,
+        "sharePercentage": 24,
+        "deposit": 500,
+        "tier": "A"
+      },
+      {
+        "level": 3,
+        "role": "Directors & Deputies (Operational Layer)",
+        "count": 10,
+        "sharesPerMember": 1.8,
+        "totalShares": 18,
+        "sharePercentage": 18,
+        "deposit": 300,
+        "tier": "B"
+      },
+      {
+        "level": 4,
+        "role": "Investors (Tier B - Capital Contributors)",
+        "variable": true,
+        "maxSeats": 20,
+        "sharesPerMember": "Based on investment - 1 share per minimum investment unit",
+        "totalSharesMax": 20,
+        "sharePercentageMax": 20,
+        "minimumInvestment": 1000,
+        "refundTrigger": "Profit share quarterly"
+      },
+      {
+        "level": 5,
+        "role": "Public Participants (Tier C - Task/Contribution Based)",
+        "variable": true,
+        "sharesAllocation": "Micro-shares (0.05-0.5 shares based on performance)",
+        "totalSharesMax": 20,
+        "sharePercentageMax": 20,
+        "deposit": 0,
+        "earningModel": "Task credits → micro-shares"
+      }
+    ],
+    "escalationPath": "IC → Team Lead → Functional Lead → Division Head → Executive → Board",
+    "votingRights": "Share-based with Board veto on critical decisions"
+  },
+  "dashboards": {
+    "public": {
+      "required": true,
+      "updateFrequency": "Weekly",
+      "metrics": [
+        "Active campaigns and statuses",
+        "Total funds: Escrow Pool, Ops Pool, R&D Reserve",
+        "Refunds issued (count & amounts)",
+        "Refund SLA adherence rate",
+        "Payout SLA adherence rate",
+        "KYC pass rate",
+        "Escrow Coverage Ratio (≥1.0 required)",
+        "Applicants per campaign",
+        "Conversion to onboarded roles",
+        "Task completion rate"
+      ],
+      "transparency": "100% of campaign weeks must have dashboard update"
+    },
+    "user": {
+      "required": true,
+      "sections": [
+        {
+          "name": "My Deposits",
+          "fields": [
+            "Date",
+            "Campaign",
+            "Amount",
+            "Status (Held/Refunded/Forfeited)",
+            "Downloadable Receipt"
+          ]
+        },
+        {
+          "name": "Tender Status",
+          "fields": [
+            "Applied",
+            "Shortlisted",
+            "Selected",
+            "Rejected",
+            "Refund Initiated"
+          ]
+        },
+        {
+          "name": "Tasks & Deliverables",
+          "fields": [
+            "Task Title",
+            "Completion %",
+            "Evidence Files",
+            "Validator Identity",
+            "Verification Timestamp",
+            "Verification Hash"
+          ]
+        },
+        {
+          "name": "Earnings & Withdrawals",
+          "fields": [
+            "Available Balance",
+            "Pending Payouts",
+            "Withdrawal History",
+            "Minimum Withdrawal Threshold"
+          ]
+        },
+        {
+          "name": "Refund Requests",
+          "fields": [
+            "Request Date",
+            "Expected Completion Date (SLA)",
+            "Status",
+            "Refund History"
+          ]
+        }
+      ]
+    }
+  },
+  "kpis": {
+    "liquidity": {
+      "metric": "Escrow Coverage Ratio",
+      "target": "≥ 1.0",
+      "calculation": "Escrow Pool Balance / Total Refundable Obligations"
+    },
+    "timeliness": {
+      "refundSLA": {
+        "target": "≤ 21 business days",
+        "measurement": "% of refunds completed within SLA"
+      },
+      "payoutSLA": {
+        "target": "≤ 15 business days",
+        "measurement": "% of payouts completed within SLA"
+      }
+    },
+    "verification": {
+      "kycPassRate": {
+        "target": "≥ 95%",
+        "measurement": "% of valid KYC submissions approved"
+      }
+    },
+    "transparency": {
+      "dashboardUpdates": {
+        "target": "100%",
+        "measurement": "% of campaign weeks with public dashboard update"
+      }
+    },
+    "growth": {
+      "applicantsPerCampaign": "Track trend",
+      "conversionRate": "% of applicants → onboarded",
+      "taskCompletionRate": "% of assigned tasks completed satisfactorily"
+    }
+  },
+  "payments": {
+    "depositCollection": {
+      "gating": "Soft KYC required before deposit acceptance",
+      "methods": [
+        "Stripe Connect",
+        "Payoneer",
+        "Local payment gateway (PKR rails if needed)"
+      ],
+      "ledgering": "Immediate upon collection",
+      "escrowFlagging": "Automatic 30% allocation to Escrow Pool"
+    },
+    "refundAutomation": {
+      "queue": "Automated refund queue based on selection results",
+      "slaMonitoring": true,
+      "notifications": "Automated email/SMS before SLA deadline",
+      "reconciliationDashboard": "Finance team daily/weekly view"
+    },
+    "payoutProcessing": {
+      "trigger": "Task verification completion",
+      "source": "Ops Pool (40%)",
+      "minimumThreshold": "TBD per tier (to reduce micro-transaction costs)",
+      "methods": [
+        "Bank transfer",
+        "Stripe payout",
+        "Crypto (optional for international)"
+      ]
+    }
+  },
+  "blockchain": {
+    "optional": true,
+    "purpose": "Audit trail transparency and milestone notarization",
+    "implementation": {
+      "anchoring": "Hash-based event anchoring on-chain",
+      "custodyWarning": "Do NOT use on-chain for holding user deposits unless crypto custody/regulatory compliance met",
+      "smartContracts": "Milestone notarization and audit-anchoring only"
+    }
+  },
+  "corePillars": {
+    "businessConcept": {
+      "definition": "Public–private cooperative using tender-based onboarding and security deposits",
+      "successSignals": [
+        "Sustainable rolling liquidity",
+        "Fair onboarding",
+        "Audited transparency"
+      ],
+      "nonGoals": [
+        "Speculative token pump",
+        "Hidden fees",
+        "Non-transparent allocations"
+      ]
+    },
+    "strategicMission": {
+      "definition": "Decentralize AI-driven work, generate earnings ethically, distribute roles transparently",
+      "successSignals": [
+        "Jobs created",
+        "Payouts executed on time",
+        "Clear role progression",
+        "Zero opaque decisions"
+      ],
+      "nonGoals": [
+        "Exploitative labor",
+        "Undisclosed conflicts of interest"
+      ]
+    },
+    "coreStrategy": {
+      "definition": "15-day rolling campaigns, KYC/AML verification, escrowed deposits & refunds, public dashboards",
+      "successSignals": [
+        "On-time campaign cadence",
+        ">95% KYC pass on valid docs",
+        "Refunds within SLA",
+        "Dashboards up-to-date"
+      ],
+      "nonGoals": [
+        "Ad-hoc fundraising without KYC",
+        "Off-ledger cash handling"
+      ]
+    },
+    "mandatoryRule": "No tender, share issuance, payment, or refund proceeds unless traceable to one of the pillars above"
+  },
+  "initialProjects": [
+    {
+      "focusArea": "Revenue Engine & SCM",
+      "projectExample": "Affiliate/Partnership Lead Generation Funnel",
+      "coreFocus": "Business Development & SCM Analyst - automated funnels for high-margin niche products"
+    },
+    {
+      "focusArea": "AI/Tech Foundation",
+      "projectExample": "AI VM/OS Research Phase 1: Requirement Gathering",
+      "coreFocus": "AI/Tech Researcher - Minimum Viable Product (MVP) requirements and open-source tools"
+    },
+    {
+      "focusArea": "Compliance & Legal",
+      "projectExample": "Blockchain SCM/HR/Legal Flow Blueprint",
+      "coreFocus": "Compliance/Legal Analyst - Commitment Fee Agreement and Task Payout immutable ledger"
+    },
+    {
+      "focusArea": "Transparency & Trust",
+      "projectExample": "Public Dashboard V1 Data Source Integration",
+      "coreFocus": "Data Engineer/Dev - Integrate Stripe/Wise anonymously into Public Dashboard for Funds Raised KPI"
+    }
+  ],
+  "financialProjection": {
+    "tierA": {
+      "applicants": 100,
+      "fee": 100,
+      "totalCommitmentFeeCollected": 10000,
+      "escrowPool": 6500,
+      "escrowPercentage": 65,
+      "opsPool": 3500,
+      "opsPercentage": 35,
+      "coreCommitteeMembers": 10,
+      "selectedMembersDeposit": 10,
+      "nonSelectedApplicants": 90,
+      "refundObligationFor90": 5850,
+      "escrowManagementLogic": "Escrow $6,500 covers $5,850 refund + $650 buffer for Core Committee activation",
+      "payoutTarget": "$60-$70 per Core Committee member",
+      "scenarios": {
+        "successfulCompletion": {
+          "refund": "+$70 (Refundable Fee + $5 Ops incentive)",
+          "source": "Escrow + Ops"
+        },
+        "minorPenalty": {
+          "refund": "Example: $10 forfeit for delay",
+          "retained": "$55 Refund + $5 Incentive to Ops",
+          "transferred": "$10 Ops"
+        },
+        "failureOrAbsence": {
+          "forfeit": "$65 (Escrow Portion) transferred to Ops permanently"
+        }
+      }
+    }
+  },
+  "compliance": {
+    "regulatoryRisk": "Public tenders may trigger securities rules - use distinct flows for deposits vs investments",
+    "operationalRisk": "KYC failures, fraud, task quality variance - mitigate with staged access and validator reviews",
+    "reputationRisk": "Missed refunds/payouts - mitigate with escrow segregation and SLA tracking",
+    "dataProtection": "Store PII off-chain; publish only hashed references or aggregate stats"
+  },
+  "changeLog": [
+    {
+      "version": "0.1.0",
+      "date": "2025-11-06",
+      "author": "VS Code AI Agent (GitHub Copilot)",
+      "changes": [
+        "Initial policy extraction from Agreement (Tender).txt",
+        "Integrated Business Foundation core pillars",
+        "Added financial projection from GentleΩ Details.xlsx",
+        "Structured campaign tiers, refund policy, fund allocation",
+        "Defined KYC/AML requirements and KPIs",
+        "Created governance hierarchy and dashboard specifications"
+      ],
+      "rationale": "Establish machine-readable ruleset for platform implementation"
+    }
+  ],
+  "nextSteps": [
+    "TBD-FIN-01: Define Tier A/B/C detailed financial flows",
+    "TBD-FIN-02: Write Refund/Forfeiture decision tree flowchart",
+    "TBD-CMP-01: Publish KYC/AML checklist & provider integration specs",
+    "TBD-GOV-01: Link Governance Charter (roles, voting, conflicts)",
+    "TBD-TECH-01: Database schema design (Postgres + Firestore hybrid)",
+    "TBD-TECH-02: API contract definitions (REST/GraphQL)",
+    "TBD-TECH-03: Frontend component architecture (React TypeScript)",
+    "TBD-TECH-04: Payment gateway integration (Stripe Connect)",
+    "TBD-TECH-05: KYC provider integration (Sumsub/Onfido)",
+    "TBD-TECH-06: Campaign lifecycle engine implementation",
+    "TBD-TECH-07: Public & user dashboard development",
+    "TBD-TECH-08: Blockchain anchoring (optional transparency layer)"
+  ]
+}

@@ -1,4 +1,4 @@
-// Firebase Authentication Helper Functions
+﻿// Firebase Authentication Helper Functions - Updated 2025-11-11 01:34
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -13,8 +13,10 @@ import {
   User,
   UserCredential,
 } from 'firebase/auth';
-import { doc, setDoc, getDoc, updateDoc, serverTimestamp } from 'firebase/firestore';
+import { doc, setDoc, getDoc, updateDoc, serverTimestamp, collection, addDoc } from 'firebase/firestore';
 import { auth, db } from './config';
+
+import { logUserSession } from '../utils/session-logger';
 
 // Initialize Auth Providers
 const googleProvider = new GoogleAuthProvider();
@@ -54,6 +56,9 @@ export const registerWithEmail = async (
       
       // Create user profile in Firestore
       await createUserProfile(userCredential.user);
+      
+      // Log session with IP tracking
+      await logUserSession(userCredential.user.uid, email, 'signup');
     }
     
     return userCredential;
@@ -76,6 +81,9 @@ export const loginWithEmail = async (
     // Update last login time
     if (userCredential.user) {
       await updateUserLastLogin(userCredential.user.uid);
+      
+      // Log session with IP tracking
+      await logUserSession(userCredential.user.uid, email, 'login');
     }
     
     return userCredential;
@@ -212,6 +220,8 @@ const createOrUpdateUserProfile = async (user: User): Promise<void> => {
     const userRef = doc(db, 'users', user.uid);
     const userSnap = await getDoc(userRef);
     
+    const action = !userSnap.exists() ? 'signup' : 'login';
+    
     if (!userSnap.exists()) {
       // Create new profile
       await createUserProfile(user);
@@ -219,6 +229,9 @@ const createOrUpdateUserProfile = async (user: User): Promise<void> => {
       // Update last login
       await updateUserLastLogin(user.uid);
     }
+    
+    // Log session with IP tracking
+    await logUserSession(user.uid, user.email || '', action);
   } catch (error) {
     console.error('Error creating/updating user profile:', error);
   }
@@ -291,3 +304,4 @@ const getAuthErrorMessage = (errorCode: string): string => {
 
 // Export auth instance for direct use
 export { auth };
+
