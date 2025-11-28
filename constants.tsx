@@ -98,8 +98,9 @@ export const NAV_LINKS: NavItem[] = [
         ]
     },
     {
-        label: 'About GΩHQ',
+        label: 'Respect us',
         children: [
+            { label: 'GO - AIBOB', description: 'GBOB Services', href: 'go-aibob' as any },
             { label: 'Blogs', description: 'AI insights and articles' },
             { label: 'Latest Posts', description: 'Recent AI insights' },
             { label: 'Tutorials', description: 'Learn AI techniques' },

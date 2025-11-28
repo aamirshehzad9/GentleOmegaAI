@@ -5,10 +5,13 @@ import Footer from './components/Footer';
 import HomePage from './components/HomePage';
 import MenuPage from './components/MenuPage';
 import DashboardPlaceholder from './components/DashboardPlaceholder';
+import AdminDashboard from './components/AdminDashboard';
 import PaymentCheckout from './components/PaymentCheckout';
 import LoginPage from './components/LoginPage';
 import SignupPage from './components/SignupPage';
 import ProfilePage from './components/ProfilePage';
+import ChatWidget from './components/ChatWidget';
+import GoAibobIndex from './src/pages/GoAibob';
 import { Page } from './types';
 
 const App: React.FC = () => {
@@ -20,6 +23,11 @@ const App: React.FC = () => {
   }, []);
 
   const renderPage = () => {
+    // GO-AIBOB route
+    if (currentPage === 'go-aibob') {
+      return <GoAibobIndex />;
+    }
+
     switch (currentPage) {
       case 'home':
         return <HomePage navigate={navigate} />;
@@ -27,6 +35,8 @@ const App: React.FC = () => {
         return <MenuPage />;
       case 'dashboard':
         return <DashboardPlaceholder />;
+      case 'admin':
+        return <AdminDashboard navigate={navigate} />;
       case 'checkout':
         return <PaymentCheckout navigate={navigate} />;
       case 'login':
@@ -47,6 +57,9 @@ const App: React.FC = () => {
         {renderPage()}
       </main>
       <Footer navigate={navigate} />
+      
+      {/* Live Chat Widget - Always visible */}
+      <ChatWidget />
     </div>
   );
 };
