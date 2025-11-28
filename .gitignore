@@ -29,6 +29,45 @@ dist-ssr
 .env.production
 .env.*.local
 
+# Temporary documentation and deployment files
+*DEPLOYMENT*.md
+*SUMMARY*.md
+*COMPLETE*.md
+*PROGRESS*.md
+*READY*.md
+*SUCCESS*.md
+*EXECUTIVE*.md
+*ARCHITECTURE*.md
+*PRODUCTION*.md
+*FULLY*.md
+*OPERATIONAL*.md
+*PROJECT*.md
+START_HERE.md
+QUICK_START.md
+railway.*
+nixpacks.toml
+Procfile
+*.bat
+system-verification.js
+test-*.js
+test-*.mjs
+real-*.js
+check-*.js
+check-*.cjs
+display-*.cjs
+show-*.cjs
+clear-*.js
+connect-*.js
+deploy-*.js
+domain-*.js
+fix-*.js
+verify-*.js
+firebase-*.js
+gob-*.js
+production-*.js
+railway-*.js
+users-backup.json
+
 # Firebase (SENSITIVE - DO NOT COMMIT)
 .firebase/
 .firebaserc
