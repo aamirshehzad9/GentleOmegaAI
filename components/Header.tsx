@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Page, NavItem } from '../types';
 import { NAV_LINKS, ICONS, WHATSAPP_LINK } from '../constants';
 import { useAuth } from '../contexts/AuthContext';
+import { isAdmin } from '../utils/admin-check';
 import { logout } from '../firebase/auth';
 
 interface HeaderProps {
@@ -13,7 +14,7 @@ const NavLink: React.FC<{ item: NavItem, navigate: (page: Page) => void }> = ({ 
     const hasChildren = item.children && item.children.length > 0;
 
     if (hasChildren) {
-        const dropdownWidth = item.label === 'About GΩHQ' ? 'w-80' : 'w-72';
+        const dropdownWidth = item.label === 'Respect us' ? 'w-80' : 'w-72';
         return (
             <div className="group relative">
                 <button className="flex items-center space-x-1 py-4 text-white hover:text-accent-yellow transition-colors duration-300">
@@ -65,6 +66,27 @@ const Header: React.FC<HeaderProps> = ({ navigate, currentPage }) => {
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [showUserMenu, setShowUserMenu] = useState(false);
   const { currentUser, isAuthenticated } = useAuth();
+  const userMenuRef = useRef<HTMLDivElement>(null);
+
+  // Close user menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
+        setShowUserMenu(false);
+      }
+    };
+
+    // Add small delay to allow click event to complete
+    if (showUserMenu) {
+      setTimeout(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+      }, 0);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showUserMenu]);
 
   const handleLogout = async () => {
     try {
@@ -99,7 +121,7 @@ const Header: React.FC<HeaderProps> = ({ navigate, currentPage }) => {
 
             {/* User Menu or Login/Signup Buttons */}
             {isAuthenticated && currentUser ? (
-              <div className="relative">
+              <div className="relative" ref={userMenuRef}>
                 <button
                   onClick={() => setShowUserMenu(!showUserMenu)}
                   className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-800/50 transition-colors"
@@ -154,6 +176,23 @@ const Header: React.FC<HeaderProps> = ({ navigate, currentPage }) => {
                       </svg>
                       Dashboard
                     </button>
+                    
+                    {/* Admin Panel - Only for Admins */}
+                    {isAdmin(currentUser?.email || null) && (
+                      <button
+                        onClick={() => {
+                          navigate('admin');
+                          setShowUserMenu(false);
+                        }}
+                        className="w-full text-left px-4 py-2 text-sm text-cyan-400 hover:bg-gray-800 hover:text-cyan-300 transition-colors flex items-center gap-2 font-semibold"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                        </svg>
+                        Admin Panel
+                      </button>
+                    )}
+                    
                     <div className="border-t border-gray-800 my-1"></div>
                     <button
                       onClick={handleLogout}

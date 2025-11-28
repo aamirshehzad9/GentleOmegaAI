@@ -6,8 +6,9 @@ export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, '.', '');
     return {
       server: {
-        port: 3000,
-        host: '0.0.0.0',
+        port: 5173,
+        host: true,
+        strictPort: false,
       },
       plugins: [react()],
       define: {
@@ -18,6 +19,8 @@ export default defineConfig(({ mode }) => {
         alias: {
           '@': path.resolve(__dirname, '.'),
         }
-      }
+      },
+      // Make sure all VITE_ prefixed env vars are available
+      envPrefix: 'VITE_'
     };
 });

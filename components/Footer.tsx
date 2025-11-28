@@ -52,7 +52,9 @@ const Footer: React.FC<FooterProps> = ({ navigate }) => {
             <address className="text-sm not-italic space-y-2">
                 <p>Wyoming, USA / Main Shahra-e-Faisal, near Nursery, Block-6, Karachi, Pakistan</p>
                 <p>📧 contact@gentleomegaai.space</p>
-                <p>📱 +923468066680</p>
+                <p>📱 <a href="tel:+19208066680" className="hover:text-cyan-400 transition-colors">+1 920 806 6680</a> (US)</p>
+                <p>📱 <a href="tel:+923468066680" className="hover:text-cyan-400 transition-colors">+92 346 806 6680</a> (PAK)</p>
+                <p>💬 <a href="https://wa.me/923108537693" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors">WhatsApp Business</a></p>
                 <p>⏰ 12 PM–12 AM (Mon–Sun)</p>
             </address>
           </div>
