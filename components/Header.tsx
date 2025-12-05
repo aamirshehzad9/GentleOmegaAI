@@ -252,10 +252,16 @@ const Header: React.FC<HeaderProps> = ({ navigate, currentPage }) => {
             </div>
           ))}
           <div className="flex flex-col space-y-3 pt-4 border-t border-gray-700">
-             <button className="w-full px-6 py-3 text-sm font-semibold text-white rounded-md cta-gradient cta-gradient-hover transition-all duration-300">
+             <button 
+               onClick={() => { navigate('login'); setIsMenuOpen(false); }} 
+               className="w-full px-6 py-3 text-sm font-semibold text-white rounded-md cta-gradient cta-gradient-hover transition-all duration-300"
+             >
               Log In
             </button>
-            <button className="w-full px-6 py-3 text-sm font-semibold text-black rounded-md cta-gradient-yellow hover:opacity-90 transition-opacity duration-300">
+            <button 
+              onClick={() => { navigate('signup'); setIsMenuOpen(false); }} 
+              className="w-full px-6 py-3 text-sm font-semibold text-black rounded-md cta-gradient-yellow hover:opacity-90 transition-opacity duration-300"
+            >
               Sign Up
             </button>
           </div>

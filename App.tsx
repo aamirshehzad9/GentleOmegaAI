@@ -12,6 +12,7 @@ import SignupPage from './components/SignupPage';
 import ProfilePage from './components/ProfilePage';
 import ChatWidget from './components/ChatWidget';
 import GoAibobIndex from './src/pages/GoAibob';
+import AiBlogsStudio from './src/pages/AiBlogsStudio';
 import { Page } from './types';
 
 const App: React.FC = () => {
@@ -26,6 +27,11 @@ const App: React.FC = () => {
     // GO-AIBOB route
     if (currentPage === 'go-aibob') {
       return <GoAibobIndex />;
+    }
+
+    // AI Blogs Studio route
+    if (currentPage === 'ai-blogs-studio') {
+      return <AiBlogsStudio />;
     }
 
     switch (currentPage) {

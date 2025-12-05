@@ -80,6 +80,7 @@ export const NAV_LINKS: NavItem[] = [
     {
         label: 'AI Products',
         children: [
+            { label: 'AI Blogs Studio', description: 'Luxury AI-powered blogging platform', href: 'ai-blogs-studio' as any },
             { label: 'Bot & SaaS', description: 'Intelligent automation platform' },
             { label: 'AI Bots', description: 'Intelligent automation' },
             { label: 'SaaS Solutions', description: 'AI-powered services' },
@@ -100,8 +101,7 @@ export const NAV_LINKS: NavItem[] = [
     {
         label: 'Respect us',
         children: [
-            { label: 'GO - AIBOB', description: 'GBOB Services', href: 'go-aibob' as any },
-            { label: 'Blogs', description: 'AI insights and articles' },
+            { label: 'GO - AIBOB', description: 'SEO & Backlink Management', href: 'go-aibob' as any },
             { label: 'Latest Posts', description: 'Recent AI insights' },
             { label: 'Tutorials', description: 'Learn AI techniques' },
             { label: 'Case Studies', description: 'Real-world AI success' },
