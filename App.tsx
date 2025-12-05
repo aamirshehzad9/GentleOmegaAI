@@ -1,5 +1,5 @@
-
-import React, { useState, useCallback } from 'react';
+import React from 'react';
+import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import HomePage from './components/HomePage';
@@ -13,60 +13,91 @@ import ProfilePage from './components/ProfilePage';
 import ChatWidget from './components/ChatWidget';
 import GoAibobIndex from './src/pages/GoAibob';
 import AiBlogsStudio from './src/pages/AiBlogsStudio';
-import { Page } from './types';
 
-const App: React.FC = () => {
-  const [currentPage, setCurrentPage] = useState<Page>('home');
+// Layout component that includes Header and Footer
+const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  const navigate = useCallback((page: Page) => {
-    setCurrentPage(page);
-    window.scrollTo(0, 0);
-  }, []);
+  // Convert path to Page type for Header
+  const getPageFromPath = (): string => {
+    const path = location.pathname.slice(1) || 'home';
+    return path;
+  };
 
-  const renderPage = () => {
-    // GO-AIBOB route
-    if (currentPage === 'go-aibob') {
-      return <GoAibobIndex />;
-    }
-
-    // AI Blogs Studio route
-    if (currentPage === 'ai-blogs-studio') {
-      return <AiBlogsStudio />;
-    }
-
-    switch (currentPage) {
-      case 'home':
-        return <HomePage navigate={navigate} />;
-      case 'menu':
-        return <MenuPage />;
-      case 'dashboard':
-        return <DashboardPlaceholder />;
-      case 'admin':
-        return <AdminDashboard navigate={navigate} />;
-      case 'checkout':
-        return <PaymentCheckout navigate={navigate} />;
-      case 'login':
-        return <LoginPage navigate={navigate} />;
-      case 'signup':
-        return <SignupPage navigate={navigate} />;
-      case 'profile':
-        return <ProfilePage navigate={navigate} />;
-      default:
-        return <HomePage navigate={navigate} />;
-    }
+  // Navigation helper that uses React Router
+  const handleNavigate = (page: string) => {
+    const path = page === 'home' ? '/' : `/${page}`;
+    navigate(path);
   };
 
   return (
     <div className="bg-[#0D0D0D] text-white min-h-screen">
-      <Header navigate={navigate} currentPage={currentPage} />
+      <Header navigate={handleNavigate} currentPage={getPageFromPath()} />
       <main>
-        {renderPage()}
+        {children}
       </main>
-      <Footer navigate={navigate} />
-      
-      {/* Live Chat Widget - Always visible */}
+      <Footer navigate={handleNavigate} />
       <ChatWidget />
     </div>
+  );
+};
+
+// Wrapper components to provide navigate function
+const HomePageWrapper = () => {
+  const navigate = useNavigate();
+  const handleNavigate = (page: string) => navigate(page === 'home' ? '/' : `/${page}`);
+  return <HomePage navigate={handleNavigate} />;
+};
+
+const AdminDashboardWrapper = () => {
+  const navigate = useNavigate();
+  const handleNavigate = (page: string) => navigate(page === 'home' ? '/' : `/${page}`);
+  return <AdminDashboard navigate={handleNavigate} />;
+};
+
+const PaymentCheckoutWrapper = () => {
+  const navigate = useNavigate();
+  const handleNavigate = (page: string) => navigate(page === 'home' ? '/' : `/${page}`);
+  return <PaymentCheckout navigate={handleNavigate} />;
+};
+
+const LoginPageWrapper = () => {
+  const navigate = useNavigate();
+  const handleNavigate = (page: string) => navigate(page === 'home' ? '/' : `/${page}`);
+  return <LoginPage navigate={handleNavigate} />;
+};
+
+const SignupPageWrapper = () => {
+  const navigate = useNavigate();
+  const handleNavigate = (page: string) => navigate(page === 'home' ? '/' : `/${page}`);
+  return <SignupPage navigate={handleNavigate} />;
+};
+
+const ProfilePageWrapper = () => {
+  const navigate = useNavigate();
+  const handleNavigate = (page: string) => navigate(page === 'home' ? '/' : `/${page}`);
+  return <ProfilePage navigate={handleNavigate} />;
+};
+
+const App: React.FC = () => {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout><HomePageWrapper /></Layout>} />
+        <Route path="/menu" element={<Layout><MenuPage /></Layout>} />
+        <Route path="/dashboard" element={<Layout><DashboardPlaceholder /></Layout>} />
+        <Route path="/admin" element={<Layout><AdminDashboardWrapper /></Layout>} />
+        <Route path="/checkout" element={<Layout><PaymentCheckoutWrapper /></Layout>} />
+        <Route path="/login" element={<Layout><LoginPageWrapper /></Layout>} />
+        <Route path="/signup" element={<Layout><SignupPageWrapper /></Layout>} />
+        <Route path="/profile" element={<Layout><ProfilePageWrapper /></Layout>} />
+        <Route path="/go-aibob" element={<Layout><GoAibobIndex /></Layout>} />
+        <Route path="/AIBlogsStudio" element={<Layout><AiBlogsStudio /></Layout>} />
+        <Route path="/ai-blogs-studio" element={<Navigate to="/AIBlogsStudio" replace />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 
