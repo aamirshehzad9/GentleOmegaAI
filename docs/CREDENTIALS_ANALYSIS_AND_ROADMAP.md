@@ -75,7 +75,7 @@ Session Replay: Enabled (1.0 sample rate - 100% recording)
 
 #### 4. Google Gemini AI - **FULLY CONFIGURED** ✅
 ```env
-API Key: AIzaSyAQ0hyUJJNbg-LeVFpwYF7cseWIeF2ML60
+API Key: [STORED IN .env.local - NEVER COMMIT]
 Status: Active and tested
 Free Tier: 1,500 requests/day
 ```
@@ -113,8 +113,8 @@ Intended Use: Retrieve authorized advertising account data for reporting
 Project ID: gentleomegaai
 Client ID: 147777473845-apcitibi41mqau581jr72ngn7js9g5su.apps.googleusercontent.com
 API Keys:
-  - Firebase: AIzaSyCrNsJqhpox9gD8PxKeGFFN0Naz9sbdhcs
-  - Console: AIzaSyCrNsJqhpox9gD8PxKeGFFN0Naz9sbdhcs (same)
+  - Firebase: [STORED IN .env.local - NEVER COMMIT]
+  - Console: [STORED IN .env.local - NEVER COMMIT]
 Browser Key: Available (auto-created by Firebase)
 Service Accounts: 3 active accounts
 ```

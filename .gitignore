@@ -48,6 +48,12 @@ firebase-adminsdk*.json
 *OPERATIONAL*.md
 *PROJECT*.md
 START_HERE.md
+
+# Documentation with sensitive credentials
+docs/CREDENTIALS*.md
+docs/*CREDENTIALS*.md
+docs/*ANALYSIS*.md
+*_ROADMAP.md
 QUICK_START.md
 railway.*
 nixpacks.toml
