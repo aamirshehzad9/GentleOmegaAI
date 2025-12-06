@@ -34,6 +34,10 @@ firebase-adminsdk*.json
 .env.production
 .env.*.local
 
+# Firebase tokens and credentials
+firebase-token.txt
+*-token.txt
+
 # Temporary documentation and deployment files
 *DEPLOYMENT*.md
 *SUMMARY*.md
