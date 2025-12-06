@@ -1,9 +1,13 @@
 name: Deploy to Firebase Hosting
 
+# Temporarily disabled - Deploy manually using: npm run build && firebase deploy
+# on:
+#   push:
+#     branches:
+#       - main
+
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:  # Only run manually from GitHub Actions tab
 
 jobs:
   build_and_deploy:
