@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -13,11 +13,22 @@ import ProfilePage from './components/ProfilePage';
 import ChatWidget from './components/ChatWidget';
 import GoAibobIndex from './src/pages/GoAibob';
 import AiBlogsStudio from './src/pages/AiBlogsStudio';
+import { analytics } from './src/utils/analytics';
+import { useAuth } from './contexts/AuthContext';
 
 // Layout component that includes Header and Footer
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const location = useLocation();
   const navigate = useNavigate();
+
+  // Track page views on route change
+  useEffect(() => {
+    analytics.trackPageView({
+      path: location.pathname,
+      title: document.title,
+      referrer: document.referrer,
+    });
+  }, [location.pathname]);
 
   // Convert path to Page type for Header
   const getPageFromPath = (): string => {
@@ -81,6 +92,28 @@ const ProfilePageWrapper = () => {
 };
 
 const App: React.FC = () => {
+  const { currentUser } = useAuth();
+
+  // Initialize analytics on app load
+  useEffect(() => {
+    analytics.initialize().then(() => {
+      console.log('[App] Analytics initialized successfully');
+      
+      // Identify user if logged in
+      if (currentUser) {
+        analytics.identifyUser({
+          userId: currentUser.uid,
+          email: currentUser.email || undefined,
+          name: currentUser.displayName || undefined,
+          properties: {
+            email_verified: currentUser.emailVerified,
+            creation_time: currentUser.metadata.creationTime,
+          },
+        });
+      }
+    });
+  }, [currentUser]);
+
   return (
     <BrowserRouter>
       <Routes>
@@ -93,8 +126,11 @@ const App: React.FC = () => {
         <Route path="/signup" element={<Layout><SignupPageWrapper /></Layout>} />
         <Route path="/profile" element={<Layout><ProfilePageWrapper /></Layout>} />
         <Route path="/go-aibob" element={<Layout><GoAibobIndex /></Layout>} />
-        <Route path="/AIBlogsStudio" element={<Layout><AiBlogsStudio /></Layout>} />
+        
+        {/* AI Blogs Studio - NO Layout (has its own header/footer) */}
+        <Route path="/AIBlogsStudio" element={<AiBlogsStudio />} />
         <Route path="/ai-blogs-studio" element={<Navigate to="/AIBlogsStudio" replace />} />
+        
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>

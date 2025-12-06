@@ -12,6 +12,11 @@ dist
 dist-ssr
 *.local
 
+# Service Account Keys (CRITICAL - Never commit!)
+*service-account*.json
+google-analytics-service-account.json
+firebase-adminsdk*.json
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

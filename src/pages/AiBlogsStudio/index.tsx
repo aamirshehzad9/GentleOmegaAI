@@ -10,12 +10,14 @@ import LandingPage from './LandingPage';
 import Dashboard from './Dashboard';
 import BlogEditor from './BlogEditor';
 import Analytics from './Analytics';
+import SEODashboard from './SEODashboard';
 import Earnings from './Earnings';
 import Marketplace from './Marketplace';
 import Settings from './Settings';
+import Pricing from './Pricing';
 import AuthPage from './pages/AuthPage';
 
-export type AiBlogsPage = 'landing' | 'login' | 'signup' | 'dashboard' | 'editor' | 'analytics' | 'earnings' | 'marketplace' | 'settings';
+export type AiBlogsPage = 'landing' | 'login' | 'signup' | 'dashboard' | 'editor' | 'analytics' | 'seo' | 'earnings' | 'marketplace' | 'settings' | 'pricing';
 
 const AiBlogsStudio: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<AiBlogsPage>('landing');
@@ -23,7 +25,7 @@ const AiBlogsStudio: React.FC = () => {
 
   // Redirect to landing if not authenticated and trying to access protected pages
   React.useEffect(() => {
-    const protectedPages: AiBlogsPage[] = ['dashboard', 'editor', 'analytics', 'earnings', 'marketplace', 'settings'];
+    const protectedPages: AiBlogsPage[] = ['dashboard', 'editor', 'analytics', 'seo', 'earnings', 'marketplace', 'settings'];
     if (!isAuthenticated && protectedPages.includes(currentPage)) {
       setCurrentPage('login');
     }
@@ -43,12 +45,16 @@ const AiBlogsStudio: React.FC = () => {
         return <BlogEditor onNavigate={setCurrentPage} />;
       case 'analytics':
         return <Analytics onNavigate={setCurrentPage} />;
+      case 'seo':
+        return <SEODashboard onNavigate={setCurrentPage} />;
       case 'earnings':
         return <Earnings onNavigate={setCurrentPage} />;
       case 'marketplace':
         return <Marketplace onNavigate={setCurrentPage} />;
       case 'settings':
         return <Settings onNavigate={setCurrentPage} />;
+      case 'pricing':
+        return <Pricing onNavigate={setCurrentPage} />;
       default:
         return <LandingPage onNavigate={setCurrentPage} />;
     }

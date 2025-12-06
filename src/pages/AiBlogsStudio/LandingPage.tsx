@@ -85,7 +85,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => onNavigate('dashboard')}
+                onClick={() => onNavigate('signup')}
                 className="px-10 py-5 bg-gradient-to-r from-[#F7B731] to-[#F39C12] text-white font-bold text-lg rounded-xl shadow-2xl shadow-[#F7B731]/50 hover:shadow-[#F7B731]/70 transition-all"
               >
                 🚀 Start Earning Now
@@ -93,6 +93,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                onClick={() => window.open('https://github.com/GentleOmegaAI/GentleOmegaAI/blob/main/docs/USER_GUIDE.md', '_blank')}
                 className="px-10 py-5 bg-white/10 backdrop-blur-lg border-2 border-white/20 text-white font-semibold text-lg rounded-xl hover:bg-white/20 transition-all"
               >
                 📊 Watch Demo
@@ -339,7 +340,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  onClick={() => onNavigate('dashboard')}
+                  onClick={() => onNavigate('pricing')}
                   className={`w-full px-6 py-4 bg-gradient-to-r ${tier.color} text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all`}
                 >
                   Get Started
