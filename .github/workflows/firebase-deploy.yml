@@ -29,21 +29,20 @@ jobs:
       - name: Build project
         run: npm run build
         env:
-          # Build-time environment variables
-          # These secrets must be added in GitHub repository settings
-          VITE_GEMINI_API_KEY: ${{ secrets.VITE_GEMINI_API_KEY || '' }}
-          VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY || '' }}
-          VITE_FIREBASE_AUTH_DOMAIN: ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN || '' }}
-          VITE_FIREBASE_PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID || '' }}
-          VITE_FIREBASE_STORAGE_BUCKET: ${{ secrets.VITE_FIREBASE_STORAGE_BUCKET || '' }}
-          VITE_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID || '' }}
-          VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID || '' }}
-          VITE_FIREBASE_MEASUREMENT_ID: ${{ secrets.VITE_FIREBASE_MEASUREMENT_ID || '' }}
+          # Add these secrets in: github.com/aamirshehzad9/GentleOmegaAI/settings/secrets/actions
+          VITE_GEMINI_API_KEY: ${{ secrets.VITE_GEMINI_API_KEY || 'placeholder' }}
+          VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY || 'placeholder' }}
+          VITE_FIREBASE_AUTH_DOMAIN: ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN || 'placeholder' }}
+          VITE_FIREBASE_PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID || 'placeholder' }}
+          VITE_FIREBASE_STORAGE_BUCKET: ${{ secrets.VITE_FIREBASE_STORAGE_BUCKET || 'placeholder' }}
+          VITE_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID || 'placeholder' }}
+          VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID || 'placeholder' }}
+          VITE_FIREBASE_MEASUREMENT_ID: ${{ secrets.VITE_FIREBASE_MEASUREMENT_ID || 'placeholder' }}
       
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
       
       - name: Deploy to Firebase Hosting
         env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN || '' }}
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN || 'placeholder' }}
         run: firebase deploy --only hosting --project gentleomegaai --token "$FIREBASE_TOKEN"

@@ -1,6 +1,3 @@
-# VS Code Extension Recommendations
-# These help suppress false warnings
-
 {
   "recommendations": [
     "github.vscode-github-actions",
