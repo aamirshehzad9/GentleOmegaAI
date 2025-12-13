@@ -4,11 +4,13 @@
  */
 
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import { getGeminiApiKey } from '@/src/config/gemini.config';
 
-const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY || '';
+const GEMINI_API_KEY = getGeminiApiKey();
 
 if (!GEMINI_API_KEY) {
-  console.warn('⚠️ VITE_GEMINI_API_KEY not found in .env.local');
+  console.error('❌ Gemini API Key not configured');
+  throw new Error('Gemini API Key is required for AI Blogs Studio');
 }
 
 const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
@@ -45,7 +47,7 @@ export async function generateBlogContent(
   request: GenerateBlogRequest
 ): Promise<GenerateBlogResponse> {
   try {
-    const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
 
     const wordCount = request.length === 'short' ? 500 : request.length === 'medium' ? 2000 : 5000;
     const tone = request.tone || 'professional';
@@ -128,7 +130,7 @@ Generate the blog now:`;
 
 export async function improveBlogContent(content: string): Promise<string> {
   try {
-    const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
 
     const prompt = `You are an expert content editor for AI Blogs Studio.
 
@@ -166,7 +168,7 @@ export async function optimizeForSEO(content: string, targetKeywords: string[]):
   suggestions: string[];
 }> {
   try {
-    const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
 
     const prompt = `You are an SEO expert for AI Blogs Studio.
 
@@ -219,7 +221,7 @@ export async function generateTopicIdeas(
   count: number = 10
 ): Promise<Array<{ title: string; description: string; keywords: string[] }>> {
   try {
-    const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
 
     const prompt = `You are a content strategist for AI Blogs Studio.
 

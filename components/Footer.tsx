@@ -123,8 +123,8 @@ const Footer: React.FC<FooterProps> = ({ navigate }) => {
         <div className="mt-12 pt-8 border-t border-gray-800 flex flex-col sm:flex-row justify-between items-center text-sm">
           <p className="text-center sm:text-left mb-4 sm:mb-0">© 2025 GentleΩmega AI Career Center. All Rights Reserved.</p>
           <div className="flex flex-wrap justify-center space-x-4">
-            <a href="#" className="hover:text-white">Privacy</a>
-            <a href="#" className="hover:text-white">Terms</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); navigate('privacy-policy'); }} className="hover:text-white transition-colors cursor-pointer">Privacy</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); navigate('terms-of-service'); }} className="hover:text-white transition-colors cursor-pointer">Terms</a>
             <a href="#" className="hover:text-white">Cookie</a>
             <a href="#" className="hover:text-white">Data Ethics & AI Responsibility</a>
           </div>

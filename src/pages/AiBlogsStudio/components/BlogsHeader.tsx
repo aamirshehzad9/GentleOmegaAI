@@ -62,13 +62,13 @@ const BlogsHeader: React.FC<BlogsHeaderProps> = ({ context, onNavigate, currentP
             ) : (
               <>
                 <button
-                  onClick={() => onNavigate?.('login')}
-                  className="text-gray-300 hover:text-white transition"
+                  onClick={() => window.location.href = '/login'}
+                  className="text-gray-300 hover:text-white transition font-medium"
                 >
                   Sign In
                 </button>
                 <button
-                  onClick={() => onNavigate?.('signup')}
+                  onClick={() => window.location.href = '/signup'}
                   className="px-6 py-2 bg-gradient-to-r from-[#F7B731] to-[#5F27CD] text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-[#F7B731]/50 transition"
                 >
                   Start Free Trial
@@ -118,13 +118,13 @@ const BlogsHeader: React.FC<BlogsHeaderProps> = ({ context, onNavigate, currentP
               ) : (
                 <>
                   <button
-                    onClick={() => { onNavigate?.('login'); setMobileMenuOpen(false); }}
-                    className="w-full px-6 py-3 text-white border border-[#F7B731] rounded-lg font-semibold"
+                    onClick={() => { window.location.href = '/login'; }}
+                    className="w-full px-6 py-3 text-white border border-[#F7B731] rounded-lg font-semibold hover:bg-[#F7B731]/10 transition"
                   >
                     Sign In
                   </button>
                   <button
-                    onClick={() => { onNavigate?.('signup'); setMobileMenuOpen(false); }}
+                    onClick={() => { window.location.href = '/signup'; }}
                     className="w-full px-6 py-3 bg-gradient-to-r from-[#F7B731] to-[#5F27CD] text-white rounded-lg font-semibold"
                   >
                     Start Free Trial

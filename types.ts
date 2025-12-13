@@ -1,6 +1,6 @@
 import React from 'react';
 
-export type Page = 'home' | 'menu' | 'dashboard' | 'checkout' | 'login' | 'signup' | 'profile' | 'admin' | 'go-aibob' | 'ai-blogs-studio';
+export type Page = 'home' | 'menu' | 'dashboard' | 'checkout' | 'login' | 'signup' | 'profile' | 'admin' | 'go-aibob' | 'ai-blogs-studio' | 'privacy-policy' | 'terms-of-service';
 
 export interface NavItemChild {
   label: string;

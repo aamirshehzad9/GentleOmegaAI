@@ -4,15 +4,16 @@
  */
 
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import { getGeminiApiKey, GEMINI_CONFIG } from '@/src/config/gemini.config';
 
-// Initialize Gemini AI
-const API_KEY = import.meta.env.VITE_GEMINI_API_KEY || '';
+// Initialize Gemini AI with proper configuration
+const API_KEY = getGeminiApiKey();
 const genAI = new GoogleGenerativeAI(API_KEY);
 
 // Models configuration
 const MODELS = {
-  PRO: 'gemini-pro', // For text generation (stable)
-  PRO_VISION: 'gemini-pro-vision', // For image analysis
+  PRO: GEMINI_CONFIG.model,
+  PRO_VISION: GEMINI_CONFIG.modelVision,
 };
 
 /**

@@ -11,6 +11,8 @@ import LoginPage from './components/LoginPage';
 import SignupPage from './components/SignupPage';
 import ProfilePage from './components/ProfilePage';
 import ChatWidget from './components/ChatWidget';
+import PrivacyPolicy from './components/PrivacyPolicy';
+import TermsOfService from './components/TermsOfService';
 import GoAibobIndex from './src/pages/GoAibob';
 import AiBlogsStudio from './src/pages/AiBlogsStudio';
 import { analytics } from './src/utils/analytics';
@@ -91,6 +93,18 @@ const ProfilePageWrapper = () => {
   return <ProfilePage navigate={handleNavigate} />;
 };
 
+const PrivacyPolicyWrapper = () => {
+  const navigate = useNavigate();
+  const handleNavigate = (page: string) => navigate(page === 'home' ? '/' : `/${page}`);
+  return <PrivacyPolicy navigate={handleNavigate} />;
+};
+
+const TermsOfServiceWrapper = () => {
+  const navigate = useNavigate();
+  const handleNavigate = (page: string) => navigate(page === 'home' ? '/' : `/${page}`);
+  return <TermsOfService navigate={handleNavigate} />;
+};
+
 const App: React.FC = () => {
   const { currentUser } = useAuth();
 
@@ -125,6 +139,8 @@ const App: React.FC = () => {
         <Route path="/login" element={<Layout><LoginPageWrapper /></Layout>} />
         <Route path="/signup" element={<Layout><SignupPageWrapper /></Layout>} />
         <Route path="/profile" element={<Layout><ProfilePageWrapper /></Layout>} />
+        <Route path="/privacy-policy" element={<Layout><PrivacyPolicyWrapper /></Layout>} />
+        <Route path="/terms-of-service" element={<Layout><TermsOfServiceWrapper /></Layout>} />
         <Route path="/go-aibob" element={<Layout><GoAibobIndex /></Layout>} />
         
         {/* AI Blogs Studio - NO Layout (has its own header/footer) */}
