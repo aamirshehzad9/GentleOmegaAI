@@ -1,6 +1,20 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
-const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
+// Get API key from environment variable
+const getApiKey = (): string => {
+    const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+
+    if (!apiKey) {
+        console.error('VITE_GEMINI_API_KEY not found in environment variables');
+        console.error('Available env vars:', Object.keys(import.meta.env));
+        throw new Error('Gemini API key not configured. Please set VITE_GEMINI_API_KEY in .env.local');
+    }
+
+    console.log('Gemini API Key loaded:', apiKey.substring(0, 20) + '...');
+    return apiKey;
+};
+
+const genAI = new GoogleGenerativeAI(getApiKey());
 
 export interface NicheDiscoveryInput {
     industry: string;
@@ -27,12 +41,36 @@ export interface ContentAnalysisOutput {
 }
 
 export class GeminiService {
-    private model = genAI.getGenerativeModel({ model: 'gemini-pro' });
+    // Use gemini-1.5-flash model (free tier, fast)
+    private model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+    private requestCount = 0;
+    private lastRequestTime = 0;
+    private readonly MIN_REQUEST_INTERVAL = 1000; // 1 second between requests
+
+    /**
+     * Rate limiting: Wait before making request to avoid blocking
+     */
+    private async waitForRateLimit(): Promise<void> {
+        this.requestCount++;
+        const now = Date.now();
+        const timeSinceLastRequest = now - this.lastRequestTime;
+
+        if (timeSinceLastRequest < this.MIN_REQUEST_INTERVAL) {
+            const waitTime = this.MIN_REQUEST_INTERVAL - timeSinceLastRequest;
+            console.log(`Rate limiting: waiting ${waitTime}ms before next request...`);
+            await new Promise(resolve => setTimeout(resolve, waitTime));
+        }
+
+        this.lastRequestTime = Date.now();
+    }
 
     /**
      * Discover niches for guest posting based on business profile
      */
     async discoverNiches(input: NicheDiscoveryInput): Promise<NicheDiscoveryOutput> {
+        // Rate limiting to prevent API key blocking
+        await this.waitForRateLimit();
+
         const prompt = `
 You are an expert SEO and guest blogging strategist. Analyze the following business profile and suggest the best niches for guest posting opportunities.
 
@@ -87,6 +125,8 @@ Format your response as JSON:
      * Analyze website content for guest posting suitability
      */
     async analyzeContent(url: string, content: string): Promise<ContentAnalysisOutput> {
+        await this.waitForRateLimit();
+
         const prompt = `
 Analyze this website content for guest posting suitability:
 
@@ -133,6 +173,7 @@ Format as JSON:
      * Generate search queries for finding guest post opportunities
      */
     async generateSearchQueries(niche: string, keywords: string[]): Promise<string[]> {
+        await this.waitForRateLimit();
         const prompt = `
 Generate 10-15 effective Google search queries to find guest posting opportunities in the "${niche}" niche.
 

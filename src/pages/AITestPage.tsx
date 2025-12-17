@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { geminiService } from '../services/ai/gemini.service';
+import { groqService } from '../services/ai/groq.service';
 import { huggingFaceService } from '../services/ai/huggingface.service';
 import { urlDiscoveryService } from '../services/urlDiscovery.service';
-import type { NicheDiscoveryInput, NicheDiscoveryOutput } from '../services/ai/gemini.service';
+import type { NicheDiscoveryInput, NicheDiscoveryOutput } from '../services/ai/groq.service';
 
 const AITestPage: React.FC = () => {
     const [loading, setLoading] = useState(false);
-    const [geminiConnected, setGeminiConnected] = useState<boolean | null>(null);
+    const [groqConnected, setGroqConnected] = useState<boolean | null>(null);
     const [hfConnected, setHfConnected] = useState<boolean | null>(null);
     const [nicheResult, setNicheResult] = useState<NicheDiscoveryOutput | null>(null);
     const [error, setError] = useState<string | null>(null);
@@ -21,9 +21,9 @@ const AITestPage: React.FC = () => {
         setError(null);
 
         try {
-            // Test Gemini
-            const geminiOk = await geminiService.testConnection();
-            setGeminiConnected(geminiOk);
+            // Test Groq
+            const groqOk = await groqService.testConnection();
+            setGroqConnected(groqOk);
 
             // Test HuggingFace
             const hfOk = await huggingFaceService.testConnection();
@@ -48,7 +48,7 @@ const AITestPage: React.FC = () => {
                 location: 'Global',
             };
 
-            const result = await geminiService.discoverNiches(input);
+            const result = await groqService.discoverNiches(input);
             setNicheResult(result);
         } catch (err) {
             setError(err instanceof Error ? err.message : 'Niche discovery failed');
@@ -70,11 +70,11 @@ const AITestPage: React.FC = () => {
 
                     <div className="space-y-3">
                         <div className="flex items-center justify-between">
-                            <span className="text-gray-300">Gemini API:</span>
-                            <span className={`px-3 py-1 rounded ${geminiConnected === null ? 'bg-gray-700 text-gray-400' :
-                                geminiConnected ? 'bg-green-600 text-white' : 'bg-red-600 text-white'
+                            <span className="text-gray-300">Groq API (Llama 3.1 70B):</span>
+                            <span className={`px-3 py-1 rounded ${groqConnected === null ? 'bg-gray-700 text-gray-400' :
+                                groqConnected ? 'bg-green-600 text-white' : 'bg-red-600 text-white'
                                 }`}>
-                                {geminiConnected === null ? 'Not Tested' : geminiConnected ? '✅ Connected' : '❌ Failed'}
+                                {groqConnected === null ? 'Not Tested' : groqConnected ? '✅ Connected' : '❌ Failed'}
                             </span>
                         </div>
 

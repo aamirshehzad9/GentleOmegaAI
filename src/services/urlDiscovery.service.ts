@@ -1,4 +1,4 @@
-import { geminiService } from './ai/gemini.service';
+import { groqService } from './ai/groq.service';
 
 export interface URLDiscoveryResult {
     urls: string[];
@@ -14,8 +14,8 @@ export class URLDiscoveryService {
      * Uses Google Custom Search API if available, otherwise returns sample data
      */
     async discoverURLs(niche: string, keywords: string[]): Promise<string[]> {
-        // Generate search queries using Gemini
-        const searchQueries = await geminiService.generateSearchQueries(niche, keywords);
+        // Generate search queries using Groq
+        const searchQueries = await groqService.generateSearchQueries(niche, keywords);
 
         // For now, return sample URLs since we don't have Google Custom Search API configured
         // TODO: Integrate Google Custom Search API when available
@@ -88,8 +88,8 @@ export class URLDiscoveryService {
         niche: string,
         keywords: string[]
     ): Promise<URLDiscoveryResult> {
-        // Generate search queries
-        const searchQueries = await geminiService.generateSearchQueries(niche, keywords);
+        // Generate search queries using Groq
+        const searchQueries = await groqService.generateSearchQueries(niche, keywords);
 
         // Discover URLs
         const urls = await this.discoverURLs(niche, keywords);
