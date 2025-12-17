@@ -1,22 +1,27 @@
-import React, { useEffect } from 'react';
+import React, { lazy, Suspense, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
+import { analytics } from './src/utils/analytics';
+
+// Eager load only critical components
 import Header from './components/Header';
 import Footer from './components/Footer';
-import HomePage from './components/HomePage';
-import MenuPage from './components/MenuPage';
-import DashboardPlaceholder from './components/DashboardPlaceholder';
-import AdminDashboard from './components/AdminDashboard';
-import PaymentCheckout from './components/PaymentCheckout';
-import LoginPage from './components/LoginPage';
-import SignupPage from './components/SignupPage';
-import ProfilePage from './components/ProfilePage';
 import ChatWidget from './components/ChatWidget';
-import PrivacyPolicy from './components/PrivacyPolicy';
-import TermsOfService from './components/TermsOfService';
-import GoAibobIndex from './src/pages/GoAibob';
-import AiBlogsStudio from './src/pages/AiBlogsStudio';
-import { analytics } from './src/utils/analytics';
-import { AuthProvider } from './contexts/AuthContext';
+import LoadingSpinner from './src/components/LoadingSpinner';
+
+// Lazy load all page components for code splitting
+const HomePage = lazy(() => import('./components/HomePage'));
+const MenuPage = lazy(() => import('./components/MenuPage'));
+const DashboardPlaceholder = lazy(() => import('./components/DashboardPlaceholder'));
+const AdminDashboard = lazy(() => import('./components/AdminDashboard'));
+const PaymentCheckout = lazy(() => import('./components/PaymentCheckout'));
+const LoginPage = lazy(() => import('./components/LoginPage'));
+const SignupPage = lazy(() => import('./components/SignupPage'));
+const ProfilePage = lazy(() => import('./components/ProfilePage'));
+const PrivacyPolicy = lazy(() => import('./components/PrivacyPolicy'));
+const TermsOfService = lazy(() => import('./components/TermsOfService'));
+const GoAibobIndex = lazy(() => import('./src/pages/GoAibob'));
+const AiBlogsStudio = lazy(() => import('./src/pages/AiBlogsStudio'));
 
 // Layout component that includes Header and Footer
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -84,31 +89,33 @@ const ProfilePageWrapper = () => <ProfilePage />;
 const PrivacyPolicyWrapper = () => <PrivacyPolicy />;
 const TermsOfServiceWrapper = () => <TermsOfService />;
 
-// Main App component with routing
+// Main App component with routing and Suspense
 const AppRoutes = () => {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout><HomePageWrapper /></Layout>} />
-        <Route path="/menu" element={<Layout><MenuPage /></Layout>} />
-        <Route path="/dashboard" element={<Layout><DashboardPlaceholder /></Layout>} />
-        <Route path="/admin" element={<Layout><AdminDashboardWrapper /></Layout>} />
-        <Route path="/checkout" element={<Layout><PaymentCheckoutWrapper /></Layout>} />
-        <Route path="/login" element={<LoginPageWrapper />} />
-        <Route path="/signup" element={<SignupPageWrapper />} />
-        <Route path="/profile" element={<Layout><ProfilePageWrapper /></Layout>} />
-        <Route path="/privacy-policy" element={<Layout><PrivacyPolicyWrapper /></Layout>} />
-        <Route path="/terms-of-service" element={<Layout><TermsOfServiceWrapper /></Layout>} />
-        
-        {/* GO-AIBOB - NO Layout (has its own full-screen sidebar layout) */}
-        <Route path="/go-aibob" element={<GoAibobIndex />} />
+      <Suspense fallback={<LoadingSpinner />}>
+        <Routes>
+          <Route path="/" element={<Layout><HomePageWrapper /></Layout>} />
+          <Route path="/menu" element={<Layout><MenuPage /></Layout>} />
+          <Route path="/dashboard" element={<Layout><DashboardPlaceholder /></Layout>} />
+          <Route path="/admin" element={<Layout><AdminDashboardWrapper /></Layout>} />
+          <Route path="/checkout" element={<Layout><PaymentCheckoutWrapper /></Layout>} />
+          <Route path="/login" element={<LoginPageWrapper />} />
+          <Route path="/signup" element={<SignupPageWrapper />} />
+          <Route path="/profile" element={<Layout><ProfilePageWrapper /></Layout>} />
+          <Route path="/privacy-policy" element={<Layout><PrivacyPolicyWrapper /></Layout>} />
+          <Route path="/terms-of-service" element={<Layout><TermsOfServiceWrapper /></Layout>} />
 
-        {/* AI Blogs Studio - NO Layout (has its own header/footer) */}
-        <Route path="/AIBlogsStudio" element={<AiBlogsStudio />} />
-        <Route path="/ai-blogs-studio" element={<Navigate to="/AIBlogsStudio" replace />} />
+          {/* GO-AIBOB - NO Layout (has its own full-screen sidebar layout) */}
+          <Route path="/go-aibob" element={<GoAibobIndex />} />
 
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
+          {/* AI Blogs Studio - NO Layout (has its own header/footer) */}
+          <Route path="/AIBlogsStudio" element={<AiBlogsStudio />} />
+          <Route path="/ai-blogs-studio" element={<Navigate to="/AIBlogsStudio" replace />} />
+
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </Suspense>
     </BrowserRouter>
   );
 };
@@ -123,3 +130,4 @@ const App = () => {
 };
 
 export default App;
+
