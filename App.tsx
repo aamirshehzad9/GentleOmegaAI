@@ -22,6 +22,7 @@ const PrivacyPolicy = lazy(() => import('./components/PrivacyPolicy'));
 const TermsOfService = lazy(() => import('./components/TermsOfService'));
 const GoAibobIndex = lazy(() => import('./src/pages/GoAibob'));
 const AiBlogsStudio = lazy(() => import('./src/pages/AiBlogsStudio'));
+const AITestPage = lazy(() => import('./src/pages/AITestPage'));
 
 // Layout component that includes Header and Footer
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -112,6 +113,9 @@ const AppRoutes = () => {
           {/* AI Blogs Studio - NO Layout (has its own header/footer) */}
           <Route path="/AIBlogsStudio" element={<AiBlogsStudio />} />
           <Route path="/ai-blogs-studio" element={<Navigate to="/AIBlogsStudio" replace />} />
+
+          {/* AI Test Page - NO Layout (for testing AI services) */}
+          <Route path="/ai-test" element={<AITestPage />} />
 
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
