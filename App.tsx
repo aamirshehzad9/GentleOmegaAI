@@ -16,7 +16,7 @@ import TermsOfService from './components/TermsOfService';
 import GoAibobIndex from './src/pages/GoAibob';
 import AiBlogsStudio from './src/pages/AiBlogsStudio';
 import { analytics } from './src/utils/analytics';
-import { useAuth } from './contexts/AuthContext';
+import { AuthProvider } from './contexts/AuthContext';
 
 // Layout component that includes Header and Footer
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -50,84 +50,42 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       <main>
         {children}
       </main>
-      <Footer navigate={handleNavigate} />
+      <Footer />
       <ChatWidget />
     </div>
   );
 };
 
-// Wrapper components to provide navigate function
-const HomePageWrapper = () => {
-  const navigate = useNavigate();
-  const handleNavigate = (page: string) => navigate(page === 'home' ? '/' : `/${page}`);
-  return <HomePage navigate={handleNavigate} />;
-};
+// Wrapper components for type safety
+const HomePageWrapper = () => <HomePage />;
+const AdminDashboardWrapper = () => <AdminDashboard />;
+const PaymentCheckoutWrapper = () => <PaymentCheckout />;
 
-const AdminDashboardWrapper = () => {
-  const navigate = useNavigate();
-  const handleNavigate = (page: string) => navigate(page === 'home' ? '/' : `/${page}`);
-  return <AdminDashboard navigate={handleNavigate} />;
-};
-
-const PaymentCheckoutWrapper = () => {
-  const navigate = useNavigate();
-  const handleNavigate = (page: string) => navigate(page === 'home' ? '/' : `/${page}`);
-  return <PaymentCheckout navigate={handleNavigate} />;
-};
-
+// Login and Signup need navigate function
 const LoginPageWrapper = () => {
   const navigate = useNavigate();
-  const handleNavigate = (page: string) => navigate(page === 'home' ? '/' : `/${page}`);
+  const handleNavigate = (page: string) => {
+    const path = page === 'home' ? '/' : `/${page}`;
+    navigate(path);
+  };
   return <LoginPage navigate={handleNavigate} />;
 };
 
 const SignupPageWrapper = () => {
   const navigate = useNavigate();
-  const handleNavigate = (page: string) => navigate(page === 'home' ? '/' : `/${page}`);
+  const handleNavigate = (page: string) => {
+    const path = page === 'home' ? '/' : `/${page}`;
+    navigate(path);
+  };
   return <SignupPage navigate={handleNavigate} />;
 };
 
-const ProfilePageWrapper = () => {
-  const navigate = useNavigate();
-  const handleNavigate = (page: string) => navigate(page === 'home' ? '/' : `/${page}`);
-  return <ProfilePage navigate={handleNavigate} />;
-};
+const ProfilePageWrapper = () => <ProfilePage />;
+const PrivacyPolicyWrapper = () => <PrivacyPolicy />;
+const TermsOfServiceWrapper = () => <TermsOfService />;
 
-const PrivacyPolicyWrapper = () => {
-  const navigate = useNavigate();
-  const handleNavigate = (page: string) => navigate(page === 'home' ? '/' : `/${page}`);
-  return <PrivacyPolicy navigate={handleNavigate} />;
-};
-
-const TermsOfServiceWrapper = () => {
-  const navigate = useNavigate();
-  const handleNavigate = (page: string) => navigate(page === 'home' ? '/' : `/${page}`);
-  return <TermsOfService navigate={handleNavigate} />;
-};
-
-const App: React.FC = () => {
-  const { currentUser } = useAuth();
-
-  // Initialize analytics on app load
-  useEffect(() => {
-    analytics.initialize().then(() => {
-      console.log('[App] Analytics initialized successfully');
-      
-      // Identify user if logged in
-      if (currentUser) {
-        analytics.identifyUser({
-          userId: currentUser.uid,
-          email: currentUser.email || undefined,
-          name: currentUser.displayName || undefined,
-          properties: {
-            email_verified: currentUser.emailVerified,
-            creation_time: currentUser.metadata.creationTime,
-          },
-        });
-      }
-    });
-  }, [currentUser]);
-
+// Main App component with routing
+const AppRoutes = () => {
   return (
     <BrowserRouter>
       <Routes>
@@ -136,20 +94,31 @@ const App: React.FC = () => {
         <Route path="/dashboard" element={<Layout><DashboardPlaceholder /></Layout>} />
         <Route path="/admin" element={<Layout><AdminDashboardWrapper /></Layout>} />
         <Route path="/checkout" element={<Layout><PaymentCheckoutWrapper /></Layout>} />
-        <Route path="/login" element={<Layout><LoginPageWrapper /></Layout>} />
-        <Route path="/signup" element={<Layout><SignupPageWrapper /></Layout>} />
+        <Route path="/login" element={<LoginPageWrapper />} />
+        <Route path="/signup" element={<SignupPageWrapper />} />
         <Route path="/profile" element={<Layout><ProfilePageWrapper /></Layout>} />
         <Route path="/privacy-policy" element={<Layout><PrivacyPolicyWrapper /></Layout>} />
         <Route path="/terms-of-service" element={<Layout><TermsOfServiceWrapper /></Layout>} />
-        <Route path="/go-aibob" element={<Layout><GoAibobIndex /></Layout>} />
         
+        {/* GO-AIBOB - NO Layout (has its own full-screen sidebar layout) */}
+        <Route path="/go-aibob" element={<GoAibobIndex />} />
+
         {/* AI Blogs Studio - NO Layout (has its own header/footer) */}
         <Route path="/AIBlogsStudio" element={<AiBlogsStudio />} />
         <Route path="/ai-blogs-studio" element={<Navigate to="/AIBlogsStudio" replace />} />
-        
+
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
+  );
+};
+
+// Wrap entire app with AuthProvider
+const App = () => {
+  return (
+    <AuthProvider>
+      <AppRoutes />
+    </AuthProvider>
   );
 };
 

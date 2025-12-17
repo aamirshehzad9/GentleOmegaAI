@@ -17,7 +17,7 @@ interface AnalyticsData {
   totalEmails: number;
 }
 
-const API_BASE = process.env.VITE_GOB_API_URL || 'http://localhost:3001';
+const API_BASE = import.meta.env.VITE_GOB_API_URL || 'https://us-central1-gentleomegaai.cloudfunctions.net/gobApi';
 
 const Analytics: React.FC = () => {
   const [data, setData] = useState<AnalyticsData | null>(null);
@@ -153,13 +153,13 @@ const Analytics: React.FC = () => {
           />
           <KpiCard
             title="Avg Backlink Value"
-            value={`$${data.avgBacklinkValue.toFixed(2)}`}
+            value={`$${(data.avgBacklinkValue || 0).toFixed(2)}`}
             icon="💰"
             color="from-yellow-600 to-yellow-700"
           />
           <KpiCard
             title="Total Revenue"
-            value={`$${data.totalRevenue.toLocaleString()}`}
+            value={`$${(data.totalRevenue || 0).toLocaleString()}`}
             icon="💵"
             color="from-purple-600 to-purple-700"
           />
@@ -213,9 +213,8 @@ const Analytics: React.FC = () => {
                     </div>
                     <div className="w-full bg-gray-700 rounded-full h-2 overflow-hidden">
                       <motion.div
-                        className={`h-full rounded-full ${
-                          idx < 2 ? 'bg-green-500' : idx < 4 ? 'bg-yellow-500' : 'bg-red-500'
-                        }`}
+                        className={`h-full rounded-full ${idx < 2 ? 'bg-green-500' : idx < 4 ? 'bg-yellow-500' : 'bg-red-500'
+                          }`}
                         animate={{ width: `${(Number(count) / 450) * 100}%` }}
                         transition={{ delay: idx * 0.1 }}
                       />

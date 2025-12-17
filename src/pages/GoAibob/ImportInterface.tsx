@@ -11,7 +11,7 @@ interface ImportPreview {
   error?: string;
 }
 
-const API_BASE = process.env.VITE_GOB_API_URL || 'http://localhost:3001';
+const API_BASE = import.meta.env.VITE_GOB_API_URL || 'https://us-central1-gentleomegaai.cloudfunctions.net/gobApi';
 
 const ImportInterface: React.FC = () => {
   const [files, setFiles] = useState<File[]>([]);
@@ -198,11 +198,10 @@ const ImportInterface: React.FC = () => {
                       initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: idx * 0.02 }}
-                      className={`flex items-center gap-3 px-4 py-2 rounded ${
-                        item.valid
+                      className={`flex items-center gap-3 px-4 py-2 rounded ${item.valid
                           ? 'bg-green-500/10 border border-green-500/20'
                           : 'bg-red-500/10 border border-red-500/20'
-                      }`}
+                        }`}
                     >
                       <span>{item.valid ? '✅' : '❌'}</span>
                       <span className="flex-1 text-gray-300 text-sm truncate">{item.url}</span>

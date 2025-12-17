@@ -27,7 +27,7 @@ interface SiteData {
   created_at: string;
 }
 
-const API_BASE = process.env.VITE_GOB_API_URL || 'http://localhost:3001';
+const API_BASE = import.meta.env.VITE_GOB_API_URL || 'https://us-central1-gentleomegaai.cloudfunctions.net/gobApi';
 
 interface SiteDetailProps {
   siteId: string;
@@ -141,10 +141,10 @@ const SiteDetail: React.FC<SiteDetailProps> = ({ siteId, onClose }) => {
         <div className="p-6 space-y-6 max-h-[70vh] overflow-y-auto">
           {/* Key Metrics */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <MetricCard label="Spam Score" value={site.spam_score.toFixed(1)} unit="/100" />
-            <MetricCard label="Backlink Value" value={`$${site.backlink_value.toFixed(2)}`} />
-            <MetricCard label="Domain Authority" value={site.domain_authority.toFixed(1)} unit="/100" />
-            <MetricCard label="Links Found" value={site.links_count.toString()} />
+            <MetricCard label="Spam Score" value={(site.spam_score || 0).toFixed(1)} unit="/100" />
+            <MetricCard label="Backlink Value" value={`$${(site.backlink_value || 0).toFixed(2)}`} />
+            <MetricCard label="Domain Authority" value={(site.domain_authority || 0).toFixed(1)} unit="/100" />
+            <MetricCard label="Links Found" value={(site.links_count || 0).toString()} />
           </div>
 
           {/* Content Section */}

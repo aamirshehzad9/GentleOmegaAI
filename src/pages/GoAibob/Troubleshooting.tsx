@@ -13,7 +13,7 @@ interface DiagnosticResult {
   details?: string;
 }
 
-const API_BASE = process.env.VITE_GOB_API_URL || 'http://localhost:3001';
+const API_BASE = import.meta.env.VITE_GOB_API_URL || 'https://us-central1-gentleomegaai.cloudfunctions.net/gobApi';
 
 const Troubleshooting: React.FC = () => {
   const [diagnostics, setDiagnostics] = useState<DiagnosticResult[]>([]);
@@ -167,13 +167,12 @@ const Troubleshooting: React.FC = () => {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: idx * 0.1 }}
-                  className={`rounded-lg p-4 border ${
-                    result.status === 'passed'
+                  className={`rounded-lg p-4 border ${result.status === 'passed'
                       ? 'bg-green-500/10 border-green-500'
                       : result.status === 'warning'
-                      ? 'bg-yellow-500/10 border-yellow-500'
-                      : 'bg-red-500/10 border-red-500'
-                  }`}
+                        ? 'bg-yellow-500/10 border-yellow-500'
+                        : 'bg-red-500/10 border-red-500'
+                    }`}
                 >
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
@@ -188,8 +187,8 @@ const Troubleshooting: React.FC = () => {
                           result.status === 'passed'
                             ? 'text-green-300'
                             : result.status === 'warning'
-                            ? 'text-yellow-300'
-                            : 'text-red-300'
+                              ? 'text-yellow-300'
+                              : 'text-red-300'
                         }
                       >
                         {result.message}

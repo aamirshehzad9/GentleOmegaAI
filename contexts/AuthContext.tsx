@@ -40,15 +40,21 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     // Listen to auth state changes
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setCurrentUser(user);
-      
+
       // Fetch user profile from Firestore if user exists
       if (user) {
-        const profile = await getUserProfile(user.uid);
-        setUserProfile(profile);
+        try {
+          const profile = await getUserProfile(user.uid);
+          setUserProfile(profile);
+        } catch (error) {
+          console.warn('Could not fetch user profile:', error);
+          // Set profile to null but don't crash the app
+          setUserProfile(null);
+        }
       } else {
         setUserProfile(null);
       }
-      
+
       setLoading(false);
     });
 

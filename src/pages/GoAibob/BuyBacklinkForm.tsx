@@ -16,7 +16,7 @@ interface BuyFormData {
   notes: string;
 }
 
-const API_BASE = process.env.VITE_GOB_API_URL || 'http://localhost:3001';
+const API_BASE = import.meta.env.VITE_GOB_API_URL || 'https://us-central1-gentleomegaai.cloudfunctions.net/gobApi';
 
 interface BuyBacklinkFormProps {
   siteId?: string;
@@ -150,7 +150,7 @@ const BuyBacklinkForm: React.FC<BuyBacklinkFormProps> = ({ siteId }) => {
                 </div>
                 <div>
                   <p className="text-gray-400 text-sm">Total Price</p>
-                  <p className="text-green-400 font-bold text-lg">${orderResult.price?.toFixed(2)}</p>
+                  <p className="text-green-400 font-bold text-lg">${(orderResult.price || 0)?.toFixed(2)}</p>
                 </div>
                 <div>
                   <p className="text-gray-400 text-sm">Target URL</p>
@@ -238,7 +238,7 @@ const BuyBacklinkForm: React.FC<BuyBacklinkFormProps> = ({ siteId }) => {
             {siteData && (
               <div className="mt-2 bg-gray-700 p-3 rounded text-sm">
                 <p className="text-cyan-400">{siteData.url}</p>
-                <p className="text-gray-400">Base Price: <span className="text-green-400 font-semibold">${siteData.backlink_value.toFixed(2)}</span></p>
+                <p className="text-gray-400">Base Price: <span className="text-green-400 font-semibold">${(siteData.backlink_value || 0).toFixed(2)}</span></p>
               </div>
             )}
           </div>
@@ -338,11 +338,10 @@ const BuyBacklinkForm: React.FC<BuyBacklinkFormProps> = ({ siteId }) => {
                   key={type}
                   type="button"
                   onClick={() => handleContentTypeChange(type)}
-                  className={`px-4 py-2 rounded font-semibold transition-colors capitalize ${
-                    form.content_type === type
+                  className={`px-4 py-2 rounded font-semibold transition-colors capitalize ${form.content_type === type
                       ? 'bg-cyan-600 text-white'
                       : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-                  }`}
+                    }`}
                 >
                   {type === 'article' && '📄'}
                   {type === 'review' && '⭐'}

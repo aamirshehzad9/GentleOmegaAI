@@ -23,14 +23,14 @@ interface QueueStats {
 // Get API base URL from environment or use localhost
 const getApiBase = () => {
   if (typeof window !== 'undefined') {
-    return import.meta.env.VITE_GOB_API_URL || 'http://localhost:3001';
+    return import.meta.env.VITE_GOB_API_URL || 'https://us-central1-gentleomegaai.cloudfunctions.net/gobApi';
   }
   return 'http://localhost:3001';
 };
 
 const AdminSettings: React.FC = () => {
   const API_BASE = getApiBase();
-  
+
   const [health, setHealth] = useState<SystemHealth>({
     database: 'offline',
     redis: 'offline',
@@ -55,15 +55,15 @@ const AdminSettings: React.FC = () => {
     try {
       setLoading(true);
       setError('');
-      
+
       const response = await fetch(`${API_BASE}/api/gob/health`);
-      
+
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}`);
       }
-      
+
       const data = await response.json();
-      
+
       if (data.health) {
         setHealth(data.health);
       }

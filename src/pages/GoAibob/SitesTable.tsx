@@ -18,7 +18,7 @@ interface Site {
   created_at: string;
 }
 
-const API_BASE = process.env.VITE_GOB_API_URL || 'http://localhost:3001';
+const API_BASE = import.meta.env.VITE_GOB_API_URL || 'https://us-central1-gentleomegaai.cloudfunctions.net/gobApi';
 
 const SitesTable: React.FC = () => {
   const [sites, setSites] = useState<Site[]>([]);
@@ -315,11 +315,11 @@ const SitesTable: React.FC = () => {
                       </td>
                       <td className="px-4 py-3 text-center">
                         <span className={`font-semibold ${site.spam_score > 70 ? 'text-red-400' : site.spam_score > 40 ? 'text-yellow-400' : 'text-green-400'}`}>
-                          {site.spam_score.toFixed(1)}
+                          {(site.spam_score || 0).toFixed(1)}
                         </span>
                       </td>
                       <td className="px-4 py-3 text-center">
-                        <span className="text-green-400 font-semibold">${site.backlink_value.toFixed(2)}</span>
+                        <span className="text-green-400 font-semibold">${(site.backlink_value || 0).toFixed(2)}</span>
                       </td>
                       <td className="px-4 py-3 text-center">
                         <button
