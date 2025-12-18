@@ -24,6 +24,7 @@ const GoAibobIndex = lazy(() => import('./src/pages/GoAibob'));
 const AiBlogsStudio = lazy(() => import('./src/pages/AiBlogsStudio'));
 const AITestPage = lazy(() => import('./src/pages/AITestPage'));
 const AIReviewDashboard = lazy(() => import('./src/pages/GoAibob/AIReviewDashboard'));
+const AIMetricsDashboard = lazy(() => import('./src/pages/GoAibob/AIMetricsDashboard'));
 
 // Layout component that includes Header and Footer
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -120,6 +121,9 @@ const AppRoutes = () => {
 
           {/* AI Review Dashboard - NO Layout (admin review interface) */}
           <Route path="/ai-review" element={<AIReviewDashboard />} />
+
+          {/* AI Metrics Dashboard - NO Layout (performance monitoring) */}
+          <Route path="/ai-metrics" element={<AIMetricsDashboard />} />
 
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
