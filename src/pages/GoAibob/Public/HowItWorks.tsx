@@ -97,6 +97,7 @@ const HowItWorks: React.FC = () => {
             after: 'Personalized Pitches',
             time: '2 hours → 30 seconds',
             icon: '✍️',
+            isSpecial: true,
         },
         {
             before: '5% Response Rate',
@@ -113,48 +114,56 @@ const HowItWorks: React.FC = () => {
     ];
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+        <div className="min-h-screen bg-black text-white selection:bg-cyan-500/30 selection:text-cyan-200">
             <PublicHeader />
 
+            {/* Blue Aura Background Effects */}
+            <div className="fixed inset-0 pointer-events-none z-0">
+                <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-cyan-500/10 rounded-full blur-[120px] animate-pulse"></div>
+                <div className="absolute top-[20%] right-[-10%] w-[30%] h-[50%] bg-blue-600/10 rounded-full blur-[100px] animate-pulse delay-700"></div>
+                <div className="absolute bottom-[-10%] left-[20%] w-[50%] h-[30%] bg-indigo-500/10 rounded-full blur-[120px] animate-pulse delay-1000"></div>
+                {/* Grid Overlay */}
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_at_center,black_50%,transparent_90%)]"></div>
+            </div>
+
             {/* Hero Section */}
-            <section className="relative overflow-hidden py-20">
-                <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-blue-500/10"></div>
+            <section className="relative z-10 py-32">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         className="text-center"
                     >
-                        <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
-                            How GO-AIBOB{' '}
-                            <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+                        <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
+                            How GO-AIBOB <br className="hidden md:block" />
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
                                 Transforms
                             </span>{' '}
                             Your Business
                         </h1>
-                        <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-                            From manual outreach to AI-powered automation. See how our platform helps content writers earn more and GBOB owners scale faster.
+                        <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
+                            From manual outreach to autonomous AI agents. See how our platform helps content writers earn more and GBOB owners scale faster.
                         </p>
                     </motion.div>
                 </div>
             </section>
 
             {/* 6-Step Process */}
-            <section className="py-20 bg-gray-900/50">
+            <section className="relative z-10 py-20">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <motion.div
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}
-                        className="text-center mb-16"
+                        className="text-center mb-20"
                     >
                         <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                            The 6-Step Process
+                            The 6-Step Autonomous Process
                         </h2>
-                        <p className="text-xl text-gray-300">Simple, automated, and effective</p>
+                        <p className="text-xl text-gray-400">Sit back and watch the AI work</p>
                     </motion.div>
 
-                    <div className="space-y-12">
+                    <div className="space-y-24">
                         {steps.map((step, idx) => (
                             <motion.div
                                 key={idx}
@@ -163,23 +172,24 @@ const HowItWorks: React.FC = () => {
                                 viewport={{ once: true }}
                                 transition={{ delay: idx * 0.1 }}
                                 className={`flex flex-col ${idx % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
-                                    } gap-8 items-center`}
+                                    } gap-12 items-center`}
                             >
                                 {/* Icon & Number */}
-                                <div className="flex-shrink-0">
+                                <div className="flex-shrink-0 group">
                                     <div
-                                        className={`w-32 h-32 bg-gradient-to-br ${step.color} rounded-2xl flex flex-col items-center justify-center shadow-2xl relative`}
+                                        className={`w-32 h-32 bg-gradient-to-br ${step.color} rounded-3xl flex flex-col items-center justify-center shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-500`}
                                     >
-                                        <div className="text-5xl mb-2">{step.icon}</div>
-                                        <div className="absolute -top-4 -right-4 w-12 h-12 bg-white rounded-full flex items-center justify-center text-gray-900 font-bold text-xl shadow-lg">
+                                        <div className="text-5xl mb-2 drop-shadow-md">{step.icon}</div>
+                                        <div className="absolute -top-6 -right-6 w-14 h-14 bg-white rounded-2xl flex items-center justify-center text-gray-900 font-bold text-2xl shadow-xl transform group-hover:-translate-y-2 transition-transform">
                                             {step.number}
                                         </div>
                                     </div>
                                 </div>
 
                                 {/* Content */}
-                                <div className="flex-1 bg-gray-800 border border-gray-700 rounded-xl p-8 hover:border-cyan-500/50 transition-all">
-                                    <h3 className="text-2xl font-bold text-white mb-3">{step.title}</h3>
+                                <div className="flex-1 bg-gray-900/40 backdrop-blur-md border border-white/5 rounded-2xl p-10 hover:border-cyan-500/30 transition-all hover:bg-gray-800/60 relative overflow-hidden group">
+                                    <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-cyan-500/5 to-transparent blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                    <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-cyan-400 transition-colors">{step.title}</h3>
                                     <p className="text-gray-300 text-lg leading-relaxed">{step.description}</p>
                                 </div>
                             </motion.div>
@@ -189,19 +199,19 @@ const HowItWorks: React.FC = () => {
             </section>
 
             {/* Earning Potential Section */}
-            <section className="py-20">
+            <section className="relative z-10 py-32 bg-white/5 border-y border-white/5 backdrop-blur-sm">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <motion.div
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}
-                        className="text-center mb-16"
+                        className="text-center mb-20"
                     >
-                        <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                            💰 Earning Potential with GO-AIBOB
+                        <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
+                            💰 Unlock Your Earning Potential
                         </h2>
-                        <p className="text-xl text-gray-300">
-                            Whether you're a content writer or GBOB owner, our platform helps you earn more
+                        <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+                            Whether you're a content writer or GBOB owner, our platform is built to maximize your revenue.
                         </p>
                     </motion.div>
 
@@ -213,28 +223,34 @@ const HowItWorks: React.FC = () => {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: idx * 0.2 }}
-                                className="bg-gray-800 border border-gray-700 rounded-2xl p-8 hover:border-cyan-500/50 transition-all"
+                                className="bg-black/60 border border-white/10 rounded-3xl p-10 hover:border-cyan-500/50 transition-all hover:shadow-[0_0_50px_rgba(6,182,212,0.1)] group relative overflow-hidden"
                             >
-                                <div className="flex items-center gap-4 mb-6">
-                                    <div
-                                        className={`w-16 h-16 bg-gradient-to-br ${model.color} rounded-xl flex items-center justify-center text-3xl shadow-lg`}
-                                    >
-                                        {model.icon}
+                                <div className="absolute inset-0 bg-gradient-to-br from-cyan-900/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+
+                                <div className="relative z-10">
+                                    <div className="flex items-center gap-6 mb-8">
+                                        <div
+                                            className={`w-20 h-20 bg-gradient-to-br ${model.color} rounded-2xl flex items-center justify-center text-4xl shadow-lg border border-white/20`}
+                                        >
+                                            {model.icon}
+                                        </div>
+                                        <div>
+                                            <h3 className="text-2xl font-bold text-white mb-1">{model.title}</h3>
+                                            <p className="text-cyan-400 font-bold text-xl">{model.earnings}</p>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <h3 className="text-2xl font-bold text-white">{model.title}</h3>
-                                        <p className="text-cyan-400 font-semibold text-lg">{model.earnings}</p>
-                                    </div>
+                                    <p className="text-gray-300 mb-8 text-lg font-light leading-relaxed border-b border-white/10 pb-8">{model.description}</p>
+                                    <ul className="space-y-4">
+                                        {model.benefits.map((benefit, i) => (
+                                            <li key={i} className="flex items-start gap-4">
+                                                <div className="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                                    <span className="text-green-400 text-sm font-bold">✓</span>
+                                                </div>
+                                                <span className="text-gray-300 font-medium">{benefit}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
                                 </div>
-                                <p className="text-gray-300 mb-6">{model.description}</p>
-                                <ul className="space-y-3">
-                                    {model.benefits.map((benefit, i) => (
-                                        <li key={i} className="flex items-start gap-3">
-                                            <span className="text-green-400 text-xl flex-shrink-0">✓</span>
-                                            <span className="text-gray-300">{benefit}</span>
-                                        </li>
-                                    ))}
-                                </ul>
                             </motion.div>
                         ))}
                     </div>
@@ -242,19 +258,19 @@ const HowItWorks: React.FC = () => {
             </section>
 
             {/* Before vs After Transformation */}
-            <section className="py-20 bg-gray-900/50">
+            <section className="relative z-10 py-32">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <motion.div
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}
-                        className="text-center mb-16"
+                        className="text-center mb-20"
                     >
                         <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                            ⚡ The AI Transformation
+                            The AI Transformation Effect
                         </h2>
-                        <p className="text-xl text-gray-300">
-                            See how GO-AIBOB revolutionizes your GBOB workflow
+                        <p className="text-xl text-gray-400">
+                            See the difference AI automation makes
                         </p>
                     </motion.div>
 
@@ -266,15 +282,16 @@ const HowItWorks: React.FC = () => {
                                 whileInView={{ opacity: 1, scale: 1 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: idx * 0.1 }}
-                                className="bg-gray-800 border border-gray-700 rounded-xl p-6 text-center hover:border-cyan-500/50 transition-all"
+                                className="bg-gray-900/50 border border-white/5 rounded-2xl p-8 text-center hover:border-cyan-500/50 transition-all hover:bg-gray-800 group"
                             >
-                                <div className="text-4xl mb-4">{item.icon}</div>
-                                <div className="mb-4">
-                                    <p className="text-red-400 line-through text-sm mb-1">{item.before}</p>
-                                    <p className="text-green-400 font-semibold">{item.after}</p>
+                                <div className="text-5xl mb-6 transform group-hover:scale-110 transition-transform duration-300">{item.icon}</div>
+                                <div className="mb-6 space-y-2">
+                                    <p className="text-red-400/70 line-through text-sm font-medium">{item.before}</p>
+                                    <div className="h-6 w-0.5 bg-gray-700 mx-auto my-1"></div>
+                                    <p className="text-green-400 font-bold text-lg">{item.after}</p>
                                 </div>
-                                <div className="bg-cyan-600/20 border border-cyan-500/50 rounded-lg py-2 px-3">
-                                    <p className="text-cyan-400 font-bold text-sm">{item.time}</p>
+                                <div className="bg-gradient-to-r from-cyan-900/30 to-blue-900/30 border border-cyan-500/30 rounded-xl py-3 px-4">
+                                    <p className="text-cyan-300 font-bold text-sm tracking-wide">{item.time}</p>
                                 </div>
                             </motion.div>
                         ))}
@@ -283,29 +300,31 @@ const HowItWorks: React.FC = () => {
             </section>
 
             {/* CTA Section */}
-            <section className="py-20">
-                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <section className="relative z-10 py-32 overflow-hidden">
+                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-cyan-500/5 blur-[100px] rounded-full pointer-events-none"></div>
+
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="bg-gradient-to-r from-cyan-600/20 to-blue-600/20 border border-cyan-500/50 rounded-2xl p-12"
+                        className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-3xl p-12 md:p-20 shadow-[0_0_60px_rgba(6,182,212,0.15)] relative"
                     >
-                        <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                            Ready to Transform Your Guest Blogging Business?
+                        <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
+                            Ready to Transform Your Business?
                         </h2>
-                        <p className="text-xl text-gray-300 mb-8">
-                            Join content writers earning $500-$2,000/month and GBOB owners scaling to $10,000/month
+                        <p className="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
+                            Join content writers earning $500-$2,000/month and GBOB owners scaling to $10,000/month.
                         </p>
                         <motion.button
                             onClick={() => navigate('/signup')}
-                            className="px-10 py-5 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white rounded-lg font-bold text-xl shadow-2xl"
+                            className="px-12 py-5 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white rounded-xl font-bold text-xl shadow-[0_10px_30px_rgba(37,99,235,0.4)] hover:shadow-[0_20px_50px_rgba(37,99,235,0.6)] hover:-translate-y-1 transition-all duration-300"
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                         >
                             Start Earning Today - Free Trial
                         </motion.button>
-                        <p className="text-gray-400 mt-4">
+                        <p className="text-gray-500 mt-6 text-sm font-medium">
                             No credit card required • 5 free outreach • Cancel anytime
                         </p>
                     </motion.div>

@@ -85,20 +85,29 @@ const Pricing: React.FC = () => {
     ];
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+        <div className="min-h-screen bg-black text-white selection:bg-cyan-500/30 selection:text-cyan-200">
             <PublicHeader />
 
-            <section className="py-20">
+            {/* Blue Aura Background Effects */}
+            <div className="fixed inset-0 pointer-events-none z-0">
+                <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-cyan-500/10 rounded-full blur-[120px] animate-pulse"></div>
+                <div className="absolute top-[20%] right-[-10%] w-[30%] h-[50%] bg-blue-600/10 rounded-full blur-[100px] animate-pulse delay-700"></div>
+                <div className="absolute bottom-[-10%] left-[20%] w-[50%] h-[30%] bg-indigo-500/10 rounded-full blur-[120px] animate-pulse delay-1000"></div>
+                {/* Grid Overlay */}
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_at_center,black_50%,transparent_90%)]"></div>
+            </div>
+
+            <section className="relative z-10 py-32">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         className="text-center mb-16"
                     >
-                        <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-                            Simple, Transparent Pricing
+                        <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
+                            Simple, Transparent <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Pricing</span>
                         </h1>
-                        <p className="text-xl text-gray-300">
+                        <p className="text-xl text-gray-400 max-w-2xl mx-auto">
                             Start free, scale as you grow. No hidden fees, cancel anytime.
                         </p>
                     </motion.div>
@@ -110,40 +119,40 @@ const Pricing: React.FC = () => {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: idx * 0.1 }}
-                                className={`relative bg-gray-800 rounded-2xl p-8 border-2 ${tier.popular ? 'border-cyan-500' : 'border-gray-700'
-                                    } hover:border-cyan-500/50 transition-all`}
+                                className={`relative bg-gray-900/40 backdrop-blur-md rounded-2xl p-8 border ${tier.popular ? 'border-cyan-500 shadow-[0_0_30px_rgba(6,182,212,0.15)] transform scale-105 z-10' : 'border-white/10 hover:border-cyan-500/30'
+                                    } transition-all duration-300 hover:bg-gray-800/60 flex flex-col`}
                             >
                                 {tier.popular && (
-                                    <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                                        <span className="bg-gradient-to-r from-cyan-600 to-blue-600 text-white px-4 py-1 rounded-full text-sm font-semibold">
+                                    <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-full text-center">
+                                        <span className="bg-gradient-to-r from-cyan-600 to-blue-600 text-white px-4 py-1 rounded-full text-sm font-bold shadow-lg border border-white/20">
                                             Most Popular
                                         </span>
                                     </div>
                                 )}
 
-                                <div className="text-center mb-6">
-                                    <h3 className="text-2xl font-bold text-white mb-2">{tier.name}</h3>
-                                    <p className="text-gray-400 text-sm mb-4">{tier.description}</p>
+                                <div className="text-center mb-8 pt-2">
+                                    <h3 className="text-xl font-bold text-white mb-2">{tier.name}</h3>
+                                    <p className="text-gray-400 text-sm mb-6 h-10 flex items-center justify-center">{tier.description}</p>
                                     <div className="flex items-baseline justify-center">
-                                        <span className="text-5xl font-bold text-white">{tier.price}</span>
-                                        <span className="text-gray-400 ml-2">{tier.period}</span>
+                                        <span className="text-5xl font-bold text-white tracking-tight">{tier.price}</span>
+                                        <span className="text-gray-400 ml-2 font-medium">{tier.period}</span>
                                     </div>
                                 </div>
 
-                                <ul className="space-y-3 mb-8">
+                                <ul className="space-y-4 mb-8 flex-1">
                                     {tier.features.map((feature, i) => (
                                         <li key={i} className="flex items-start gap-3 text-gray-300">
                                             <svg className="w-5 h-5 text-cyan-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                                             </svg>
-                                            <span className="text-sm">{feature}</span>
+                                            <span className="text-sm font-medium">{feature}</span>
                                         </li>
                                     ))}
                                 </ul>
 
                                 <motion.button
-                                    onClick={() => navigate('/go-aibob/signup')}
-                                    className={`w-full py-3 rounded-lg font-semibold text-white bg-gradient-to-r ${tier.color} hover:opacity-90 transition-opacity`}
+                                    onClick={() => navigate('/signup')}
+                                    className={`w-full py-3.5 rounded-xl font-bold text-white shadow-lg bg-gradient-to-r ${tier.color} hover:brightness-110 transition-all border border-white/10`}
                                     whileHover={{ scale: 1.02 }}
                                     whileTap={{ scale: 0.98 }}
                                 >
@@ -154,11 +163,11 @@ const Pricing: React.FC = () => {
                     </div>
 
                     {/* FAQ Section */}
-                    <div className="mt-20">
+                    <div className="mt-32 max-w-4xl mx-auto">
                         <h2 className="text-3xl font-bold text-white text-center mb-12">
                             Frequently Asked Questions
                         </h2>
-                        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                        <div className="grid md:grid-cols-2 gap-6">
                             {[
                                 {
                                     q: 'Can I change plans later?',
@@ -182,10 +191,10 @@ const Pricing: React.FC = () => {
                                     initial={{ opacity: 0 }}
                                     whileInView={{ opacity: 1 }}
                                     viewport={{ once: true }}
-                                    className="bg-gray-800 rounded-lg p-6"
+                                    className="bg-white/5 border border-white/5 rounded-xl p-6 hover:bg-white/10 hover:border-cyan-500/20 transition-all cursor-default"
                                 >
-                                    <h3 className="text-lg font-semibold text-white mb-2">{faq.q}</h3>
-                                    <p className="text-gray-300">{faq.answer || faq.a}</p>
+                                    <h3 className="text-lg font-bold text-white mb-3">{faq.q}</h3>
+                                    <p className="text-gray-400 leading-relaxed">{faq.answer || faq.a}</p>
                                 </motion.div>
                             ))}
                         </div>

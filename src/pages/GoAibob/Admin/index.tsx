@@ -6,7 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { onAuthStateChanged, User } from 'firebase/auth';
-import { auth } from '../../../firebase/config';
+import { auth } from '../../../../firebase/config';
 import { isAdmin } from '../../../utils/admin-check';
 import AdminDashboard from './AdminDashboard';
 import LoadingSpinner from '../../../components/LoadingSpinner';
@@ -49,6 +49,13 @@ const AdminIndex: React.FC = () => {
     // Check admin access
     const userIsAdmin = isAdmin(currentUser?.email || null);
 
+    // Redirect non-admin users to public site
+    useEffect(() => {
+        if (!loading && (!currentUser || !userIsAdmin) && !error) {
+            navigate('/login');
+        }
+    }, [currentUser, userIsAdmin, loading, navigate, error]);
+
     // Show error state
     if (error) {
         return (
@@ -79,15 +86,24 @@ const AdminIndex: React.FC = () => {
     if (loading) {
         return (
             <div className="min-h-screen bg-[#0D0D0D] flex items-center justify-center">
-                <LoadingSpinner />
+                <div className="flex flex-col items-center">
+                    <LoadingSpinner />
+                    <p className="sr-only">Loading Admin Panel...</p>
+                </div>
             </div>
         );
     }
 
-    // Redirect non-admin users to public site
     if (!currentUser || !userIsAdmin) {
-        navigate('/go-aibob/login');
-        return null;
+        return (
+            <div className="min-h-screen bg-[#0D0D0D] flex items-center justify-center">
+                <div className="text-center">
+                    <div className="text-cyan-500 text-6xl mb-4 animate-pulse">🔒</div>
+                    <h2 className="text-white text-2xl font-bold mb-2">Access Restricted</h2>
+                    <p className="text-gray-400">Redirecting to login...</p>
+                </div>
+            </div>
+        );
     }
 
     // Render admin dashboard
