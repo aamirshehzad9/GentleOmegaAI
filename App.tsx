@@ -26,6 +26,14 @@ const AITestPage = lazy(() => import('./src/pages/AITestPage'));
 const AIReviewDashboard = lazy(() => import('./src/pages/GoAibob/AIReviewDashboard'));
 const AIMetricsDashboard = lazy(() => import('./src/pages/GoAibob/AIMetricsDashboard'));
 
+// GO-AIBOB Public Pages
+const PublicLanding = lazy(() => import('./src/pages/GoAibob/Public/PublicLanding'));
+const Features = lazy(() => import('./src/pages/GoAibob/Public/Features'));
+const Pricing = lazy(() => import('./src/pages/GoAibob/Public/Pricing'));
+const HowItWorks = lazy(() => import('./src/pages/GoAibob/Public/HowItWorks'));
+const LoginPortal = lazy(() => import('./src/pages/GoAibob/Public/LoginPortal'));
+const SignupPortal = lazy(() => import('./src/pages/GoAibob/Public/SignupPortal'));
+
 // Layout component that includes Header and Footer
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const location = useLocation();
@@ -109,8 +117,16 @@ const AppRoutes = () => {
           <Route path="/privacy-policy" element={<Layout><PrivacyPolicyWrapper /></Layout>} />
           <Route path="/terms-of-service" element={<Layout><TermsOfServiceWrapper /></Layout>} />
 
-          {/* GO-AIBOB - NO Layout (has its own full-screen sidebar layout) */}
-          <Route path="/go-aibob" element={<GoAibobIndex />} />
+          {/* GO-AIBOB Public Pages - NO Layout */}
+          <Route path="/go-aibob" element={<PublicLanding />} />
+          <Route path="/go-aibob/features" element={<Features />} />
+          <Route path="/go-aibob/pricing" element={<Pricing />} />
+          <Route path="/go-aibob/how-it-works" element={<HowItWorks />} />
+          <Route path="/go-aibob/login" element={<LoginPortal />} />
+          <Route path="/go-aibob/signup" element={<SignupPortal />} />
+
+          {/* GO-AIBOB Admin - NO Layout (has its own full-screen sidebar layout) */}
+          <Route path="/go-aibob/Admin" element={<GoAibobIndex />} />
 
           {/* AI Blogs Studio - NO Layout (has its own header/footer) */}
           <Route path="/AIBlogsStudio" element={<AiBlogsStudio />} />

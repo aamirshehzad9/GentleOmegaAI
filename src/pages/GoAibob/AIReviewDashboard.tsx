@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '../../../contexts/AuthContext';
 import { approvalQueueService } from '../../services/approvalQueue.service';
 import { processingPipelineService } from '../../services/processingPipeline.service';
 import SuggestionCard from './SuggestionCard';
@@ -217,8 +217,8 @@ const AIReviewDashboard: React.FC = () => {
                                 setSelectedSuggestions(new Set());
                             }}
                             className={`px-6 py-3 rounded-lg font-medium transition whitespace-nowrap ${selectedTab === tab
-                                    ? 'bg-cyan-600 text-white'
-                                    : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                                ? 'bg-cyan-600 text-white'
+                                : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
                                 }`}
                         >
                             {tab.charAt(0).toUpperCase() + tab.slice(1)}
