@@ -29,6 +29,11 @@ const AIMetricsDashboard = lazy(() => import('./src/pages/GoAibob/AIMetricsDashb
 // GO-AIBOB Admin
 const AdminIndex = lazy(() => import('./src/pages/GoAibob/Admin'));
 const HelpSupport = lazy(() => import('./src/pages/GoAibob/Admin/HelpSupport'));
+const SitesManagement = lazy(() => import('./src/pages/GoAibob/Admin/SitesManagement'));
+const ImportExport = lazy(() => import('./src/pages/GoAibob/Admin/ImportExport'));
+const OrdersManagement = lazy(() => import('./src/pages/GoAibob/Admin/OrdersManagement'));
+const AnalyticsDashboard = lazy(() => import('./src/pages/GoAibob/Admin/AnalyticsDashboard'));
+const AdminSettings = lazy(() => import('./src/pages/GoAibob/Admin/AdminSettings'));
 
 // GO-AIBOB Public Pages
 const PublicLanding = lazy(() => import('./src/pages/GoAibob/Public/PublicLanding'));
@@ -134,6 +139,11 @@ const AppRoutes = () => {
           <Route path="/go-aibob/Admin/ai-test" element={<AITestPage />} />
           <Route path="/go-aibob/Admin/ai-review" element={<AIReviewDashboard />} />
           <Route path="/go-aibob/Admin/ai-metrics" element={<AIMetricsDashboard />} />
+          <Route path="/go-aibob/Admin/sites" element={<SitesManagement />} />
+          <Route path="/go-aibob/Admin/import" element={<ImportExport />} />
+          <Route path="/go-aibob/Admin/orders" element={<OrdersManagement />} />
+          <Route path="/go-aibob/Admin/analytics" element={<AnalyticsDashboard />} />
+          <Route path="/go-aibob/Admin/settings" element={<AdminSettings />} />
           <Route path="/go-aibob/Admin/help" element={<HelpSupport />} />
 
           {/* Legacy AI Routes - Redirect to Admin */}
