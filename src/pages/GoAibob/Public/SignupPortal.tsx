@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
-import { auth, db } from '../../../firebase/config';
+import { auth, db } from '../../../../firebase/config';
 import PublicHeader from './PublicHeader';
 
 const SignupPortal: React.FC = () => {

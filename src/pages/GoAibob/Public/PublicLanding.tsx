@@ -188,26 +188,27 @@ const PublicLanding: React.FC = () => {
                             { step: '2', title: 'Analyzes Their Content', desc: 'GO-AIBOB reads their existing content, understands their style, and identifies what topics they need.' },
                             { step: '3', title: 'Generates Personalized Pitches', desc: 'Creates custom email templates that reference their content and explain why your guest post is perfect for them.' },
                             {
-                                step: '4', title: 'Tracks Responses', desc: 'Monitor all your outreach in one dashboard. See who opened, who replied, and who's interested.' },
-              { step: '5', title: 'Manages Placements', desc: 'Keep track of accepted pitches, deadlines, and published posts. Build your backlink portfolio.' },
-            ].map((step, idx) => (
-                                    <motion.div
-                                        key={idx}
-                                        initial={{ opacity: 0, x: -20 }}
-                                        whileInView={{ opacity: 1, x: 0 }}
-                                        viewport={{ once: true }}
-                                        transition={{ delay: idx * 0.1 }}
-                                        className="flex gap-6 items-start"
-                                    >
-                                        <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-cyan-600 to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-xl">
-                                            {step.step}
-                                        </div>
-                                        <div className="flex-1">
-                                            <h3 className="text-2xl font-semibold text-white mb-2">{step.title}</h3>
-                                            <p className="text-gray-300 text-lg">{step.desc}</p>
-                                        </div>
-                                    </motion.div>
-                                ))}
+                                step: '4', title: 'Tracks Responses', desc: 'Monitor all your outreach in one dashboard. See who opened, who replied, and who&apos;s interested.'
+                            },
+                            { step: '5', title: 'Manages Placements', desc: 'Keep track of accepted pitches, deadlines, and published posts. Build your backlink portfolio.' },
+                        ].map((step, idx) => (
+                            <motion.div
+                                key={idx}
+                                initial={{ opacity: 0, x: -20 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: idx * 0.1 }}
+                                className="flex gap-6 items-start"
+                            >
+                                <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-cyan-600 to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                                    {step.step}
+                                </div>
+                                <div className="flex-1">
+                                    <h3 className="text-2xl font-semibold text-white mb-2">{step.title}</h3>
+                                    <p className="text-gray-300 text-lg">{step.desc}</p>
+                                </div>
+                            </motion.div>
+                        ))}
                     </div>
 
                     <div className="text-center mt-12">

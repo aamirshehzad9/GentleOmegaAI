@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../../firebase/config';
+import { auth } from '../../../../firebase/config';
 import PublicHeader from './PublicHeader';
 
 const LoginPortal: React.FC = () => {
