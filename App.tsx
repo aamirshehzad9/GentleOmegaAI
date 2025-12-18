@@ -23,6 +23,7 @@ const TermsOfService = lazy(() => import('./components/TermsOfService'));
 const GoAibobIndex = lazy(() => import('./src/pages/GoAibob'));
 const AiBlogsStudio = lazy(() => import('./src/pages/AiBlogsStudio'));
 const AITestPage = lazy(() => import('./src/pages/AITestPage'));
+const AIReviewDashboard = lazy(() => import('./src/pages/GoAibob/AIReviewDashboard'));
 
 // Layout component that includes Header and Footer
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -116,6 +117,9 @@ const AppRoutes = () => {
 
           {/* AI Test Page - NO Layout (for testing AI services) */}
           <Route path="/ai-test" element={<AITestPage />} />
+
+          {/* AI Review Dashboard - NO Layout (admin review interface) */}
+          <Route path="/ai-review" element={<AIReviewDashboard />} />
 
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
