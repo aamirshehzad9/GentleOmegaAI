@@ -8,7 +8,7 @@ import {
     limit as firestoreLimit,
     Timestamp,
 } from 'firebase/firestore';
-import { db } from '../../firebase';
+import { db } from '../../firebase/config';
 import type {
     AIMetric,
     AIService,

@@ -144,22 +144,22 @@ export class ProcessingPipelineService {
                 throw new Error('Suggestion not found');
             }
 
-            // Update the suggestion document with results
-            const docRef = await import('firebase/firestore').then(m =>
-                m.doc(import('../firebase').then(f => f.db), 'aiSuggestions', suggestionId)
-            );
+            // Import Firestore functions
+            const { doc, updateDoc } = await import('firebase/firestore');
+            const { db } = await import('../../firebase/config');
 
-            await import('firebase/firestore').then(m =>
-                m.updateDoc(docRef, {
-                    discoveredURLs: urls,
-                    urlAnalyses: analyses,
-                    processedCount: analyses.length,
-                    successCount,
-                    failureCount,
-                    processingCompletedAt: Timestamp.now(),
-                    updatedAt: Timestamp.now()
-                })
-            );
+            // Update the suggestion document with results
+            const docRef = doc(db, 'aiSuggestions', suggestionId);
+
+            await updateDoc(docRef, {
+                discoveredURLs: urls,
+                urlAnalyses: analyses,
+                processedCount: analyses.length,
+                successCount,
+                failureCount,
+                processingCompletedAt: Timestamp.now(),
+                updatedAt: Timestamp.now()
+            });
 
             console.log(`Stored results for suggestion: ${suggestionId}`);
         } catch (error) {

@@ -71,8 +71,8 @@ const AIMetricsDashboard: React.FC = () => {
                             key={range}
                             onClick={() => setTimeRange(range)}
                             className={`px-6 py-2 rounded-lg font-medium transition ${timeRange === range
-                                    ? 'bg-cyan-600 text-white'
-                                    : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                                ? 'bg-cyan-600 text-white'
+                                : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
                                 }`}
                         >
                             {range === '24h' ? 'Last 24 Hours' : range === '7d' ? 'Last 7 Days' : 'Last 30 Days'}
@@ -235,7 +235,7 @@ const AIMetricsDashboard: React.FC = () => {
                                         <div className="grid grid-cols-3 gap-2 text-center">
                                             <div className="bg-green-900/30 rounded p-2">
                                                 <div className="text-lg font-bold text-green-400">{accuracyMetrics.confidenceDistribution.high}</div>
-                                                <div className="text-xs text-green-300">High (>80%)</div>
+                                                <div className="text-xs text-green-300">High (&gt;80%)</div>
                                             </div>
                                             <div className="bg-yellow-900/30 rounded p-2">
                                                 <div className="text-lg font-bold text-yellow-400">{accuracyMetrics.confidenceDistribution.medium}</div>
@@ -243,7 +243,7 @@ const AIMetricsDashboard: React.FC = () => {
                                             </div>
                                             <div className="bg-red-900/30 rounded p-2">
                                                 <div className="text-lg font-bold text-red-400">{accuracyMetrics.confidenceDistribution.low}</div>
-                                                <div className="text-xs text-red-300">Low (<60%)</div>
+                                                <div className="text-xs text-red-300">Low (&lt;60%)</div>
                                             </div>
                                         </div>
                                         <div className="space-y-2 pt-2 border-t border-gray-700">

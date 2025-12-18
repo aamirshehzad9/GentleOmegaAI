@@ -10,7 +10,7 @@ import {
     updateDoc,
     doc,
 } from 'firebase/firestore';
-import { db } from '../../firebase';
+import { db } from '../../firebase/config';
 import { aiMetricsService } from './aiMetrics.service';
 import type {
     Alert,
