@@ -28,6 +28,7 @@ const AIMetricsDashboard = lazy(() => import('./src/pages/GoAibob/AIMetricsDashb
 
 // GO-AIBOB Admin
 const AdminIndex = lazy(() => import('./src/pages/GoAibob/Admin'));
+const HelpSupport = lazy(() => import('./src/pages/GoAibob/Admin/HelpSupport'));
 
 // GO-AIBOB Public Pages
 const PublicLanding = lazy(() => import('./src/pages/GoAibob/Public/PublicLanding'));
@@ -133,6 +134,7 @@ const AppRoutes = () => {
           <Route path="/go-aibob/Admin/ai-test" element={<AITestPage />} />
           <Route path="/go-aibob/Admin/ai-review" element={<AIReviewDashboard />} />
           <Route path="/go-aibob/Admin/ai-metrics" element={<AIMetricsDashboard />} />
+          <Route path="/go-aibob/Admin/help" element={<HelpSupport />} />
 
           {/* Legacy AI Routes - Redirect to Admin */}
           <Route path="/ai-test" element={<AITestPage />} />
