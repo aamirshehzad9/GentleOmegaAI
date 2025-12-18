@@ -26,6 +26,9 @@ const AITestPage = lazy(() => import('./src/pages/AITestPage'));
 const AIReviewDashboard = lazy(() => import('./src/pages/GoAibob/AIReviewDashboard'));
 const AIMetricsDashboard = lazy(() => import('./src/pages/GoAibob/AIMetricsDashboard'));
 
+// GO-AIBOB Admin
+const AdminIndex = lazy(() => import('./src/pages/GoAibob/Admin'));
+
 // GO-AIBOB Public Pages
 const PublicLanding = lazy(() => import('./src/pages/GoAibob/Public/PublicLanding'));
 const Features = lazy(() => import('./src/pages/GoAibob/Public/Features'));
@@ -125,20 +128,15 @@ const AppRoutes = () => {
           <Route path="/go-aibob/login" element={<LoginPortal />} />
           <Route path="/go-aibob/signup" element={<SignupPortal />} />
 
-          {/* GO-AIBOB Admin - NO Layout (has its own full-screen sidebar layout) */}
-          <Route path="/go-aibob/Admin" element={<GoAibobIndex />} />
+          {/* GO-AIBOB Admin - NO Layout (has its own sidebar layout) */}
+          <Route path="/go-aibob/Admin" element={<AdminIndex />} />
+          <Route path="/go-aibob/Admin/ai-test" element={<AITestPage />} />
+          <Route path="/go-aibob/Admin/ai-review" element={<AIReviewDashboard />} />
+          <Route path="/go-aibob/Admin/ai-metrics" element={<AIMetricsDashboard />} />
 
-          {/* AI Blogs Studio - NO Layout (has its own header/footer) */}
-          <Route path="/AIBlogsStudio" element={<AiBlogsStudio />} />
-          <Route path="/ai-blogs-studio" element={<Navigate to="/AIBlogsStudio" replace />} />
-
-          {/* AI Test Page - NO Layout (for testing AI services) */}
+          {/* Legacy AI Routes - Redirect to Admin */}
           <Route path="/ai-test" element={<AITestPage />} />
-
-          {/* AI Review Dashboard - NO Layout (admin review interface) */}
           <Route path="/ai-review" element={<AIReviewDashboard />} />
-
-          {/* AI Metrics Dashboard - NO Layout (performance monitoring) */}
           <Route path="/ai-metrics" element={<AIMetricsDashboard />} />
 
           <Route path="*" element={<Navigate to="/" replace />} />
