@@ -40,8 +40,6 @@ const PublicLanding = lazy(() => import('./src/pages/GoAibob/Public/PublicLandin
 const Features = lazy(() => import('./src/pages/GoAibob/Public/Features'));
 const Pricing = lazy(() => import('./src/pages/GoAibob/Public/Pricing'));
 const HowItWorks = lazy(() => import('./src/pages/GoAibob/Public/HowItWorks'));
-const LoginPortal = lazy(() => import('./src/pages/GoAibob/Public/LoginPortal'));
-const SignupPortal = lazy(() => import('./src/pages/GoAibob/Public/SignupPortal'));
 
 // Layout component that includes Header and Footer
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -131,8 +129,6 @@ const AppRoutes = () => {
           <Route path="/go-aibob/features" element={<Features />} />
           <Route path="/go-aibob/pricing" element={<Pricing />} />
           <Route path="/go-aibob/how-it-works" element={<HowItWorks />} />
-          <Route path="/go-aibob/login" element={<LoginPortal />} />
-          <Route path="/go-aibob/signup" element={<SignupPortal />} />
 
           {/* GO-AIBOB Admin - NO Layout (has its own sidebar layout) */}
           <Route path="/go-aibob/Admin" element={<AdminIndex />} />

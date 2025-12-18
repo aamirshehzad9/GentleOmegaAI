@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import PublicHeader from './PublicHeader';
+import PublicFooter from './PublicFooter';
 
 const Pricing: React.FC = () => {
     const navigate = useNavigate();
@@ -169,7 +170,7 @@ const Pricing: React.FC = () => {
                                 },
                                 {
                                     q: 'Is there a contract?',
-                                    a: 'No contracts. Pay monthly and cancel anytime with no penalties.',
+                                    answer: 'No contracts. Pay monthly or yearly and cancel anytime with no penalties.',
                                 },
                                 {
                                     q: 'Do you offer refunds?',
@@ -184,13 +185,16 @@ const Pricing: React.FC = () => {
                                     className="bg-gray-800 rounded-lg p-6"
                                 >
                                     <h3 className="text-lg font-semibold text-white mb-2">{faq.q}</h3>
-                                    <p className="text-gray-300">{faq.a}</p>
+                                    <p className="text-gray-300">{faq.answer || faq.a}</p>
                                 </motion.div>
                             ))}
                         </div>
                     </div>
                 </div>
             </section>
+
+            {/* Footer */}
+            <PublicFooter />
         </div>
     );
 };

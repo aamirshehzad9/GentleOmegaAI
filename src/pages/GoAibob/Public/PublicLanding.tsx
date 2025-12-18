@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import PublicHeader from './PublicHeader';
+import PublicFooter from './PublicFooter';
 
 const PublicLanding: React.FC = () => {
     const navigate = useNavigate();
@@ -32,7 +33,7 @@ const PublicLanding: React.FC = () => {
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <motion.button
-                                onClick={() => navigate('/go-aibob/signup')}
+                                onClick={() => navigate('/signup')}
                                 className="px-8 py-4 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white rounded-lg font-semibold text-lg shadow-xl"
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
@@ -240,7 +241,7 @@ const PublicLanding: React.FC = () => {
                             Join thousands of marketers who've automated their outreach with GO-AIBOB
                         </p>
                         <motion.button
-                            onClick={() => navigate('/go-aibob/signup')}
+                            onClick={() => navigate('/signup')}
                             className="px-10 py-5 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white rounded-lg font-bold text-xl shadow-2xl"
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
@@ -253,6 +254,9 @@ const PublicLanding: React.FC = () => {
                     </motion.div>
                 </div>
             </section>
+
+            {/* Footer */}
+            <PublicFooter />
         </div>
     );
 };

@@ -49,19 +49,17 @@ const PublicHeader: React.FC = () => {
                     {/* CTA Buttons */}
                     <div className="hidden md:flex items-center gap-4">
                         <button
-                            onClick={() => navigate('/go-aibob/login')}
-                            className="px-4 py-2 text-gray-300 hover:text-white transition-colors text-sm font-medium"
+                            onClick={() => navigate('/login')}
+                            className="px-6 py-2 text-white hover:text-cyan-400 transition-colors"
                         >
                             Login
                         </button>
-                        <motion.button
-                            onClick={() => navigate('/go-aibob/signup')}
-                            className="px-6 py-2 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white rounded-lg font-medium text-sm shadow-lg"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
+                        <button
+                            onClick={() => navigate('/signup')}
+                            className="px-6 py-3 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white rounded-lg font-semibold transition-all shadow-lg hover:shadow-xl"
                         >
                             Get Started Free
-                        </motion.button>
+                        </button>
                     </div>
 
                     {/* Mobile Menu Button */}

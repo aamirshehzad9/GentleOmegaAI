@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import PublicHeader from './PublicHeader';
+import PublicFooter from './PublicFooter';
 
 const Features: React.FC = () => {
     const features = [
@@ -157,6 +158,9 @@ const Features: React.FC = () => {
                     </div>
                 </div>
             </section>
+
+            {/* Footer */}
+            <PublicFooter />
         </div>
     );
 };
