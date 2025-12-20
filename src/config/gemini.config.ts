@@ -1,29 +1,30 @@
 /**
  * Gemini API Configuration
- * This file contains the API key for production deployment
+ * SECURE: Uses Environment Variables. NO HARDCODED KEYS.
  */
 
 export const GEMINI_CONFIG = {
-  // Primary API Key
-  apiKey: 'AIzaSyC6P-vWWOh6YSzZEanODgxouw_BHlqPqhM',
-  
-  // Fallback API Key (if primary fails)
-  fallbackApiKey: 'AIzaSyBD_9VJ46qJKOf8GpCIhEEHjxL9bl4BcY8',
-  
+  // Primary API Key from Environment
+  apiKey: import.meta.env.VITE_GEMINI_API_KEY || '',
+
+  // Fallback API Key (Optional)
+  fallbackApiKey: import.meta.env.VITE_GEMINI_API_KEY_SECONDARY || '',
+
   // Model configuration
   model: 'gemini-2.0-flash',
   modelVision: 'gemini-2.0-flash',
-  
+
   // API endpoints
   baseUrl: 'https://generativelanguage.googleapis.com',
   version: 'v1beta',
 };
 
 /**
- * Get API Key - Always use config (no environment variables)
+ * Get API Key
  */
 export function getGeminiApiKey(): string {
-  // ALWAYS use the hardcoded config key
-  // This ensures production deployment works
+  if (!GEMINI_CONFIG.apiKey) {
+    console.warn('Gemini API Key is missing! Check your VITE_GEMINI_API_KEY environment variable.');
+  }
   return GEMINI_CONFIG.apiKey;
 }
