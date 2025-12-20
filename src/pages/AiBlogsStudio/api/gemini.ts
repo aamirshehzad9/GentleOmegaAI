@@ -159,31 +159,151 @@ export async function generateSEOMetadata(content: string): Promise<{
   error?: string;
 }> {
   const client = getClient();
-  // ... (existing code for generateSEOMetadata is fine, I am skipping valid parts to focus on replace target)
+  if (!client) {
+    return {
+      success: false,
+      seoTitle: '',
+      seoDescription: '',
+      keywords: [],
+      error: 'Gemini API key not configured.',
+    };
+  }
 
-  // ...
+  try {
+    const model = client.getGenerativeModel({ model: MODELS.PRO });
 
-  /**
-   * Expand outline into full content
-   */
-  export async function expandOutline(outline: string): Promise<{
-    success: boolean;
-    content: string;
-    error?: string;
-  }> {
-    const client = getClient();
-    if (!client) {
-      return {
-        success: false,
-        content: '',
-        error: 'Gemini API key not configured.',
-      };
-    }
+    const prompt = `
+Analyze this blog content and generate SEO metadata:
 
-    try {
-      const model = client.getGenerativeModel({ model: MODELS.PRO });
+**Content**:
+${content.substring(0, 2000)}... (truncated)
 
-      const prompt = `
+**Generate**:
+1. SEO Title (50-60 characters, compelling, keyword-rich)
+2. Meta Description (150-160 characters, engaging, includes primary keyword)
+3. Keywords (5-10 relevant keywords/phrases)
+
+**Format your response EXACTLY like this**:
+TITLE: [Your SEO title here]
+DESCRIPTION: [Your meta description here]
+KEYWORDS: keyword1, keyword2, keyword3, keyword4, keyword5
+`;
+
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const text = response.text();
+
+    // Parse response
+    const titleMatch = text.match(/TITLE:\s*(.+?)(?:\n|$)/i);
+    const descMatch = text.match(/DESCRIPTION:\s*(.+?)(?:\n|KEYWORDS)/is);
+    const keywordsMatch = text.match(/KEYWORDS:\s*(.+?)(?:\n|$)/i);
+
+    const seoTitle = titleMatch ? titleMatch[1].trim() : '';
+    const seoDescription = descMatch ? descMatch[1].trim().replace(/\n/g, ' ') : '';
+    const keywords = keywordsMatch
+      ? keywordsMatch[1].split(',').map(k => k.trim()).filter(k => k.length > 0)
+      : [];
+
+    return {
+      success: true,
+      seoTitle,
+      seoDescription,
+      keywords,
+    };
+  } catch (error: any) {
+    console.error('SEO generation error:', error);
+    return {
+      success: false,
+      seoTitle: '',
+      seoDescription: '',
+      keywords: [],
+      error: error.message || 'Failed to generate SEO metadata.',
+    };
+  }
+}
+
+/**
+ * Generate blog topic ideas
+ */
+export async function generateTopicIdeas(niche: string, count: number = 10): Promise<{
+  success: boolean;
+  topics: string[];
+  error?: string;
+}> {
+  const client = getClient();
+  if (!client) {
+    return {
+      success: false,
+      topics: [],
+      error: 'Gemini API key not configured.',
+    };
+  }
+
+  try {
+    const model = client.getGenerativeModel({ model: MODELS.PRO });
+
+    const prompt = `
+Generate ${count} engaging blog topic ideas for the "${niche}" niche.
+
+**Requirements**:
+- Topics should be trending and relevant in 2025
+- Each topic should be specific and actionable
+- Mix of different content types (how-to, listicles, guides, analysis)
+- SEO-friendly and searchable
+- Suitable for 2000-5000 word articles
+
+**Format**: Return one topic per line, numbered 1-${count}
+
+Generate the topics now:
+`;
+
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const text = response.text();
+
+    // Parse topics (remove numbering)
+    const topics = text
+      .split('\n')
+      .filter(line => line.trim().length > 0)
+      .map(line => line.replace(/^\d+\.\s*/, '').trim())
+      .filter(topic => topic.length > 0)
+      .slice(0, count);
+
+    return {
+      success: true,
+      topics,
+    };
+  } catch (error: any) {
+    console.error('Topic generation error:', error);
+    return {
+      success: false,
+      topics: [],
+      error: error.message || 'Failed to generate topics.',
+    };
+  }
+}
+
+/**
+ * Expand outline into full content
+ */
+export async function expandOutline(outline: string): Promise<{
+  success: boolean;
+  content: string;
+  error?: string;
+}> {
+  const client = getClient();
+  if (!client) {
+    return {
+      success: false,
+      content: '',
+      error: 'Gemini API key not configured.',
+    };
+  }
+
+  try {
+    const model = client.getGenerativeModel({ model: MODELS.PRO });
+
+    const prompt = `
 You are a professional content writer. Expand this outline into a full, comprehensive blog article:
 
 **Outline**:
@@ -201,45 +321,45 @@ ${outline}
 Generate the full article now:
 `;
 
-      const result = await model.generateContent(prompt);
-      const response = await result.response;
-      const content = response.text();
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const content = response.text();
 
-      return {
-        success: true,
-        content: content.trim(),
-      };
-    } catch (error: any) {
-      console.error('Outline expansion error:', error);
-      return {
-        success: false,
-        content: '',
-        error: error.message || 'Failed to expand outline.',
-      };
-    }
+    return {
+      success: true,
+      content: content.trim(),
+    };
+  } catch (error: any) {
+    console.error('Outline expansion error:', error);
+    return {
+      success: false,
+      content: '',
+      error: error.message || 'Failed to expand outline.',
+    };
+  }
+}
+
+/**
+ * Generate image prompt for DALL-E based on content
+ */
+export async function generateImagePrompt(content: string): Promise<{
+  success: boolean;
+  prompt: string;
+  error?: string;
+}> {
+  const client = getClient();
+  if (!client) {
+    return {
+      success: false,
+      prompt: '',
+      error: 'Gemini API key not configured.',
+    };
   }
 
-  /**
-   * Generate image prompt for DALL-E based on content
-   */
-  export async function generateImagePrompt(content: string): Promise<{
-    success: boolean;
-    prompt: string;
-    error?: string;
-  }> {
-    const client = getClient();
-    if (!client) {
-      return {
-        success: false,
-        prompt: '',
-        error: 'Gemini API key not configured.',
-      };
-    }
+  try {
+    const model = client.getGenerativeModel({ model: MODELS.PRO });
 
-    try {
-      const model = client.getGenerativeModel({ model: MODELS.PRO });
-
-      const prompt = `
+    const prompt = `
 Analyze this blog content and create a detailed image generation prompt for DALL-E:
 
 **Content**:
@@ -256,40 +376,40 @@ ${content.substring(0, 1000)}...
 Return ONLY the image prompt, nothing else:
 `;
 
-      const result = await model.generateContent(prompt);
-      const response = await result.response;
-      const imagePrompt = response.text().trim();
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const imagePrompt = response.text().trim();
 
-      return {
-        success: true,
-        prompt: imagePrompt,
-      };
-    } catch (error: any) {
-      console.error('Image prompt generation error:', error);
-      return {
-        success: false,
-        prompt: '',
-        error: error.message || 'Failed to generate image prompt.',
-      };
-    }
+    return {
+      success: true,
+      prompt: imagePrompt,
+    };
+  } catch (error: any) {
+    console.error('Image prompt generation error:', error);
+    return {
+      success: false,
+      prompt: '',
+      error: error.message || 'Failed to generate image prompt.',
+    };
   }
+}
 
-  /**
-   * Check if API key is configured
-   */
-  export function isGeminiConfigured(): boolean {
-    return !!getGeminiApiKey();
-  }
+/**
+ * Check if API key is configured
+ */
+export function isGeminiConfigured(): boolean {
+  return !!getGeminiApiKey();
+}
 
-  /**
-   * Get API usage stats (rough estimate)
-   */
-  export function getUsageEstimate(text: string): {
-    tokens: number;
-    cost: number; // USD (Gemini Pro is free up to rate limits)
-  } {
-    const tokens = Math.ceil(text.length / 4);
-    const cost = 0; // Free tier
+/**
+ * Get API usage stats (rough estimate)
+ */
+export function getUsageEstimate(text: string): {
+  tokens: number;
+  cost: number; // USD (Gemini Pro is free up to rate limits)
+} {
+  const tokens = Math.ceil(text.length / 4);
+  const cost = 0; // Free tier
 
-    return { tokens, cost };
-  }
+  return { tokens, cost };
+}
