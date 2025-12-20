@@ -103,5 +103,6 @@ Thumbs.db
 # Secret files with hardcoded API keys (CRITICAL - DO NOT COMMIT)
 SECRETS_COPY_PASTE.md
 API_KEYS_VERIFICATION_REPORT.md
-src/config/gemini.config.ts
+
+
 
