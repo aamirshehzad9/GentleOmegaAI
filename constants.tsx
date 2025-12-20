@@ -3,19 +3,19 @@ import { NavItem, Service, Deal, SuccessStory, GallerySlide, StatItem } from './
 
 // SVG Icon Components
 const Icon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
-  <svg {...props} fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    <svg {...props} fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
 );
 
 const GentleOmegaLogo = (props: React.SVGProps<SVGSVGElement>) => (
     <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" {...props}>
-        <path d="M12 2L2 5.5V11.2C2 16.2 6.3 21.5 12 22.9C17.7 21.5 22 16.2 22 11.2V5.5L12 2ZM12 4.1L19.9 6.8V11.2C19.9 15.1 16.5 19.4 12 20.7C7.5 19.4 4.1 15.1 4.1 11.2V6.8L12 4.1ZM12 6L8 10H10.5V13.5C9 13.5 8 15 8 16.5C8 18 9.5 19 11 19H13C14.5 19 16 18 16 16.5C16 15 15 13.5 13.5 13.5V10H16L12 6Z"/>
+        <path d="M12 2L2 5.5V11.2C2 16.2 6.3 21.5 12 22.9C17.7 21.5 22 16.2 22 11.2V5.5L12 2ZM12 4.1L19.9 6.8V11.2C19.9 15.1 16.5 19.4 12 20.7C7.5 19.4 4.1 15.1 4.1 11.2V6.8L12 4.1ZM12 6L8 10H10.5V13.5C9 13.5 8 15 8 16.5C8 18 9.5 19 11 19H13C14.5 19 16 18 16 16.5C16 15 15 13.5 13.5 13.5V10H16L12 6Z" />
     </svg>
 );
-const ChevronDownIcon = (props: React.SVGProps<SVGSVGElement>) => <Icon {...props} viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></Icon>;
-const SearchIcon = (props: React.SVGProps<SVGSVGElement>) => <Icon {...props} viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></Icon>;
-const SunIcon = (props: React.SVGProps<SVGSVGElement>) => <Icon {...props} viewBox="0 0 24 24"><path d="M12 3v1m0 16v1m8.66-15.66l-.707.707M4.04 19.96l-.707.707M21 12h-1M4 12H3m15.66 4.34l-.707-.707M4.04 4.04l-.707-.707m12.727 12.727a5 5 0 110-7.071 5 5 0 010 7.071z"/></Icon>;
-const MoonIcon = (props: React.SVGProps<SVGSVGElement>) => <Icon {...props} viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></Icon>;
-const MenuIcon = (props: React.SVGProps<SVGSVGElement>) => <Icon {...props} viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></Icon>;
+const ChevronDownIcon = (props: React.SVGProps<SVGSVGElement>) => <Icon {...props} viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" /></Icon>;
+const SearchIcon = (props: React.SVGProps<SVGSVGElement>) => <Icon {...props} viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></Icon>;
+const SunIcon = (props: React.SVGProps<SVGSVGElement>) => <Icon {...props} viewBox="0 0 24 24"><path d="M12 3v1m0 16v1m8.66-15.66l-.707.707M4.04 19.96l-.707.707M21 12h-1M4 12H3m15.66 4.34l-.707-.707M4.04 4.04l-.707-.707m12.727 12.727a5 5 0 110-7.071 5 5 0 010 7.071z" /></Icon>;
+const MoonIcon = (props: React.SVGProps<SVGSVGElement>) => <Icon {...props} viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" /></Icon>;
+const MenuIcon = (props: React.SVGProps<SVGSVGElement>) => <Icon {...props} viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16" /></Icon>;
 
 // Icons for Deals Section
 const DealIcon1 = (props: React.SVGProps<SVGSVGElement>) => <Icon {...props} viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></Icon>
@@ -27,13 +27,13 @@ const BonusIcon = (props: React.SVGProps<SVGSVGElement>) => <Icon {...props} vie
 // Social Media Icons
 const FacebookIcon = (props: React.SVGProps<SVGSVGElement>) => <Icon {...props} viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></Icon>;
 const InstagramIcon = (props: React.SVGProps<SVGSVGElement>) => <Icon {...props} viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></Icon>;
-const TikTokIcon = (props: React.SVGProps<SVGSVGElement>) => <Icon {...props} viewBox="0 0 24 24"><path d="M16 4.35V16.5a4.5 4.5 0 1 1-9 0V4.35h3.6a4.5 4.5 0 1 0 4.5 4.5V4.35H16z"/></Icon>;
+const TikTokIcon = (props: React.SVGProps<SVGSVGElement>) => <Icon {...props} viewBox="0 0 24 24"><path d="M16 4.35V16.5a4.5 4.5 0 1 1-9 0V4.35h3.6a4.5 4.5 0 1 0 4.5 4.5V4.35H16z" /></Icon>;
 const LinkedInIcon = (props: React.SVGProps<SVGSVGElement>) => <Icon {...props} viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></Icon>;
-const XIcon = (props: React.SVGProps<SVGSVGElement>) => <Icon {...props} viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></Icon>;
+const XIcon = (props: React.SVGProps<SVGSVGElement>) => <Icon {...props} viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12" /></Icon>;
 const YouTubeIcon = (props: React.SVGProps<SVGSVGElement>) => <Icon {...props} viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></Icon>;
 const GitHubIcon = (props: React.SVGProps<SVGSVGElement>) => <Icon {...props} viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></Icon>;
 const RedditIcon = (props: React.SVGProps<SVGSVGElement>) => <Icon {...props} viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10c0-5.52-4.48-10-10-10zm5 10.5c0 .83-.67 1.5-1.5 1.5s-1.5-.67-1.5-1.5.67-1.5 1.5-1.5 1.5.67 1.5 1.5zm-5 0c0 .83-.67 1.5-1.5 1.5s-1.5-.67-1.5-1.5.67-1.5 1.5-1.5 1.5.67 1.5 1.5zm-2.5 4c-1.38 0-2.5-1.12-2.5-2.5h5c0 1.38-1.12 2.5-2.5 2.5z"></path></Icon>;
-const GoogleIcon = (props: React.SVGProps<SVGSVGElement>) => <Icon {...props} viewBox="0 0 24 24"><path d="M21.35,11.1H12.18V13.83H18.69C18.36,17.64 15.19,19.27 12.19,19.27C8.36,19.27 5,16.25 5,12C5,7.9 8.2,4.73 12.19,4.73C14.76,4.73 16.04,5.87 17.01,6.72L19.27,4.59C17.22,2.67 15,2 12.19,2C7,2 3,6.58 3,12C3,17.42 7,22 12.19,22C17.6,22 21.7,18.35 21.7,12.33C21.7,11.75 21.6,11.41 21.35,11.1Z"/></Icon>;
+const GoogleIcon = (props: React.SVGProps<SVGSVGElement>) => <Icon {...props} viewBox="0 0 24 24"><path d="M21.35,11.1H12.18V13.83H18.69C18.36,17.64 15.19,19.27 12.19,19.27C8.36,19.27 5,16.25 5,12C5,7.9 8.2,4.73 12.19,4.73C14.76,4.73 16.04,5.87 17.01,6.72L19.27,4.59C17.22,2.67 15,2 12.19,2C7,2 3,6.58 3,12C3,17.42 7,22 12.19,22C17.6,22 21.7,18.35 21.7,12.33C21.7,11.75 21.6,11.41 21.35,11.1Z" /></Icon>;
 
 // Contact Card Icons
 const MailIcon = (props: React.SVGProps<SVGSVGElement>) => <Icon {...props} viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></Icon>;
@@ -58,7 +58,7 @@ export const SOCIAL_LINKS = {
 };
 
 export const NAV_LINKS: NavItem[] = [
-    { 
+    {
         label: 'Home',
         children: [
             { label: 'Welcome', description: 'AI Career Center Hub' },
@@ -80,8 +80,22 @@ export const NAV_LINKS: NavItem[] = [
     {
         label: 'AI Products',
         children: [
-            { label: 'AI Blogs Studio', description: 'Luxury AI-powered blogging platform', href: 'ai-blogs-studio' as any },
-            { label: 'Bot & SaaS', description: 'Intelligent automation platform' },
+            {
+                label: 'AI Blogs Studio',
+                description: 'Luxury AI-powered blogging platform',
+                href: 'ai-blogs-studio'
+            },
+            {
+                label: 'MISoft',
+                description: 'AI Financial & Accounting Solutions',
+                href: 'https://misoft.gentleomegaai.space/',
+                external: true
+            },
+            {
+                label: 'Bot & SaaS',
+                description: 'Intelligent automation platform',
+                href: 'dashboard'
+            },
             { label: 'AI Bots', description: 'Intelligent automation' },
             { label: 'SaaS Solutions', description: 'AI-powered services' },
             { label: 'Integration', description: 'Connect your systems' },
@@ -116,14 +130,14 @@ export const NAV_LINKS: NavItem[] = [
 ];
 
 export const SERVICES: Service[] = [
-  { name: 'Basic Prompt Scheduler', description: 'AI task management via natural language prompts with intelligent scheduling capabilities.', price: '$29/month', image: 'https://images.pexels.com/photos/7176319/pexels-photo-7176319.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', rating: 5 },
-  { name: 'Resource Usage Predictor', description: 'Predict CPU and memory usage patterns from 10-minute historical data analysis.', price: '$39/month', image: 'https://images.pexels.com/photos/3861958/pexels-photo-3861958.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', rating: 5 },
-  { name: 'Intent Classifier', description: 'Intelligent categorization of shell commands with machine learning classification.', price: '$25/month', image: 'https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', rating: 5 },
-  { name: 'Smart DND Mode', description: 'Automatic Do Not Disturb toggle based on calendar events and AI-powered scheduling.', price: '$19/month', image: 'https://images.pexels.com/photos/3184431/pexels-photo-3184431.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', rating: 5 },
-  { name: 'Memory Leak Detector', description: 'Advanced anomaly detection for memory usage patterns and leak identification.', price: '$45/month', image: 'https://images.pexels.com/photos/270404/pexels-photo-270404.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', rating: 5 },
-  { name: 'Config File Parser', description: 'Validate and parse YAML/JSON configuration files with intelligent error detection.', price: '$22/month', image: 'https://images.pexels.com/photos/1181263/pexels-photo-1181263.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', rating: 5 },
-  { name: 'Containerize Small LLM', description: 'Deploy lightweight language models via Docker and Podman containerization.', price: '$59/month', image: 'https://images.pexels.com/photos/1181244/pexels-photo-1181244.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', rating: 5 },
-  { name: 'Log Summarizer', description: 'Transform 24-hour system logs into concise 3-line intelligent summaries.', price: '$35/month', image: 'https://images.pexels.com/photos/2450218/pexels-photo-2450218.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', rating: 5 },
+    { name: 'Basic Prompt Scheduler', description: 'AI task management via natural language prompts with intelligent scheduling capabilities.', price: '$29/month', image: 'https://images.pexels.com/photos/7176319/pexels-photo-7176319.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', rating: 5 },
+    { name: 'Resource Usage Predictor', description: 'Predict CPU and memory usage patterns from 10-minute historical data analysis.', price: '$39/month', image: 'https://images.pexels.com/photos/3861958/pexels-photo-3861958.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', rating: 5 },
+    { name: 'Intent Classifier', description: 'Intelligent categorization of shell commands with machine learning classification.', price: '$25/month', image: 'https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', rating: 5 },
+    { name: 'Smart DND Mode', description: 'Automatic Do Not Disturb toggle based on calendar events and AI-powered scheduling.', price: '$19/month', image: 'https://images.pexels.com/photos/3184431/pexels-photo-3184431.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', rating: 5 },
+    { name: 'Memory Leak Detector', description: 'Advanced anomaly detection for memory usage patterns and leak identification.', price: '$45/month', image: 'https://images.pexels.com/photos/270404/pexels-photo-270404.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', rating: 5 },
+    { name: 'Config File Parser', description: 'Validate and parse YAML/JSON configuration files with intelligent error detection.', price: '$22/month', image: 'https://images.pexels.com/photos/1181263/pexels-photo-1181263.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', rating: 5 },
+    { name: 'Containerize Small LLM', description: 'Deploy lightweight language models via Docker and Podman containerization.', price: '$59/month', image: 'https://images.pexels.com/photos/1181244/pexels-photo-1181244.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', rating: 5 },
+    { name: 'Log Summarizer', description: 'Transform 24-hour system logs into concise 3-line intelligent summaries.', price: '$35/month', image: 'https://images.pexels.com/photos/2450218/pexels-photo-2450218.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', rating: 5 },
 ];
 
 export const DEALS_DATA: Deal[] = [

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export type Page = 'home' | 'menu' | 'dashboard' | 'checkout' | 'login' | 'signup' | 'profile' | 'admin' | 'go-aibob' | 'ai-blogs-studio' | 'privacy-policy' | 'terms-of-service';
+export type Page = 'home' | 'menu' | 'dashboard' | 'checkout' | 'login' | 'signup' | 'profile' | 'admin' | 'go-aibob' | 'ai-blogs-studio' | 'privacy-policy' | 'terms-of-service' | 'contact' | 'refund-policy';
 
 export interface NavItemChild {
   label: string;
@@ -11,8 +11,11 @@ export interface NavItemChild {
 
 export interface NavItem {
   label: string;
-  href?: Page;
-  children?: NavItemChild[];
+  href?: string;
+  children?: NavItem[];
+  description?: string;
+  isDashboard?: boolean;
+  external?: boolean;
 }
 
 export interface Service {
@@ -46,13 +49,13 @@ export interface SuccessStory {
 }
 
 export interface GallerySlide {
-    image: string;
-    thumbnail: string;
-    title: string;
-    description: string;
+  image: string;
+  thumbnail: string;
+  title: string;
+  description: string;
 }
 
 export interface StatItem {
-    value: string;
-    label: string;
+  value: string;
+  label: string;
 }

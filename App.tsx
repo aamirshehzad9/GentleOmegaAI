@@ -20,6 +20,8 @@ const SignupPage = lazy(() => import('./components/SignupPage'));
 const ProfilePage = lazy(() => import('./components/ProfilePage'));
 const PrivacyPolicy = lazy(() => import('./components/PrivacyPolicy'));
 const TermsOfService = lazy(() => import('./components/TermsOfService'));
+const ContactPage = lazy(() => import('./src/pages/ContactPage'));
+const RefundPolicy = lazy(() => import('./src/pages/RefundPolicy'));
 const GoAibobIndex = lazy(() => import('./src/pages/GoAibob'));
 const AiBlogsStudio = lazy(() => import('./src/pages/AiBlogsStudio'));
 const AITestPage = lazy(() => import('./src/pages/AITestPage'));
@@ -46,8 +48,13 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Track page views on route change
+  // Track page views and initialize analytics
   useEffect(() => {
+    // Initialize analytics on mount
+    if (!analytics.isInitialized()) {
+      analytics.initialize();
+    }
+
     analytics.trackPageView({
       path: location.pathname,
       title: document.title,
@@ -123,6 +130,8 @@ const AppRoutes = () => {
           <Route path="/profile" element={<Layout><ProfilePageWrapper /></Layout>} />
           <Route path="/privacy-policy" element={<Layout><PrivacyPolicyWrapper /></Layout>} />
           <Route path="/terms-of-service" element={<Layout><TermsOfServiceWrapper /></Layout>} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/refund-policy" element={<RefundPolicy />} />
 
           {/* GO-AIBOB Public Pages - NO Layout */}
           <Route path="/go-aibob" element={<PublicLanding />} />

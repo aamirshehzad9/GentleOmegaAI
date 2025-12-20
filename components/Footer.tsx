@@ -18,23 +18,23 @@ const Footer: React.FC<FooterProps> = ({ navigate }) => {
     { name: 'Reddit', Icon: SOCIAL_LINKS.Reddit },
     { name: 'Google', Icon: SOCIAL_LINKS.Google },
   ];
-  
+
   const quickNav = {
     col1: [
-        { label: 'Home', page: 'home' as Page },
-        { label: 'AI Hub', page: 'menu' as Page },
-        { label: 'Products' },
-        { label: 'Blogs' },
-        { label: 'About' },
-        { label: 'Finance', page: 'dashboard' as Page },
+      { label: 'Home', page: 'home' as Page },
+      { label: 'AI Hub', page: 'menu' as Page },
+      { label: 'Products' },
+      { label: 'Blogs' },
+      { label: 'About' },
+      { label: 'Finance', page: 'dashboard' as Page },
     ],
     col2: [
-        { label: 'AI Career', page: 'menu' as Page },
-        { label: 'Bot & SaaS' },
-        { label: 'Services', page: 'menu' as Page },
-        { label: 'News' },
-        { label: 'Contact' },
-        { label: 'HR', page: 'dashboard' as Page },
+      { label: 'AI Career', page: 'menu' as Page },
+      { label: 'Bot & SaaS' },
+      { label: 'Services', page: 'menu' as Page },
+      { label: 'News' },
+      { label: 'Contact', page: 'contact' as any },
+      { label: 'HR', page: 'dashboard' as Page },
     ]
   };
 
@@ -45,54 +45,56 @@ const Footer: React.FC<FooterProps> = ({ navigate }) => {
           {/* Brand and Contact */}
           <div className="md:col-span-3 space-y-4">
             <div className="flex items-center space-x-3 cursor-pointer" onClick={() => navigate('home')}>
-                <ICONS.logo className="h-8 w-8 text-white" />
-                <span className="text-xl font-semibold text-white">Gentle <span className="text-accent-cyan">Ω</span>mega AI</span>
+              <ICONS.logo className="h-8 w-8 text-white" />
+              <span className="text-xl font-semibold text-white">Gentle <span className="text-accent-cyan">Ω</span>mega AI</span>
             </div>
             <p className="text-sm">Where every Artificial Intelligence counts for humans!</p>
             <address className="text-sm not-italic space-y-2">
-                <p>Wyoming, USA / Main Shahra-e-Faisal, near Nursery, Block-6, Karachi, Pakistan</p>
-                <p>📧 contact@gentleomegaai.space</p>
-                <p>📱 <a href="tel:+19208066680" className="hover:text-cyan-400 transition-colors">+1 920 806 6680</a> (US)</p>
-                <p>📱 <a href="tel:+923468066680" className="hover:text-cyan-400 transition-colors">+92 346 806 6680</a> (PAK)</p>
-                <p>💬 <a href="https://wa.me/923108537693" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors">WhatsApp Business</a></p>
-                <p>⏰ 12 PM–12 AM (Mon–Sun)</p>
+              <p>Wyoming, USA / Main Shahra-e-Faisal, near Nursery, Block-6, Karachi, Pakistan</p>
+              <p>📧 <a href="mailto:info@gentleomegaai.space" className="hover:text-cyan-400 transition-colors">info@gentleomegaai.space</a></p>
+              <p>📧 <a href="mailto:help@gentleomegaai.space" className="hover:text-cyan-400 transition-colors">help@gentleomegaai.space</a></p>
+              <p>📧 <a href="mailto:contact@gentleomegaai.space" className="hover:text-cyan-400 transition-colors">contact@gentleomegaai.space</a></p>
+              <p>📱 <a href="tel:+19208066680" className="hover:text-cyan-400 transition-colors">+1 920 806 6680</a> (US)</p>
+              <p>📱 <a href="tel:+923468066680" className="hover:text-cyan-400 transition-colors">+92 346 806 6680</a> (PAK)</p>
+              <p>💬 <a href="https://wa.me/923108537693" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors">WhatsApp Business</a></p>
+              <p>⏰ 12 PM–12 AM (Mon–Sun)</p>
             </address>
           </div>
 
           {/* Quick Navigation */}
           <div className="md:col-span-3">
-             <h3 className="font-semibold text-white mb-4">Quick Navigation</h3>
-             <div className="flex space-x-12">
-                <ul className="space-y-2">
-                    {quickNav.col1.map(link => (
-                        <li key={link.label}>
-                            <a href="#" onClick={(e) => { e.preventDefault(); if (link.page) navigate(link.page); }} className="hover:text-white transition-colors text-sm">{link.label}</a>
-                        </li>
-                    ))}
-                    <li><a href="#" onClick={(e) => { e.preventDefault(); navigate('dashboard'); }} className="hover:text-white transition-colors text-sm">Architecture</a></li>
-                </ul>
-                <ul className="space-y-2">
-                    {quickNav.col2.map(link => (
-                        <li key={link.label}>
-                            <a href="#" onClick={(e) => { e.preventDefault(); if (link.page) navigate(link.page); }} className="hover:text-white transition-colors text-sm">{link.label}</a>
-                        </li>
-                    ))}
-                    <li><a href="#" onClick={(e) => { e.preventDefault(); navigate('dashboard'); }} className="hover:text-white transition-colors text-sm">Admin</a></li>
-                </ul>
-             </div>
+            <h3 className="font-semibold text-white mb-4">Quick Navigation</h3>
+            <div className="flex space-x-12">
+              <ul className="space-y-2">
+                {quickNav.col1.map(link => (
+                  <li key={link.label}>
+                    <a href="#" onClick={(e) => { e.preventDefault(); if (link.page) navigate(link.page); }} className="hover:text-white transition-colors text-sm">{link.label}</a>
+                  </li>
+                ))}
+                <li><a href="#" onClick={(e) => { e.preventDefault(); navigate('dashboard'); }} className="hover:text-white transition-colors text-sm">Architecture</a></li>
+              </ul>
+              <ul className="space-y-2">
+                {quickNav.col2.map(link => (
+                  <li key={link.label}>
+                    <a href="#" onClick={(e) => { e.preventDefault(); if (link.page) navigate(link.page); }} className="hover:text-white transition-colors text-sm">{link.label}</a>
+                  </li>
+                ))}
+                <li><a href="#" onClick={(e) => { e.preventDefault(); navigate('dashboard'); }} className="hover:text-white transition-colors text-sm">Admin</a></li>
+              </ul>
+            </div>
           </div>
-          
+
           {/* Follow Us */}
           <div className="md:col-span-2">
             <h3 className="font-semibold text-white mb-4">Follow Us</h3>
             <div className="grid grid-cols-3 gap-2">
-                {socialIcons.slice(0, 9).map(({name, Icon}) => (
-                    <a key={name} href="#" title={name} className="flex items-center justify-center p-2 bg-gray-800 rounded-md hover:bg-cyan-500/20 text-gray-400 hover:text-white transition-colors">
-                        <Icon className="w-5 h-5" />
-                    </a>
-                ))}
+              {socialIcons.slice(0, 9).map(({ name, Icon }) => (
+                <a key={name} href="#" title={name} className="flex items-center justify-center p-2 bg-gray-800 rounded-md hover:bg-cyan-500/20 text-gray-400 hover:text-white transition-colors">
+                  <Icon className="w-5 h-5" />
+                </a>
+              ))}
             </div>
-             <p className="text-sm mt-4 text-center">@GentleOmegaAI</p>
+            <p className="text-sm mt-4 text-center">@GentleOmegaAI</p>
           </div>
 
           {/* Newsletter */}
@@ -103,19 +105,19 @@ const Footer: React.FC<FooterProps> = ({ navigate }) => {
               <input type="email" placeholder="Enter your email" className="flex-grow bg-gray-800 border border-gray-700 rounded-md py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-cyan-500" />
               <button type="submit" className="px-5 py-2.5 text-sm font-semibold text-white rounded-md cta-gradient cta-gradient-hover transition-all duration-300">Subscribe Now</button>
             </form>
-             <div className="flex items-center justify-end space-x-4 mt-8">
-                <div>
-                    <label className="text-xs text-gray-500" htmlFor="lang-select">Language:</label>
-                    <select id="lang-select" className="bg-gray-800 border border-gray-700 rounded-md py-1 px-2 text-sm text-white focus:outline-none appearance-none">
-                        <option>EN</option>
-                    </select>
-                </div>
-                 <div>
-                    <label className="text-xs text-gray-500" htmlFor="curr-select">Currency:</label>
-                    <select id="curr-select" className="bg-gray-800 border border-gray-700 rounded-md py-1 px-2 text-sm text-white focus:outline-none appearance-none">
-                        <option>USD</option>
-                    </select>
-                </div>
+            <div className="flex items-center justify-end space-x-4 mt-8">
+              <div>
+                <label className="text-xs text-gray-500" htmlFor="lang-select">Language:</label>
+                <select id="lang-select" className="bg-gray-800 border border-gray-700 rounded-md py-1 px-2 text-sm text-white focus:outline-none appearance-none">
+                  <option>EN</option>
+                </select>
+              </div>
+              <div>
+                <label className="text-xs text-gray-500" htmlFor="curr-select">Currency:</label>
+                <select id="curr-select" className="bg-gray-800 border border-gray-700 rounded-md py-1 px-2 text-sm text-white focus:outline-none appearance-none">
+                  <option>USD</option>
+                </select>
+              </div>
             </div>
           </div>
         </div>
@@ -125,6 +127,7 @@ const Footer: React.FC<FooterProps> = ({ navigate }) => {
           <div className="flex flex-wrap justify-center space-x-4">
             <a href="#" onClick={(e) => { e.preventDefault(); navigate('privacy-policy'); }} className="hover:text-white transition-colors cursor-pointer">Privacy</a>
             <a href="#" onClick={(e) => { e.preventDefault(); navigate('terms-of-service'); }} className="hover:text-white transition-colors cursor-pointer">Terms</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); navigate('refund-policy'); }} className="hover:text-white transition-colors cursor-pointer">Refund Policy</a>
             <a href="#" className="hover:text-white">Cookie</a>
             <a href="#" className="hover:text-white">Data Ethics & AI Responsibility</a>
           </div>
