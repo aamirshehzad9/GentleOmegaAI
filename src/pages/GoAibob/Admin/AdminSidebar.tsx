@@ -27,6 +27,7 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ isOpen, onToggle }) => {
         { id: 'import', label: 'Import/Export', icon: '📤', path: '/go-aibob/Admin/import' },
         { id: 'orders', label: 'Orders', icon: '💰', path: '/go-aibob/Admin/orders' },
         { id: 'analytics', label: 'Analytics', icon: '📊', path: '/go-aibob/Admin/analytics' },
+        { id: 'api-access', label: 'API Access', icon: '🔑', path: '/go-aibob/Admin/api-access' },
         { id: 'settings', label: 'Settings', icon: '⚙️', path: '/go-aibob/Admin/settings' },
         { id: 'help', label: 'Help & Support', icon: '🔧', path: '/go-aibob/Admin/help' },
     ];
@@ -127,8 +128,8 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ isOpen, onToggle }) => {
                                                 key={child.id}
                                                 onClick={() => navigate(child.path)}
                                                 className={`w-full px-4 py-2 rounded-lg transition-all flex items-center gap-3 text-left text-sm ${isActive(child.path)
-                                                        ? 'bg-cyan-600/20 border border-cyan-500 text-cyan-400'
-                                                        : 'hover:bg-gray-800 text-gray-300'
+                                                    ? 'bg-cyan-600/20 border border-cyan-500 text-cyan-400'
+                                                    : 'hover:bg-gray-800 text-gray-300'
                                                     }`}
                                                 whileHover={{ scale: 1.02 }}
                                                 whileTap={{ scale: 0.98 }}
@@ -145,8 +146,8 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ isOpen, onToggle }) => {
                             <motion.button
                                 onClick={() => navigate(item.path!)}
                                 className={`w-full px-4 py-3 rounded-lg transition-all flex items-center gap-3 text-left ${isActive(item.path!)
-                                        ? 'bg-cyan-600/20 border border-cyan-500 text-cyan-400'
-                                        : 'hover:bg-gray-800 text-gray-300'
+                                    ? 'bg-cyan-600/20 border border-cyan-500 text-cyan-400'
+                                    : 'hover:bg-gray-800 text-gray-300'
                                     }`}
                                 whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}

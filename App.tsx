@@ -35,6 +35,7 @@ const SitesManagement = lazy(() => import('./src/pages/GoAibob/Admin/SitesManage
 const ImportExport = lazy(() => import('./src/pages/GoAibob/Admin/ImportExport'));
 const OrdersManagement = lazy(() => import('./src/pages/GoAibob/Admin/OrdersManagement'));
 const AnalyticsDashboard = lazy(() => import('./src/pages/GoAibob/Admin/AnalyticsDashboard'));
+const ApiAccess = lazy(() => import('./src/pages/GoAibob/Admin/ApiAccess'));
 const AdminSettings = lazy(() => import('./src/pages/GoAibob/Admin/AdminSettings'));
 
 // GO-AIBOB Public Pages
@@ -149,6 +150,7 @@ const AppRoutes = () => {
           <Route path="/go-aibob/Admin/import" element={<ImportExport />} />
           <Route path="/go-aibob/Admin/orders" element={<OrdersManagement />} />
           <Route path="/go-aibob/Admin/analytics" element={<AnalyticsDashboard />} />
+          <Route path="/go-aibob/Admin/api-access" element={<ApiAccess />} />
           <Route path="/go-aibob/Admin/settings" element={<AdminSettings />} />
           <Route path="/go-aibob/Admin/help" element={<HelpSupport />} />
 
