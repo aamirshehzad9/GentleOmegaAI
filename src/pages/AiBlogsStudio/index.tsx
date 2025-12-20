@@ -20,6 +20,7 @@ import AuthPage from './pages/AuthPage';
 export type AiBlogsPage = 'landing' | 'login' | 'signup' | 'dashboard' | 'editor' | 'analytics' | 'seo' | 'earnings' | 'marketplace' | 'settings' | 'pricing';
 
 const AiBlogsStudio: React.FC = () => {
+  console.log("AiBlogsStudio Component MOUNTED");
   const [currentPage, setCurrentPage] = useState<AiBlogsPage>('landing');
   const { currentUser, isAuthenticated } = useAuth();
 

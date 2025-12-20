@@ -37,8 +37,17 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Timeout to prevent infinite loading (e.g. if Firebase fails)
+    const timeout = setTimeout(() => {
+      if (loading) {
+        console.error('Auth initialization timed out');
+        setLoading(false);
+      }
+    }, 5000);
+
     // Listen to auth state changes
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      console.log('Auth State Changed:', user ? 'User logged in' : 'No user');
       setCurrentUser(user);
 
       // Fetch user profile from Firestore if user exists
@@ -56,10 +65,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       }
 
       setLoading(false);
+      clearTimeout(timeout);
     });
 
     // Cleanup subscription
-    return unsubscribe;
+    return () => {
+      unsubscribe();
+      clearTimeout(timeout);
+    };
   }, []);
 
   const value: AuthContextType = {
@@ -69,9 +82,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     isAuthenticated: !!currentUser,
   };
 
+  if (loading) {
+    return <div className="flex items-center justify-center min-h-screen bg-black text-white">Loading Auth...</div>;
+  }
+
   return (
     <AuthContext.Provider value={value}>
-      {!loading && children}
+      {children}
     </AuthContext.Provider>
   );
 };

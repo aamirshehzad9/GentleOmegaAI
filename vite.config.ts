@@ -12,8 +12,7 @@ export default defineConfig(({ mode }) => {
     },
     plugins: [react()],
     define: {
-      'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY),
-      'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY)
+      // Removed manual process.env definitions to prevent build-time replacement errors
     },
     resolve: {
       alias: {
@@ -27,31 +26,8 @@ export default defineConfig(({ mode }) => {
     build: {
       rollupOptions: {
         output: {
-          manualChunks(id) {
-            // React vendor chunk
-            if (id.includes('node_modules/react') ||
-              id.includes('node_modules/react-dom') ||
-              id.includes('node_modules/react-router-dom')) {
-              return 'react-vendor';
-            }
-
-            // Firebase chunk
-            if (id.includes('node_modules/firebase') ||
-              id.includes('node_modules/@firebase')) {
-              return 'firebase';
-            }
-
-            // UI libraries chunk
-            if (id.includes('node_modules/framer-motion') ||
-              id.includes('node_modules/@headlessui')) {
-              return 'ui-vendor';
-            }
-
-            // GO-AIBOB specific chunk
-            if (id.includes('src/pages/GoAibob')) {
-              return 'goaibob';
-            }
-          }
+          // manualChunks configuration removed to fix React loading issues
+          // manualChunks: undefined
         }
       },
       // Increase chunk size warning limit

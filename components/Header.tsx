@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { NavItem } from '../types';
-import { NAV_LINKS, ICONS, WHATSAPP_LINK } from '../constants';
+import { NAV_LINKS, ICONS, WHATSAPP_BUSINESS_LINK } from '../constants';
 import { useAuth } from '../contexts/AuthContext';
 import { isAdmin } from '../utils/admin-check';
 import { logout } from '../firebase/auth';
@@ -22,9 +22,13 @@ const NavLink: React.FC<{ item: NavItem }> = ({ item }) => {
         return;
       }
 
-      // Special handling for AI Blogs Studio
-      if (href === 'ai-blogs-studio') {
-        navigate('/AIBlogsStudio');
+      if (href === 'aiblogsstudio' || href === 'ai-blogs-studio') {
+        navigate('/aiblogsstudio');
+        return;
+      }
+
+      if (href.startsWith('/')) {
+        navigate(href);
       } else {
         navigate(href === 'home' ? '/' : `/${href}`);
       }

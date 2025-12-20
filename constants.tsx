@@ -43,7 +43,22 @@ const ChatIcon = (props: React.SVGProps<SVGSVGElement>) => <Icon {...props} view
 
 
 export const ICONS = { logo: GentleOmegaLogo, chevronDown: ChevronDownIcon, search: SearchIcon, sun: SunIcon, moon: MoonIcon, menu: MenuIcon, bonus: BonusIcon };
-export const WHATSAPP_LINK = "https://wa.me/923468066680";
+export const WHATSAPP_COMMUNITY_LINK = "https://chat.whatsapp.com/HtgZw6ZrPyVGV2wIXGx6G7";
+export const WHATSAPP_BUSINESS_LINK = "https://wa.me/923468066680";
+export const WHATSAPP_LINK = WHATSAPP_BUSINESS_LINK; // Backward compatibility
+
+export const SOCIAL_URLS = {
+    Facebook: "https://www.facebook.com/gentleomegaai",
+    Instagram: "https://www.instagram.com/gentleomegaai/",
+    LinkedIn: "https://www.linkedin.com/company/gentleomegaholdings",
+    X: "https://x.com/GentleOmegaAI",
+    YouTube: "https://www.youtube.com/@GentleOmegaAI",
+    GitHub: "https://github.com/aamirshehzad9/GentleOmegaAI",
+    WhatsApp: WHATSAPP_BUSINESS_LINK,
+    TikTok: "#",
+    Reddit: "#",
+    Google: "#"
+};
 
 export const SOCIAL_LINKS = {
     Facebook: FacebookIcon,
@@ -83,7 +98,7 @@ export const NAV_LINKS: NavItem[] = [
             {
                 label: 'AI Blogs Studio',
                 description: 'Luxury AI-powered blogging platform',
-                href: 'ai-blogs-studio'
+                href: 'aiblogsstudio'
             },
             {
                 label: 'MISoft',

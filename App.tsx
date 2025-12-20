@@ -23,7 +23,7 @@ const TermsOfService = lazy(() => import('./components/TermsOfService'));
 const ContactPage = lazy(() => import('./src/pages/ContactPage'));
 const RefundPolicy = lazy(() => import('./src/pages/RefundPolicy'));
 const GoAibobIndex = lazy(() => import('./src/pages/GoAibob'));
-const AiBlogsStudio = lazy(() => import('./src/pages/AiBlogsStudio'));
+const AiBlogsStudio = lazy(() => import('./src/pages/AiBlogsStudio/index'));
 const AITestPage = lazy(() => import('./src/pages/AITestPage'));
 const AIReviewDashboard = lazy(() => import('./src/pages/GoAibob/AIReviewDashboard'));
 const AIMetricsDashboard = lazy(() => import('./src/pages/GoAibob/AIMetricsDashboard'));
@@ -132,6 +132,7 @@ const AppRoutes = () => {
           <Route path="/terms-of-service" element={<Layout><TermsOfServiceWrapper /></Layout>} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/refund-policy" element={<RefundPolicy />} />
+          <Route path="/aiblogsstudio" element={<Layout><AiBlogsStudio /></Layout>} />
 
           {/* GO-AIBOB Public Pages - NO Layout */}
           <Route path="/go-aibob" element={<PublicLanding />} />

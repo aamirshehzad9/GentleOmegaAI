@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import AdminSidebar from './AdminSidebar';
+import { generatePDFReport } from '../../../utils/pdfGenerator';
+import { useAuth } from '../../../../contexts/AuthContext';
 
 const AnalyticsDashboard: React.FC = () => {
     const [sidebarOpen, setSidebarOpen] = useState(true);
     const [dateRange, setDateRange] = useState('7days');
+    const { userProfile } = useAuth();
 
     const stats = [
         {
@@ -43,6 +46,29 @@ const AnalyticsDashboard: React.FC = () => {
         { site: 'tech-today.com', placements: 6, da: 48, responseRate: '18%' },
     ];
 
+    const handleExport = () => {
+        generatePDFReport(
+            {
+                title: 'Analytics Performance Report',
+                subtitle: `Period: ${dateRange.replace('days', ' Days').replace('year', 'Year')}`,
+                userName: userProfile?.displayName || 'Admin User',
+                // Future: Add brandName from user settings if White-Label is enabled in Pro Tier
+            },
+            [
+                {
+                    title: 'Key Performance Indicators',
+                    head: [['Metric', 'Value', 'Growth']],
+                    body: stats.map(s => [s.label, s.value, s.change])
+                },
+                {
+                    title: 'Top Performing Sites',
+                    head: [['Site URL', 'Placements', 'Domain Authority', 'Response Rate']],
+                    body: topPerformers.map(s => [s.site, s.placements, s.da, s.responseRate])
+                }
+            ]
+        );
+    };
+
     return (
         <div className="min-h-screen bg-[#0D0D0D] flex">
             <AdminSidebar isOpen={sidebarOpen} onToggle={() => setSidebarOpen(!sidebarOpen)} />
@@ -54,16 +80,26 @@ const AnalyticsDashboard: React.FC = () => {
                             <h1 className="text-3xl font-bold text-white mb-2">Analytics Dashboard</h1>
                             <p className="text-gray-400">Track your guest blogging performance</p>
                         </div>
-                        <select
-                            value={dateRange}
-                            onChange={(e) => setDateRange(e.target.value)}
-                            className="px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-cyan-500"
-                        >
-                            <option value="7days">Last 7 Days</option>
-                            <option value="30days">Last 30 Days</option>
-                            <option value="90days">Last 90 Days</option>
-                            <option value="1year">Last Year</option>
-                        </select>
+                        <div className="flex items-center gap-4">
+                            <motion.button
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                onClick={handleExport}
+                                className="px-4 py-2 bg-gradient-to-r from-cyan-600 to-blue-600 text-white rounded-lg flex items-center gap-2 hover:shadow-lg hover:shadow-cyan-500/20 transition-all font-medium"
+                            >
+                                <span>📄</span> Export Report
+                            </motion.button>
+                            <select
+                                value={dateRange}
+                                onChange={(e) => setDateRange(e.target.value)}
+                                className="px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-cyan-500"
+                            >
+                                <option value="7days">Last 7 Days</option>
+                                <option value="30days">Last 30 Days</option>
+                                <option value="90days">Last 90 Days</option>
+                                <option value="1year">Last Year</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
 

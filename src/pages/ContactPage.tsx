@@ -49,11 +49,19 @@ const ContactPage: React.FC = () => {
                             </div>
                             <div className="p-4 bg-black/30 rounded-xl border border-gray-700/50">
                                 <p className="text-gray-400 text-xs uppercase tracking-wider mb-1">Customer Support</p>
-                                <a href="mailto:help@gentleomegaai.space" className="text-cyan-400 hover:text-cyan-300 text-lg font-medium">help@gentleomegaai.space</a>
+                                <a href="mailto:support@gentleomegaai.space" className="text-cyan-400 hover:text-cyan-300 text-lg font-medium">support@gentleomegaai.space</a>
                             </div>
                             <div className="p-4 bg-black/30 rounded-xl border border-gray-700/50">
                                 <p className="text-gray-400 text-xs uppercase tracking-wider mb-1">Business Contact</p>
                                 <a href="mailto:contact@gentleomegaai.space" className="text-cyan-400 hover:text-cyan-300 text-lg font-medium">contact@gentleomegaai.space</a>
+                            </div>
+                            <div className="p-4 bg-black/30 rounded-xl border border-gray-700/50">
+                                <p className="text-gray-400 text-xs uppercase tracking-wider mb-1">Press & Media</p>
+                                <a href="mailto:press@gentleomegaai.space" className="text-cyan-400 hover:text-cyan-300 text-lg font-medium">press@gentleomegaai.space</a>
+                            </div>
+                            <div className="p-4 bg-black/30 rounded-xl border border-gray-700/50">
+                                <p className="text-gray-400 text-xs uppercase tracking-wider mb-1">Fraud Alerts</p>
+                                <a href="mailto:fraud-alert@gentleomegaai.space" className="text-cyan-400 hover:text-cyan-300 text-lg font-medium">fraud-alert@gentleomegaai.space</a>
                             </div>
                         </div>
                     </motion.div>
@@ -72,7 +80,7 @@ const ContactPage: React.FC = () => {
                         <div className="space-y-6">
                             <div>
                                 <h3 className="text-lg font-semibold text-white mb-2">United States</h3>
-                                <p className="text-gray-400 mb-2">Wyoming, USA</p>
+                                <p className="text-gray-400 mb-2">2105 Vista Oeste NW, Suite E #3519,<br />Albuquerque, NM 87120</p>
                                 <a href="tel:+19208066680" className="text-white hover:text-cyan-400 flex items-center gap-2">
                                     <span>📱</span> +1 920 806 6680
                                 </a>
@@ -90,12 +98,12 @@ const ContactPage: React.FC = () => {
 
                             <div className="pt-4">
                                 <a
-                                    href="https://wa.me/923108537693"
+                                    href="https://chat.whatsapp.com/HtgZw6ZrPyVGV2wIXGx6G7"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="inline-flex items-center gap-2 bg-[#25D366] text-black px-4 py-2 rounded-lg font-bold hover:brightness-110 transition-all"
                                 >
-                                    <span>💬</span> Chat on WhatsApp
+                                    <span>💬</span> Join WhatsApp Community
                                 </a>
                             </div>
                         </div>
