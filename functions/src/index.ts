@@ -53,7 +53,7 @@ gobApp.get('/api/gob/list', async (req, res) => {
   try {
     const sitesRef = db.collection('gob_sites');
     const snapshot = await sitesRef.get();
-    
+
     const sites: any[] = [];
     snapshot.forEach(doc => {
       const data = doc.data();
@@ -65,7 +65,7 @@ gobApp.get('/api/gob/list', async (req, res) => {
         });
       }
     });
-    
+
     // Sort by backlink value descending
     sites.sort((a, b) => (b.backlinkValue || 0) - (a.backlinkValue || 0));
 
@@ -88,13 +88,13 @@ gobApp.get('/api/gob/stats', async (req, res) => {
   try {
     const sitesRef = db.collection('gob_sites');
     const snapshot = await sitesRef.where('isActive', '==', true).get();
-    
+
     let totalValue = 0;
     let totalSpam = 0;
     let totalLinks = 0;
     let guestPosts = 0;
     let count = 0;
-    
+
     snapshot.forEach(doc => {
       const data = doc.data();
       totalValue += data.backlinkValue || 0;
@@ -103,7 +103,7 @@ gobApp.get('/api/gob/stats', async (req, res) => {
       if (data.hasGuestPost) guestPosts++;
       count++;
     });
-    
+
     const stats = {
       totalSites: count,
       avgBacklinkValue: count > 0 ? (totalValue / count).toFixed(2) : 0,
@@ -112,7 +112,7 @@ gobApp.get('/api/gob/stats', async (req, res) => {
       guestPostSites: guestPosts,
       totalEstimatedValue: totalValue.toFixed(2)
     };
-    
+
     res.json({
       success: true,
       stats
@@ -132,7 +132,7 @@ gobApp.get('/api/gob/site/:domain', async (req, res) => {
     const { domain } = req.params;
     const sitesRef = db.collection('gob_sites');
     const snapshot = await sitesRef.where('domain', '==', domain).get();
-    
+
     if (snapshot.empty) {
       res.status(404).json({
         success: false,
@@ -140,13 +140,13 @@ gobApp.get('/api/gob/site/:domain', async (req, res) => {
       });
       return;
     }
-    
+
     const doc = snapshot.docs[0];
     const site = {
       id: doc.id,
       ...doc.data()
     };
-    
+
     res.json({
       success: true,
       site
@@ -164,18 +164,18 @@ gobApp.get('/api/gob/site/:domain', async (req, res) => {
 gobApp.get('/api/gob/search', async (req, res) => {
   try {
     const { q: searchQuery, minValue, maxSpam } = req.query;
-    
+
     const sitesRef = db.collection('gob_sites');
     const snapshot = await sitesRef.where('isActive', '==', true).get();
-    
+
     let sites: any[] = [];
-    
+
     snapshot.forEach(doc => {
       const data = doc.data();
-      
+
       // Client-side filtering
       let matches = true;
-      
+
       if (searchQuery) {
         const search = (searchQuery as string).toLowerCase();
         matches = matches && (
@@ -183,15 +183,15 @@ gobApp.get('/api/gob/search', async (req, res) => {
           data.title?.toLowerCase().includes(search)
         );
       }
-      
+
       if (minValue) {
         matches = matches && (data.backlinkValue >= parseFloat(minValue as string));
       }
-      
+
       if (maxSpam) {
         matches = matches && (data.spamScore <= parseFloat(maxSpam as string));
       }
-      
+
       if (matches) {
         sites.push({
           id: doc.id,
@@ -199,7 +199,7 @@ gobApp.get('/api/gob/search', async (req, res) => {
         });
       }
     });
-    
+
     res.json({
       success: true,
       count: sites.length,
@@ -244,7 +244,7 @@ app.use(express.json());
 app.post('/webhook', async (req, res) => {
   try {
     const { From, To, Body, MessageSid, ProfileName } = req.body;
-    
+
     console.log('📥 Incoming WhatsApp message:', {
       from: From,
       to: To,
@@ -269,7 +269,7 @@ app.post('/webhook', async (req, res) => {
 
     // Auto-reply logic
     let replyMessage = '';
-    
+
     if (Body.toLowerCase().includes('help')) {
       replyMessage = `👋 Welcome to GentleOmega AI!\n\nHow can we assist you?\n1️⃣ Support\n2️⃣ Booking\n3️⃣ Services\n4️⃣ Pricing\n\nReply with a number or describe your issue.`;
     } else if (Body.toLowerCase().includes('booking')) {
@@ -290,7 +290,7 @@ app.post('/webhook', async (req, res) => {
     // Twilio expects TwiML response
     res.set('Content-Type', 'text/xml');
     res.send(`<?xml version="1.0" encoding="UTF-8"?><Response></Response>`);
-    
+
   } catch (error) {
     console.error('❌ Error processing webhook:', error);
     res.status(500).send('Error processing message');
@@ -385,8 +385,8 @@ export const sendWhatsAppOTP = functions.https.onCall(async (data, context) => {
     });
 
     // Format phone number
-    const formattedNumber = phoneNumber.startsWith('whatsapp:') 
-      ? phoneNumber 
+    const formattedNumber = phoneNumber.startsWith('whatsapp:')
+      ? phoneNumber
       : `whatsapp:${phoneNumber}`;
 
     // Send OTP via WhatsApp
@@ -495,10 +495,10 @@ export const getWhatsAppConversations = functions.https.onCall(async (data, cont
       .limit(limit);
 
     if (phoneNumber) {
-      const formattedNumber = phoneNumber.startsWith('whatsapp:') 
-        ? phoneNumber 
+      const formattedNumber = phoneNumber.startsWith('whatsapp:')
+        ? phoneNumber
         : `whatsapp:${phoneNumber}`;
-      
+
       query = query.where('from', '==', formattedNumber);
     }
 
@@ -519,7 +519,16 @@ export const getWhatsAppConversations = functions.https.onCall(async (data, cont
     };
 
   } catch (error: any) {
-    console.error('❌ Error fetching conversations:', error);
     throw new functions.https.HttpsError('internal', error.message);
   }
 });
+
+// ============================================================================
+// 🤖 AI COPILOT SUPPORT API (Phase 4.1.5)
+// ============================================================================
+import { supportApi as chatApi } from './chat/controllers/web';
+import { twilioWebhook as twilioChat } from './chat/controllers/twilio';
+
+export const supportApi = functions.https.onRequest(chatApi);
+export const supportTwilio = functions.https.onRequest(twilioChat);
+

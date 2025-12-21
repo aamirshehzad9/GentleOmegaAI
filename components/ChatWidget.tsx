@@ -74,30 +74,62 @@ const ChatWidget: React.FC<ChatWidgetProps> = ({ onClose }) => {
     setInputMessage('');
     setIsTyping(true);
 
-    // Forward to WhatsApp Business
     try {
-      const categoryLabel = SUPPORT_CATEGORIES.find(c => c.value === selectedCategory)?.label;
-      const whatsappMessage = `📩 New Chat Message\n\n` +
-        `👤 User: ${currentUser.displayName || currentUser.email}\n` +
-        `📧 Email: ${currentUser.email}\n` +
-        `📁 Category: ${categoryLabel}\n\n` +
-        `💬 Message:\n${inputMessage}`;
+      // Determine product context based on page/category (Basic logic for now)
+      let productContext = 'general';
+      if (window.location.pathname.includes('go-aibob')) productContext = 'go-aibob';
+      if (window.location.pathname.includes('aiblogsstudio')) productContext = 'aiblogsstudio';
 
-      await sendWhatsAppMessage('+923108537693', whatsappMessage);
+      // Call AI Copilot Microservice
+      // Note: In production, use environment variable for URL
+      const API_URL = 'https://us-central1-gentleomegaai.cloudfunctions.net/supportApi/message';
 
-      // Auto-reply
-      setTimeout(() => {
-        const autoReply: Message = {
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          userId: currentUser.uid,
+          message: newMessage.text,
+          product: productContext,
+          // We could send history here if needed, but RAG handles context
+        })
+      });
+
+      const data = await response.json();
+
+      if (data.success && data.data) {
+        const aiMessage: Message = {
           id: (Date.now() + 1).toString(),
-          text: 'Thank you for your message! Our team has been notified and will respond shortly. You can also reach us on WhatsApp at +92 310 853 7693.',
+          text: data.data.text,
           sender: 'agent',
           timestamp: new Date()
         };
-        setMessages(prev => [...prev, autoReply]);
-        setIsTyping(false);
-      }, 1500);
+        setMessages(prev => [...prev, aiMessage]);
+      } else {
+        throw new Error(data.error || 'Failed to get AI response');
+      }
+
     } catch (error) {
       console.error('Error sending message:', error);
+      // Fallback
+      const errorMsg: Message = {
+        id: (Date.now() + 1).toString(),
+        text: "I'm having trouble connecting to the support brain. Sending your query to our backup team via WhatsApp...",
+        sender: 'agent',
+        timestamp: new Date()
+      };
+      setMessages(prev => [...prev, errorMsg]);
+
+      // Attempt legacy WhatsApp send as fallback
+      try {
+        // ... legacy code ...
+        // Simplified fallback just to notify user
+        const whatsappMessage = `FALLBACK MSG: ${newMessage.text} (User: ${currentUser.email})`;
+        await sendWhatsAppMessage('+923108537693', whatsappMessage);
+      } catch (e) {
+        console.error('Fallback failed', e);
+      }
+    } finally {
       setIsTyping(false);
     }
   };
@@ -132,9 +164,9 @@ const ChatWidget: React.FC<ChatWidgetProps> = ({ onClose }) => {
     <AnimatePresence>
       <motion.div
         initial={{ opacity: 0, y: 20, scale: 0.95 }}
-        animate={{ 
-          opacity: 1, 
-          y: 0, 
+        animate={{
+          opacity: 1,
+          y: 0,
           scale: 1,
           height: isMinimized ? 'auto' : '600px'
         }}
@@ -143,7 +175,7 @@ const ChatWidget: React.FC<ChatWidgetProps> = ({ onClose }) => {
       >
         {/* Header */}
         <div className="bg-gradient-to-r from-cyan-500 to-blue-600 px-5 py-4 flex items-center justify-between cursor-pointer"
-             onClick={() => isMinimized && setIsMinimized(false)}
+          onClick={() => isMinimized && setIsMinimized(false)}
         >
           <div className="flex items-center gap-3">
             <img src="/logo.png" alt="GentleOmega Logo" className="w-10 h-10 rounded-full bg-white p-1" />
@@ -157,129 +189,128 @@ const ChatWidget: React.FC<ChatWidgetProps> = ({ onClose }) => {
               </div>
             </div>
           </div>
-          
+
           {/* Minimize/Maximize Button */}
           <div className="flex items-center gap-2">
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              setIsMinimized(!isMinimized);
-            }}
-            className="text-white hover:text-gray-200 transition-colors"
-            title={isMinimized ? "Maximize" : "Minimize"}
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              {isMinimized ? (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
-              ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              )}
-            </svg>
-          </button>
-          
-          {/* Close Button */}
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              setIsOpen(false);
-            }}
-            className="text-white hover:text-gray-200 transition-colors"
-            title="Close"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsMinimized(!isMinimized);
+              }}
+              className="text-white hover:text-gray-200 transition-colors"
+              title={isMinimized ? "Maximize" : "Minimize"}
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                {isMinimized ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                )}
+              </svg>
+            </button>
+
+            {/* Close Button */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsOpen(false);
+              }}
+              className="text-white hover:text-gray-200 transition-colors"
+              title="Close"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
           </div>
         </div>
 
         {/* Messages */}
         {!isMinimized && (
           <>
-        <div className="flex-1 overflow-y-auto p-4 bg-gray-50 space-y-4">
-          {messages.map((msg) => (
-            <div
-              key={msg.id}
-              className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
-            >
-              <div
-                className={`max-w-[75%] rounded-2xl px-4 py-3 ${
-                  msg.sender === 'user'
-                    ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-br-none'
-                    : 'bg-white text-gray-800 shadow-md rounded-bl-none border border-gray-200'
-                }`}
-              >
-                {msg.sender === 'agent' && (
-                  <div className="flex items-center gap-2 mb-2">
-                    <img src="/logo.png" alt="Agent" className="w-6 h-6 rounded-full" />
-                    <span className="text-xs font-semibold text-gray-600">Support Agent</span>
-                  </div>
-                )}
-                <p className="text-sm whitespace-pre-wrap">{msg.text}</p>
-                <span className={`text-xs mt-1 block ${msg.sender === 'user' ? 'text-white/70' : 'text-gray-500'}`}>
-                  {msg.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                </span>
-              </div>
-            </div>
-          ))}
-          
-          {isTyping && (
-            <div className="flex justify-start">
-              <div className="bg-white rounded-2xl px-4 py-3 shadow-md border border-gray-200">
-                <div className="flex items-center gap-2">
-                  <img src="/logo.png" alt="Agent" className="w-6 h-6 rounded-full" />
-                  <div className="flex gap-1">
-                    <span className="w-2 h-2 bg-cyan-500 rounded-full animate-bounce"></span>
-                    <span className="w-2 h-2 bg-cyan-500 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></span>
-                    <span className="w-2 h-2 bg-cyan-500 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></span>
+            <div className="flex-1 overflow-y-auto p-4 bg-gray-50 space-y-4">
+              {messages.map((msg) => (
+                <div
+                  key={msg.id}
+                  className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
+                >
+                  <div
+                    className={`max-w-[75%] rounded-2xl px-4 py-3 ${msg.sender === 'user'
+                        ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-br-none'
+                        : 'bg-white text-gray-800 shadow-md rounded-bl-none border border-gray-200'
+                      }`}
+                  >
+                    {msg.sender === 'agent' && (
+                      <div className="flex items-center gap-2 mb-2">
+                        <img src="/logo.png" alt="Agent" className="w-6 h-6 rounded-full" />
+                        <span className="text-xs font-semibold text-gray-600">Support Agent</span>
+                      </div>
+                    )}
+                    <p className="text-sm whitespace-pre-wrap">{msg.text}</p>
+                    <span className={`text-xs mt-1 block ${msg.sender === 'user' ? 'text-white/70' : 'text-gray-500'}`}>
+                      {msg.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                    </span>
                   </div>
                 </div>
+              ))}
+
+              {isTyping && (
+                <div className="flex justify-start">
+                  <div className="bg-white rounded-2xl px-4 py-3 shadow-md border border-gray-200">
+                    <div className="flex items-center gap-2">
+                      <img src="/logo.png" alt="Agent" className="w-6 h-6 rounded-full" />
+                      <div className="flex gap-1">
+                        <span className="w-2 h-2 bg-cyan-500 rounded-full animate-bounce"></span>
+                        <span className="w-2 h-2 bg-cyan-500 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></span>
+                        <span className="w-2 h-2 bg-cyan-500 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              <div ref={messagesEndRef} />
+            </div>
+
+            {/* Input Area */}
+            <div className="p-4 bg-white border-t border-gray-200">
+              {/* Category Selector */}
+              <div className="mb-3">
+                <select
+                  value={selectedCategory}
+                  onChange={(e) => setSelectedCategory(e.target.value)}
+                  className="w-full px-3 py-2 text-sm border-2 border-cyan-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-600 bg-white text-gray-800 font-medium cursor-pointer hover:border-cyan-600 transition-colors"
+                >
+                  {SUPPORT_CATEGORIES.map(cat => (
+                    <option key={cat.value} value={cat.value} className="text-gray-800 py-2">
+                      {cat.icon} {cat.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Message Input */}
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={inputMessage}
+                  onChange={(e) => setInputMessage(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                  placeholder="Type your message..."
+                  className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 text-sm"
+                />
+                <button
+                  onClick={handleSendMessage}
+                  disabled={!inputMessage.trim()}
+                  className="px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-lg hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                  </svg>
+                </button>
               </div>
             </div>
-          )}
-          
-          <div ref={messagesEndRef} />
-        </div>
-
-        {/* Input Area */}
-        <div className="p-4 bg-white border-t border-gray-200">
-          {/* Category Selector */}
-          <div className="mb-3">
-            <select
-              value={selectedCategory}
-              onChange={(e) => setSelectedCategory(e.target.value)}
-              className="w-full px-3 py-2 text-sm border-2 border-cyan-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-600 bg-white text-gray-800 font-medium cursor-pointer hover:border-cyan-600 transition-colors"
-            >
-              {SUPPORT_CATEGORIES.map(cat => (
-                <option key={cat.value} value={cat.value} className="text-gray-800 py-2">
-                  {cat.icon} {cat.label}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {/* Message Input */}
-          <div className="flex gap-2">
-            <input
-              type="text"
-              value={inputMessage}
-              onChange={(e) => setInputMessage(e.target.value)}
-              onKeyPress={handleKeyPress}
-              placeholder="Type your message..."
-              className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 text-sm"
-            />
-            <button
-              onClick={handleSendMessage}
-              disabled={!inputMessage.trim()}
-              className="px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-lg hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-              </svg>
-            </button>
-          </div>
-        </div>
-        </>
+          </>
         )}
       </motion.div>
     </AnimatePresence>

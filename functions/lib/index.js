@@ -42,7 +42,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 var _a, _b;
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getWhatsAppConversations = exports.verifyWhatsAppOTP = exports.sendWhatsAppOTP = exports.sendWhatsAppMessage = exports.whatsappWebhook = exports.gobApi = void 0;
+exports.supportTwilio = exports.supportApi = exports.getWhatsAppConversations = exports.verifyWhatsAppOTP = exports.sendWhatsAppOTP = exports.sendWhatsAppMessage = exports.whatsappWebhook = exports.gobApi = void 0;
 const functions = __importStar(require("firebase-functions"));
 const admin = __importStar(require("firebase-admin"));
 const twilio_1 = __importDefault(require("twilio"));
@@ -472,8 +472,14 @@ exports.getWhatsAppConversations = functions.https.onCall(async (data, context) 
         };
     }
     catch (error) {
-        console.error('❌ Error fetching conversations:', error);
         throw new functions.https.HttpsError('internal', error.message);
     }
 });
+// ============================================================================
+// 🤖 AI COPILOT SUPPORT API (Phase 4.1.5)
+// ============================================================================
+const web_1 = require("./chat/controllers/web");
+const twilio_2 = require("./chat/controllers/twilio");
+exports.supportApi = functions.https.onRequest(web_1.supportApi);
+exports.supportTwilio = functions.https.onRequest(twilio_2.twilioWebhook);
 //# sourceMappingURL=index.js.map
