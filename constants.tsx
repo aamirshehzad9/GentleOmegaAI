@@ -83,7 +83,7 @@ export const NAV_LINKS: NavItem[] = [
     {
         label: 'AI Hub',
         children: [
-            { label: 'AI Career', description: 'Explore AI opportunities' },
+            { label: 'AI Career', description: 'Explore AI opportunities', href: 'https://aaicc.gentleomegaai.space/' },
             { label: 'Career Paths', description: 'AI career development' },
             { label: 'Skill Assessment', description: 'Evaluate your AI skills' },
             { label: 'Certifications', description: 'AI professional certificates' },
